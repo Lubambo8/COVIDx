@@ -11,6 +11,7 @@
     [DateAssigned] DATETIME NOT NULL, 
     [TimeSlotAssigned] DATETIME NOT NULL, 
     CONSTRAINT [FK_Test_Request_Patient] FOREIGN KEY ([PatientID]) REFERENCES [Patient]([PatientID]), 
-    CONSTRAINT [FK_Test_Request_SuburbID] FOREIGN KEY ([SuburbID]) REFERENCES [Suburb]([SuburbID]), 
-    CONSTRAINT [FK_Test_Request_NurseID] FOREIGN KEY ([NurseID]) REFERENCES [Nurse]([NurseID])
+    CONSTRAINT [FK_Test_Request_Suburb] FOREIGN KEY ([SuburbID]) REFERENCES [Suburb]([SuburbID]), 
+    CONSTRAINT [FK_Test_Request_Nurse] FOREIGN KEY ([NurseID]) REFERENCES [Nurse]([NurseID]),
+    CONSTRAINT [FK_Test_Request_Tset] FOREIGN KEY ([TestRequestID]) REFERENCES [Test]([TestID])
 )
