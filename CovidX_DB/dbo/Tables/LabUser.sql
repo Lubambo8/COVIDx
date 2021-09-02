@@ -1,0 +1,10 @@
+﻿CREATE TABLE [dbo].[LabUser]
+(
+	[LabUserID] INT NOT NULL PRIMARY KEY,
+	[IDNumber] NVARCHAR(13) NOT NULL,
+	[FirstName] NVARCHAR(128) NOT NULL,
+	[LastName] NVARCHAR(128) NOT NULL,
+	[MobileNumber] NVARCHAR(10) NOT NULL,
+	[EmailAddress] NVARCHAR(128) NOT NULL,
+	[Qualification] NVARCHAR(128) NOT NULL
+)

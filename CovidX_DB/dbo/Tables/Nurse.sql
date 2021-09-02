@@ -1,0 +1,15 @@
+﻿CREATE TABLE [dbo].[Nurse]
+(
+	[NurseID] INT NOT NULL PRIMARY KEY,
+	[IDNumber] NVARCHAR(13) NOT NULL,
+	[FirstName] NVARCHAR(128) NOT NULL,
+	[LastName] NVARCHAR(128) NOT NULL,
+	[MobileNumber] NVARCHAR(10) NOT NULL,
+	[EmailAddress] NVARCHAR(128) NOT NULL,
+	[AddressLine1] NVARCHAR(128) NOT NULL,
+	[AddressLine2] NVARCHAR(128),
+	[YearsQualified] NVARCHAR(128) NOT NULL,
+	[Rank] NVARCHAR(50) NOT NULL,
+	[Qualification] NVARCHAR(128) NOT NULL,  
+    CONSTRAINT [FK_Nurse_User] FOREIGN KEY ([NurseID]) REFERENCES [User]([UserID])
+)
