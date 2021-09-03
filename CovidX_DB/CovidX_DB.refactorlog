@@ -112,4 +112,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="MedicalAidPlanID" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="9e2b458b-164e-4506-bdea-14be253b26b4" ChangeDateTime="09/03/2021 19:56:47">
+    <Property Name="ElementName" Value="[dbo].[MedicalAid_Plan].[MedicalAidScheme]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[MedicalAid_Plan]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MedicalAidSchemeID" />
+  </Operation>
 </Operations>

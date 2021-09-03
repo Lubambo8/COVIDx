@@ -2,9 +2,9 @@
 (
 	[TestID] INT NOT NULL PRIMARY KEY, 
     [BarCode] NVARCHAR(128) NOT NULL, 
-    [Temperature] FLOAT NOT NULL, 
-    [BloodPressure] FLOAT NOT NULL, 
-    [OxygenLevel] FLOAT NOT NULL, 
+    [Temperature] NVARCHAR(10) NOT NULL, 
+    [BloodPressure] NVARCHAR(10) NOT NULL, 
+    [OxygenLevel] NVARCHAR(10) NOT NULL, 
     [TestDate] DATETIME NOT NULL, 
     [TestTime] TIME NOT NULL, 
     [TestResult] NVARCHAR(128) NOT NULL, 
