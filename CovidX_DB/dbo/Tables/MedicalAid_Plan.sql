@@ -2,5 +2,6 @@
 (
 	[MedicalAidPlanID] INT NOT NULL PRIMARY KEY, 
     [Description] NVARCHAR(128) NOT NULL, 
-    [MedicalAidScheme] INT NOT NULL
+    [MedicalAidSchemeID] INT NOT NULL, 
+    CONSTRAINT [FK_MedicalAid_Plan_MedicalAidScheme] FOREIGN KEY (MedicalAidSchemeID) REFERENCES MedicalAid_Scheme([MedicalAidSchemeID])
 )
