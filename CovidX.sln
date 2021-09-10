@@ -7,6 +7,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CovidX_DB", "CovidX_DB\Covi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCore", "EFCore\EFCore.csproj", "{1AE5E595-12F7-464A-BC4F-CDF1604B9472}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CovidXWebApp", "CovidXWebApp\CovidXWebApp.csproj", "{509D28CE-9678-4748-B145-5D4B3CDE73A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{1AE5E595-12F7-464A-BC4F-CDF1604B9472}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AE5E595-12F7-464A-BC4F-CDF1604B9472}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AE5E595-12F7-464A-BC4F-CDF1604B9472}.Release|Any CPU.Build.0 = Release|Any CPU
+		{509D28CE-9678-4748-B145-5D4B3CDE73A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{509D28CE-9678-4748-B145-5D4B3CDE73A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{509D28CE-9678-4748-B145-5D4B3CDE73A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{509D28CE-9678-4748-B145-5D4B3CDE73A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
