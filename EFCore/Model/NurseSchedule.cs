@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace EFCore.Model
+#nullable disable
+
+namespace EFCore
 {
-    public class NurseSchedule
+    public partial class NurseSchedule
     {
-        public int TestRequestID { get; set; }
-        public int NurseID { get; set; }
+        public int TestRequestId { get; set; }
+        public int NurseId { get; set; }
+
+        public virtual Nurse Nurse { get; set; }
     }
 }

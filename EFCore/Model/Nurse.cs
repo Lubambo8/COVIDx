@@ -1,15 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace EFCore.Model
+#nullable disable
+
+namespace EFCore
 {
-    public class Nurse
+    public partial class Nurse
     {
-        public int NurseID { get; set; }
-        public string IDNumber { get; set; }
+        public Nurse()
+        {
+            NurseSchedules = new HashSet<NurseSchedule>();
+            SuburbsPreferreds = new HashSet<SuburbsPreferred>();
+            TestRequests = new HashSet<TestRequest>();
+        }
+
+        public int NurseId { get; set; }
+        public string Idnumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MobileNumber { get; set; }
@@ -19,5 +25,10 @@ namespace EFCore.Model
         public DateTime YearsQualified { get; set; }
         public string Rank { get; set; }
         public string Qualification { get; set; }
+
+        public virtual User NurseNavigation { get; set; }
+        public virtual ICollection<NurseSchedule> NurseSchedules { get; set; }
+        public virtual ICollection<SuburbsPreferred> SuburbsPreferreds { get; set; }
+        public virtual ICollection<TestRequest> TestRequests { get; set; }
     }
 }

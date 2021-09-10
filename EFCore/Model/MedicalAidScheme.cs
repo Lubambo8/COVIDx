@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace EFCore.Model
+#nullable disable
+
+namespace EFCore
 {
-    public class MedicalAidScheme
+    public partial class MedicalAidScheme
     {
-        public int MedicalAidSchemeID { get; set; }
+        public MedicalAidScheme()
+        {
+            MedicalAidPlans = new HashSet<MedicalAidPlan>();
+        }
+
+        public int MedicalAidSchemeId { get; set; }
         public string Description { get; set; }
+
+        public virtual ICollection<MedicalAidPlan> MedicalAidPlans { get; set; }
     }
 }

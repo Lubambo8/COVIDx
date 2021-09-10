@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace EFCore.Model
+#nullable disable
+
+namespace EFCore
 {
-    public class SuburbsPreferred
+    public partial class SuburbsPreferred
     {
-        public int SuburbID { get; set; }
-        public int NurseID { get; set; }
+        public int SuburbId { get; set; }
+        public int NurseId { get; set; }
+
+        public virtual Nurse Nurse { get; set; }
+        public virtual Suburb Suburb { get; set; }
     }
 }
