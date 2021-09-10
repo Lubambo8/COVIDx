@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace EFCore.Model
+#nullable disable
+
+namespace EFCore
 {
-    public class RequestHistory
+    public partial class RequestHistory
     {
-        public int TestRequestID { get; set; }
+        public int TestRequestId { get; set; }
         public DateTime Date { get; set; }
         public string OldRequestStatus { get; set; }
     }
