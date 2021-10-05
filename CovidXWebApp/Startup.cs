@@ -1,3 +1,4 @@
+using CovidXWebApp.Authentication;
 using CovidXWebApp.Config;
 using EFCore;
 using Microsoft.AspNetCore.Builder;
@@ -35,6 +36,16 @@ namespace CovidXWebApp
 
             services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
             services.AddSingleton<IConnectionStrings, ConnectionStrings>();
+
+            services.AddDefaultIdentity<CovidXUser>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = true;
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+            })
+            .AddEntityFrameworkStores<CovidX_DBContext>();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
