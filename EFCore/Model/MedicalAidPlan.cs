@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
-namespace EFCore
+namespace EFCore.Model
 {
     public partial class MedicalAidPlan
     {
@@ -13,9 +14,15 @@ namespace EFCore
             Patients = new HashSet<Patient>();
         }
 
-        public int MedicalAidPlanId { get; set; }
+        [Key]
+        public int MedicalAidPlanID { get; set; }
+
+        [Required,
+            MaxLength(128)]
         public string Description { get; set; }
-        public int MedicalAidSchemeId { get; set; }
+
+        [Required]
+        public int MedicalAidSchemeID { get; set; }
 
         public virtual MedicalAidScheme MedicalAidScheme { get; set; }
         public virtual ICollection<Dependent> Dependents { get; set; }

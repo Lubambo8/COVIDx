@@ -1,22 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
-namespace EFCore
+namespace EFCore.Model
 {
     public partial class Test
     {
-        public int TestId { get; set; }
+        [Key]
+        public int TestID { get; set; }
+
+        [Required,
+            MaxLength(128)]
         public string BarCode { get; set; }
+
+        [Required,
+            MaxLength(128)]
         public string Temperature { get; set; }
+
+        [Required,
+            MaxLength(128)]
         public string BloodPressure { get; set; }
+
+        [Required,
+            MaxLength(128)]
         public string OxygenLevel { get; set; }
+
+        [Required]
         public DateTime TestDate { get; set; }
+
+        [Required]
         public TimeSpan TestTime { get; set; }
+
+        [Required,
+            MaxLength(128)]
         public string TestResult { get; set; }
+
+        [Required]
         public DateTime ResultDate { get; set; }
-        public int LabUserId { get; set; }
+
+        [Required]
+        public int LabUserID { get; set; }
+
+        [Required]
+        public int TestRequestID { get; set; }
 
         public virtual LabUser LabUser { get; set; }
         public virtual TestRequest TestRequest { get; set; }
