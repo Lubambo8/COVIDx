@@ -1,5 +1,5 @@
-﻿using CovidXWebApp.Authentication;
-using CovidXWebApp.Models;
+﻿using CovidXWebApp.Models;
+using EFCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,11 +11,11 @@ namespace CovidXWebApp.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<CovidXUser> _userManager;
+        private readonly UserManager<EFCoreIdentityUser> _userManager;
 
-        private readonly SignInManager<CovidXUser> _signInManager;
+        private readonly SignInManager<EFCoreIdentityUser> _signInManager;
 
-        public AccountController(UserManager<CovidXUser> userManager, SignInManager<CovidXUser> signInManager)
+        public AccountController(UserManager<EFCoreIdentityUser> userManager, SignInManager<EFCoreIdentityUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -43,7 +43,7 @@ namespace CovidXWebApp.Controllers
                 }
 
                 // create a user object and specify the details
-                var newUser = new CovidXUser { Email = model.Email, UserName = model.Email, Active = true, UserType = "Patient" };
+                var newUser = new EFCoreIdentityUser { Email = model.Email, UserName = model.Email};
 
                 // create the user on the database
                 var result = _userManager.CreateAsync(newUser, model.Password);
