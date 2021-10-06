@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
-namespace EFCore
+namespace EFCore.Model
 {
     public partial class Suburb
     {
@@ -14,10 +15,19 @@ namespace EFCore
             TestRequests = new HashSet<TestRequest>();
         }
 
-        public int SuburbId { get; set; }
+        [Key]
+        public int SuburbID { get; set; }
+
+        [Required,
+            MaxLength(128)]
         public string SuburbName { get; set; }
+
+        [Required,
+            MaxLength(128)]
         public string PostalCode { get; set; }
-        public int CityId { get; set; }
+
+        [Required]
+        public int CityID { get; set; }
 
         public virtual City City { get; set; }
         public virtual SuburbsPreferred SuburbsPreferred { get; set; }

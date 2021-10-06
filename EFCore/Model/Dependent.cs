@@ -1,31 +1,71 @@
-﻿using System;
+﻿using EFCore.Model;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
-namespace EFCore
+namespace EFCore.Model
 {
     public partial class Dependent
     {
-        public int DependentId { get; set; }
+        [Key]
+        public int DependentID { get; set; }
+
+        [Required,
+            MaxLength(128)]
         public string FirstName { get; set; }
+
+        [Required,
+            MaxLength(128)]
         public string LastName { get; set; }
-        public string Idnumber { get; set; }
+
+        [Required,
+            MaxLength(13)]
+        public string IDnumber { get; set; }
+
+        [Required,
+            MaxLength(128)]
         public string EmailAddress { get; set; }
+
+        [Required,
+            MaxLength(1024)]
         public string AddressLine1 { get; set; }
+
+        [MaxLength(1024)]
         public string AddressLine2 { get; set; }
-        public int SuburbId { get; set; }
+
+        [Required]
+        public int SuburbID { get; set; }
+
+        [Required]
         public DateTime DateOfbirth { get; set; }
-        public int MedicalAidPlanId { get; set; }
+
+        [Required]
+        public int MedicalAidPlanID { get; set; }
+
+        [Required]
         public bool MedicalAidStatus { get; set; }
+
+        [Required,
+            MaxLength(10)]
         public string MobileNumber { get; set; }
-        public int RelationshipTypeId { get; set; }
-        public string DependencyCode { get; set; }
-        public int MainMemberId { get; set; }
+
+        [Required]
+        public int RelationshipTypeID { get; set; }
+
+        [Required]
+        public int DependencyCode { get; set; }
+
+        [Required]
+        public int MainMemberID { get; set; }
+
+        [Required]
+        public Genders Gender { get; set; }
 
         public virtual Patient MainMember { get; set; }
         public virtual MedicalAidPlan MedicalAidPlan { get; set; }
-        public virtual Relationship RelationshipType { get; set; }
+        public virtual DependentRelationship RelationshipType { get; set; }
         public virtual Suburb Suburb { get; set; }
     }
 }

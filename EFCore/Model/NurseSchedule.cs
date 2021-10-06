@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
-namespace EFCore
+namespace EFCore.Model
 {
     public partial class NurseSchedule
     {
-        public int TestRequestId { get; set; }
-        public int NurseId { get; set; }
+        [Required]
+        public int TestRequestID { get; set; }
+
+        [Key]
+        public int NurseID { get; set; }
 
         public virtual Nurse Nurse { get; set; }
     }
