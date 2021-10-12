@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -28,6 +29,8 @@ namespace EFCore.Model
 
         [Required]
         public int CityID { get; set; }
+
+        [ForeignKey(nameof(CityID))]
 
         public virtual City City { get; set; }
         public virtual SuburbsPreferred SuburbsPreferred { get; set; }

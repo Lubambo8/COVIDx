@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -24,6 +25,7 @@ namespace EFCore.Model
         [Required]
         public int MedicalAidSchemeID { get; set; }
 
+        [ForeignKey(nameof(MedicalAidSchemeID))]
         public virtual MedicalAidScheme MedicalAidScheme { get; set; }
         public virtual ICollection<Dependent> Dependents { get; set; }
         public virtual ICollection<Patient> Patients { get; set; }

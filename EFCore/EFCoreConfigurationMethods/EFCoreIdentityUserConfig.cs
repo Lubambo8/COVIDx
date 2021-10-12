@@ -10,16 +10,12 @@ using System.Threading.Tasks;
 
 namespace EFCore.EFCoreConfigurationMethods
 {
-    public class CardinalityConfig :
+    public class EFCoreIdentityUserConfig :
         IEntityTypeConfiguration<EFCoreIdentityUser>,
-        IEntityTypeConfiguration<Test>,
-        IEntityTypeConfiguration<NurseSchedule>,
-        IEntityTypeConfiguration<SuburbsPreferred>,
         IEntityTypeConfiguration<IdentityUserLogin<string>>,
         IEntityTypeConfiguration<IdentityUserRole<string>>,
-        IEntityTypeConfiguration<IdentityUserToken<string>>,
-        IEntityTypeConfiguration<Dependent>,
-        IEntityTypeConfiguration<TestRequest>
+        IEntityTypeConfiguration<IdentityUserToken<string>>
+
     {
         public void Configure(EntityTypeBuilder<EFCoreIdentityUser> builder)
         {
@@ -46,21 +42,7 @@ namespace EFCore.EFCoreConfigurationMethods
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
         }
-        public void Configure(EntityTypeBuilder<Test> builder)
-        {
-            builder.HasOne(item => item.TestRequest)
-                .WithOne(item => item.Test);
-        }
 
-        public void Configure(EntityTypeBuilder<NurseSchedule> builder)
-        {
-            builder.HasKey(e => new { e.NurseID, e.TestRequestID });
-        }
-
-        public void Configure(EntityTypeBuilder<SuburbsPreferred> builder)
-        {
-            builder.HasKey(e => new { e.SuburbID, e.NurseID });
-        }
 
         public void Configure(EntityTypeBuilder<IdentityUserLogin<string>> builder)
         {
@@ -77,22 +59,6 @@ namespace EFCore.EFCoreConfigurationMethods
             builder.HasKey(e => e.UserId);
         }
 
-        public void Configure(EntityTypeBuilder<Dependent> builder)
-        {
-            builder.HasOne(item => item.MainMember)
-                .WithMany(item => item.Dependents)
-                .HasForeignKey(item => item.MainMemberID)
-                .OnDelete(DeleteBehavior.NoAction);
-        }
-
-        public void Configure(EntityTypeBuilder<TestRequest> builder)
-        {
-            builder.HasOne(item => item.Suburb)
-                .WithMany(item => item.TestRequests)
-                .HasForeignKey(item => item.SuburbID)
-                .OnDelete(DeleteBehavior.Restrict);
-
-        }
 
         
     }

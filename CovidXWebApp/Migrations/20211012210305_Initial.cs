@@ -467,6 +467,55 @@ namespace CovidXWebApp.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "City",
+                columns: new[] { "CityId", "CityName" },
+                values: new object[] { 101, "Port Elizabeth" });
+
+            migrationBuilder.InsertData(
+                table: "MedicalAidScheme",
+                columns: new[] { "MedicalAidSchemeID", "Description" },
+                values: new object[] { 101, "Discovery Health" });
+
+            migrationBuilder.InsertData(
+                table: "MedicalAidScheme",
+                columns: new[] { "MedicalAidSchemeID", "Description" },
+                values: new object[] { 102, "ProfMed" });
+
+            migrationBuilder.InsertData(
+                table: "MedicalAidPlan",
+                columns: new[] { "MedicalAidPlanID", "Description", "MedicalAidSchemeID" },
+                values: new object[,]
+                {
+                    { 110, "Premium Plan", 102 },
+                    { 108, "Standard Plan", 102 },
+                    { 107, "Key-care Plan", 102 },
+                    { 106, "Smart Plan", 101 },
+                    { 105, "Core Plan", 101 },
+                    { 104, "Saver Plan", 101 },
+                    { 103, "Priority Plan", 101 },
+                    { 102, "Comprehensive Plan", 101 },
+                    { 101, "Executive Plan", 101 },
+                    { 109, "Family Plan", 102 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Suburb",
+                columns: new[] { "SuburbID", "CityID", "PostalCode", "SuburbName" },
+                values: new object[,]
+                {
+                    { 110, 101, "6025", "Western Hills" },
+                    { 108, 101, "6001", "North End" },
+                    { 107, 101, "6070", "Lovemore Park" },
+                    { 106, 101, "6011", "Schoenmakerskop" },
+                    { 105, 101, "6001", "Forest Hill" },
+                    { 104, 101, "6001", "South End" },
+                    { 103, 101, "6013", "Humewood" },
+                    { 102, 101, "6001", "Summerstrand" },
+                    { 109, 101, "6020", "Korsten" },
+                    { 101, 101, "6070", "Walmer" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Dependent_MainMemberID",
                 table: "Dependent",

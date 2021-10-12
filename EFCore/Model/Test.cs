@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -40,13 +41,16 @@ namespace EFCore.Model
         [Required]
         public DateTime ResultDate { get; set; }
 
-        [Required]
-        public int LabUserID { get; set; }
+        
+        public int? LabUserID { get; set; }
 
         [Required]
         public int TestRequestID { get; set; }
 
+        [ForeignKey(nameof(LabUserID))]
         public virtual LabUser LabUser { get; set; }
+
+        [ForeignKey(nameof(TestRequestID))]
         public virtual TestRequest TestRequest { get; set; }
     }
 }

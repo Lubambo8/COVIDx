@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -41,8 +42,8 @@ namespace EFCore.Model
         [Required]
         public DateTime DateOfbirth { get; set; }
 
-        [Required]
-        public int MedicalAidPlanID { get; set; }
+        [Display(Name = "Medical Aid")]
+        public int? MedicalAidPlanID { get; set; }
 
         [Required]
         public bool MedicalAidStatus { get; set; }
@@ -52,7 +53,7 @@ namespace EFCore.Model
         public string MobileNumber { get; set; }
 
         [Required]
-        public int RelationshipTypeID { get; set; }
+        public Relationships Relationship { get; set; }
 
         [Required]
         public int DependencyCode { get; set; }
@@ -63,9 +64,13 @@ namespace EFCore.Model
         [Required]
         public Genders Gender { get; set; }
 
+        [ForeignKey(nameof(MainMemberID))]
         public virtual Patient MainMember { get; set; }
+
+        [ForeignKey(nameof(MedicalAidPlanID))]
         public virtual MedicalAidPlan MedicalAidPlan { get; set; }
-        public virtual DependentRelationship RelationshipType { get; set; }
+
+        [ForeignKey(nameof(SuburbID))]
         public virtual Suburb Suburb { get; set; }
     }
 }
