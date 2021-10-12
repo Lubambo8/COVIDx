@@ -19,6 +19,58 @@ namespace CovidXWebApp.Migrations
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("EFCore.EFCoreConfigurationMethods.EFCoreIdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("EFCore.Model.City", b =>
                 {
                     b.Property<int>("CityId")
@@ -84,7 +136,7 @@ namespace CovidXWebApp.Migrations
                     b.Property<int>("MainMemberID")
                         .HasColumnType("int");
 
-                    b.Property<int>("MedicalAidPlanID")
+                    b.Property<int?>("MedicalAidPlanID")
                         .HasColumnType("int");
 
                     b.Property<bool>("MedicalAidStatus")
@@ -95,7 +147,7 @@ namespace CovidXWebApp.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int>("RelationshipTypeID")
+                    b.Property<int>("Relationship")
                         .HasColumnType("int");
 
                     b.Property<int>("SuburbID")
@@ -107,28 +159,9 @@ namespace CovidXWebApp.Migrations
 
                     b.HasIndex("MedicalAidPlanID");
 
-                    b.HasIndex("RelationshipTypeID");
-
                     b.HasIndex("SuburbID");
 
                     b.ToTable("Dependent");
-                });
-
-            modelBuilder.Entity("EFCore.Model.DependentRelationship", b =>
-                {
-                    b.Property<int>("DependentRelationshipID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.HasKey("DependentRelationshipID");
-
-                    b.ToTable("Relationship");
                 });
 
             modelBuilder.Entity("EFCore.Model.LabUser", b =>
@@ -269,10 +302,16 @@ namespace CovidXWebApp.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("YearsQualified")
                         .HasColumnType("datetime2");
 
                     b.HasKey("NurseID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("Nurse");
                 });
@@ -303,8 +342,8 @@ namespace CovidXWebApp.Migrations
                         .HasColumnType("nvarchar(1024)");
 
                     b.Property<string>("AddressLine2")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
@@ -338,7 +377,7 @@ namespace CovidXWebApp.Migrations
                     b.Property<int>("MedicalAidNo")
                         .HasColumnType("int");
 
-                    b.Property<int>("MedicalAidPlanID")
+                    b.Property<int?>("MedicalAidPlanID")
                         .HasColumnType("int");
 
                     b.Property<bool>("MedicalAidStatus")
@@ -352,11 +391,17 @@ namespace CovidXWebApp.Migrations
                     b.Property<int>("SuburbID")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("PatientID");
 
                     b.HasIndex("MedicalAidPlanID");
 
                     b.HasIndex("SuburbID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("Patient");
                 });
@@ -443,7 +488,7 @@ namespace CovidXWebApp.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<int>("LabUserID")
+                    b.Property<int?>("LabUserID")
                         .HasColumnType("int");
 
                     b.Property<string>("OxygenLevel")
@@ -493,7 +538,7 @@ namespace CovidXWebApp.Migrations
                     b.Property<DateTime>("DateAssigned")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("NurseID")
+                    b.Property<int?>("NurseID")
                         .HasColumnType("int");
 
                     b.Property<int>("PatientId")
@@ -573,58 +618,6 @@ namespace CovidXWebApp.Migrations
                     b.ToTable("RoleClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -639,9 +632,12 @@ namespace CovidXWebApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserClaims");
                 });
@@ -707,15 +703,7 @@ namespace CovidXWebApp.Migrations
 
                     b.HasOne("EFCore.Model.MedicalAidPlan", "MedicalAidPlan")
                         .WithMany("Dependents")
-                        .HasForeignKey("MedicalAidPlanID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EFCore.Model.DependentRelationship", "RelationshipType")
-                        .WithMany("Dependents")
-                        .HasForeignKey("RelationshipTypeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MedicalAidPlanID");
 
                     b.HasOne("EFCore.Model.Suburb", "Suburb")
                         .WithMany("Dependents")
@@ -726,8 +714,6 @@ namespace CovidXWebApp.Migrations
                     b.Navigation("MainMember");
 
                     b.Navigation("MedicalAidPlan");
-
-                    b.Navigation("RelationshipType");
 
                     b.Navigation("Suburb");
                 });
@@ -741,6 +727,17 @@ namespace CovidXWebApp.Migrations
                         .IsRequired();
 
                     b.Navigation("MedicalAidScheme");
+                });
+
+            modelBuilder.Entity("EFCore.Model.Nurse", b =>
+                {
+                    b.HasOne("EFCore.EFCoreConfigurationMethods.EFCoreIdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("EFCore.Model.NurseSchedule", b =>
@@ -758,19 +755,25 @@ namespace CovidXWebApp.Migrations
                 {
                     b.HasOne("EFCore.Model.MedicalAidPlan", "MedicalAidPlan")
                         .WithMany("Patients")
-                        .HasForeignKey("MedicalAidPlanID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MedicalAidPlanID");
 
                     b.HasOne("EFCore.Model.Suburb", "Suburb")
                         .WithMany("Patients")
                         .HasForeignKey("SuburbID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("EFCore.EFCoreConfigurationMethods.EFCoreIdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("MedicalAidPlan");
 
                     b.Navigation("Suburb");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("EFCore.Model.Suburb", b =>
@@ -807,9 +810,7 @@ namespace CovidXWebApp.Migrations
                 {
                     b.HasOne("EFCore.Model.LabUser", "LabUser")
                         .WithMany("Tests")
-                        .HasForeignKey("LabUserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LabUserID");
 
                     b.HasOne("EFCore.Model.TestRequest", "TestRequest")
                         .WithOne("Test")
@@ -826,9 +827,7 @@ namespace CovidXWebApp.Migrations
                 {
                     b.HasOne("EFCore.Model.Nurse", "Nurse")
                         .WithMany("TestRequests")
-                        .HasForeignKey("NurseID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("NurseID");
 
                     b.HasOne("EFCore.Model.Patient", "Patient")
                         .WithMany("TestRequests")
@@ -849,14 +848,45 @@ namespace CovidXWebApp.Migrations
                     b.Navigation("Suburb");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("EFCore.EFCoreConfigurationMethods.EFCoreIdentityUser", null)
+                        .WithMany("Claims")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("EFCore.EFCoreConfigurationMethods.EFCoreIdentityUser", null)
+                        .WithMany("Logins")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("EFCore.EFCoreConfigurationMethods.EFCoreIdentityUser", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EFCore.EFCoreConfigurationMethods.EFCoreIdentityUser", b =>
+                {
+                    b.Navigation("Claims");
+
+                    b.Navigation("Logins");
+
+                    b.Navigation("Roles");
+                });
+
             modelBuilder.Entity("EFCore.Model.City", b =>
                 {
                     b.Navigation("Suburbs");
-                });
-
-            modelBuilder.Entity("EFCore.Model.DependentRelationship", b =>
-                {
-                    b.Navigation("Dependents");
                 });
 
             modelBuilder.Entity("EFCore.Model.LabUser", b =>

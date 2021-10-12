@@ -53,42 +53,6 @@ namespace CovidXWebApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Nurse",
-                columns: table => new
-                {
-                    NurseID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IDnumber = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    MobileNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    EmailAddress = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    AddressLine1 = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
-                    AddressLine2 = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    YearsQualified = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Rank = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Qualification = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Gender = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Nurse", x => x.NurseID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Relationship",
-                columns: table => new
-                {
-                    DependentRelationshipID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Relationship", x => x.DependentRelationshipID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "RequestHistory",
                 columns: table => new
                 {
@@ -129,47 +93,6 @@ namespace CovidXWebApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserClaims",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserClaims", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserLogins",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProviderKey = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserLogins", x => x.UserId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserRoles",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserRoles", x => new { x.UserId, x.RoleId });
                 });
 
             migrationBuilder.CreateTable(
@@ -253,6 +176,139 @@ namespace CovidXWebApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Nurse",
+                columns: table => new
+                {
+                    NurseID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IDnumber = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    MobileNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    EmailAddress = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    AddressLine1 = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
+                    AddressLine2 = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    YearsQualified = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Rank = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Qualification = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Nurse", x => x.NurseID);
+                    table.ForeignKey(
+                        name: "FK_Nurse_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserClaims_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserLogins",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProviderKey = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserLogins", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_UserLogins_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserRoles", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_UserRoles_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Patient",
+                columns: table => new
+                {
+                    PatientID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    IDnumber = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
+                    EmailAddress = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    MobileNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    AddressLine1 = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
+                    AddressLine2 = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true),
+                    SuburbID = table.Column<int>(type: "int", nullable: false),
+                    MedicalAidStatus = table.Column<bool>(type: "bit", nullable: false),
+                    MedicalAidPlanID = table.Column<int>(type: "int", nullable: true),
+                    MedicalAidNo = table.Column<int>(type: "int", nullable: false),
+                    DependencyCode = table.Column<int>(type: "int", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Patient", x => x.PatientID);
+                    table.ForeignKey(
+                        name: "FK_Patient_MedicalAidPlan_MedicalAidPlanID",
+                        column: x => x.MedicalAidPlanID,
+                        principalTable: "MedicalAidPlan",
+                        principalColumn: "MedicalAidPlanID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Patient_Suburb_SuburbID",
+                        column: x => x.SuburbID,
+                        principalTable: "Suburb",
+                        principalColumn: "SuburbID");
+                    table.ForeignKey(
+                        name: "FK_Patient_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "NurseSchedule",
                 columns: table => new
                 {
@@ -295,44 +351,6 @@ namespace CovidXWebApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Patient",
-                columns: table => new
-                {
-                    PatientID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    IDnumber = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
-                    EmailAddress = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    MobileNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    AddressLine1 = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
-                    AddressLine2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SuburbID = table.Column<int>(type: "int", nullable: false),
-                    MedicalAidStatus = table.Column<bool>(type: "bit", nullable: false),
-                    MedicalAidPlanID = table.Column<int>(type: "int", nullable: false),
-                    MedicalAidNo = table.Column<int>(type: "int", nullable: false),
-                    DependencyCode = table.Column<int>(type: "int", nullable: false),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Gender = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Patient", x => x.PatientID);
-                    table.ForeignKey(
-                        name: "FK_Patient_MedicalAidPlan_MedicalAidPlanID",
-                        column: x => x.MedicalAidPlanID,
-                        principalTable: "MedicalAidPlan",
-                        principalColumn: "MedicalAidPlanID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Patient_Suburb_SuburbID",
-                        column: x => x.SuburbID,
-                        principalTable: "Suburb",
-                        principalColumn: "SuburbID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Dependent",
                 columns: table => new
                 {
@@ -346,10 +364,10 @@ namespace CovidXWebApp.Migrations
                     AddressLine2 = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true),
                     SuburbID = table.Column<int>(type: "int", nullable: false),
                     DateOfbirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    MedicalAidPlanID = table.Column<int>(type: "int", nullable: false),
+                    MedicalAidPlanID = table.Column<int>(type: "int", nullable: true),
                     MedicalAidStatus = table.Column<bool>(type: "bit", nullable: false),
                     MobileNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    RelationshipTypeID = table.Column<int>(type: "int", nullable: false),
+                    Relationship = table.Column<int>(type: "int", nullable: false),
                     DependencyCode = table.Column<int>(type: "int", nullable: false),
                     MainMemberID = table.Column<int>(type: "int", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false)
@@ -362,18 +380,12 @@ namespace CovidXWebApp.Migrations
                         column: x => x.MedicalAidPlanID,
                         principalTable: "MedicalAidPlan",
                         principalColumn: "MedicalAidPlanID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Dependent_Patient_MainMemberID",
                         column: x => x.MainMemberID,
                         principalTable: "Patient",
                         principalColumn: "PatientID");
-                    table.ForeignKey(
-                        name: "FK_Dependent_Relationship_RelationshipTypeID",
-                        column: x => x.RelationshipTypeID,
-                        principalTable: "Relationship",
-                        principalColumn: "DependentRelationshipID",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Dependent_Suburb_SuburbID",
                         column: x => x.SuburbID,
@@ -394,7 +406,7 @@ namespace CovidXWebApp.Migrations
                     TestAddress1 = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
                     TestAddress2 = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
                     SuburbID = table.Column<int>(type: "int", nullable: false),
-                    NurseID = table.Column<int>(type: "int", nullable: false),
+                    NurseID = table.Column<int>(type: "int", nullable: true),
                     DateAssigned = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TimeSlotAssigned = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -406,7 +418,7 @@ namespace CovidXWebApp.Migrations
                         column: x => x.NurseID,
                         principalTable: "Nurse",
                         principalColumn: "NurseID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_TestRequest_Patient_PatientId",
                         column: x => x.PatientId,
@@ -435,7 +447,7 @@ namespace CovidXWebApp.Migrations
                     TestTime = table.Column<TimeSpan>(type: "time", nullable: false),
                     TestResult = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     ResultDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LabUserID = table.Column<int>(type: "int", nullable: false),
+                    LabUserID = table.Column<int>(type: "int", nullable: true),
                     TestRequestID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -446,7 +458,7 @@ namespace CovidXWebApp.Migrations
                         column: x => x.LabUserID,
                         principalTable: "LabUser",
                         principalColumn: "LabUserID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Test_TestRequest_TestRequestID",
                         column: x => x.TestRequestID,
@@ -466,11 +478,6 @@ namespace CovidXWebApp.Migrations
                 column: "MedicalAidPlanID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Dependent_RelationshipTypeID",
-                table: "Dependent",
-                column: "RelationshipTypeID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Dependent_SuburbID",
                 table: "Dependent",
                 column: "SuburbID");
@@ -481,6 +488,11 @@ namespace CovidXWebApp.Migrations
                 column: "MedicalAidSchemeID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Nurse_UserID",
+                table: "Nurse",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Patient_MedicalAidPlanID",
                 table: "Patient",
                 column: "MedicalAidPlanID");
@@ -489,6 +501,11 @@ namespace CovidXWebApp.Migrations
                 name: "IX_Patient_SuburbID",
                 table: "Patient",
                 column: "SuburbID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Patient_UserID",
+                table: "Patient",
+                column: "UserID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Suburb_CityID",
@@ -531,6 +548,11 @@ namespace CovidXWebApp.Migrations
                 name: "IX_TestRequest_SuburbID",
                 table: "TestRequest",
                 column: "SuburbID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserClaims_UserId",
+                table: "UserClaims",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -566,13 +588,7 @@ namespace CovidXWebApp.Migrations
                 name: "UserRoles");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "UserTokens");
-
-            migrationBuilder.DropTable(
-                name: "Relationship");
 
             migrationBuilder.DropTable(
                 name: "LabUser");
@@ -591,6 +607,9 @@ namespace CovidXWebApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Suburb");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "MedicalAidScheme");
