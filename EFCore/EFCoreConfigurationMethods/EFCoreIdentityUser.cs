@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EFCore
+namespace EFCore.EFCoreConfigurationMethods
 {
     public class EFCoreIdentityUser : IdentityUser
     {

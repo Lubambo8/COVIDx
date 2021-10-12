@@ -26,4 +26,20 @@ namespace EFCore.Model
         Korsten,
         WesternHills
     }
+
+    public enum Relationships
+    {
+        Son,
+        GrandMother,
+        Daughter,
+        GrandFather,
+        Wife,
+        Mother,
+        Father,
+        Brother,
+        Sister,
+        GrandChild,
+        Husband
+
+    }
 }

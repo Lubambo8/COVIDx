@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CovidXWebApp.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20211012204820_Initial")]
+    [Migration("20211012210305_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,6 +88,13 @@ namespace CovidXWebApp.Migrations
                     b.HasKey("CityId");
 
                     b.ToTable("City");
+
+                    b.HasData(
+                        new
+                        {
+                            CityId = 101,
+                            CityName = "Port Elizabeth"
+                        });
                 });
 
             modelBuilder.Entity("EFCore.Model.Dependent", b =>
@@ -231,6 +238,68 @@ namespace CovidXWebApp.Migrations
                     b.HasIndex("MedicalAidSchemeID");
 
                     b.ToTable("MedicalAidPlan");
+
+                    b.HasData(
+                        new
+                        {
+                            MedicalAidPlanID = 101,
+                            Description = "Executive Plan",
+                            MedicalAidSchemeID = 101
+                        },
+                        new
+                        {
+                            MedicalAidPlanID = 102,
+                            Description = "Comprehensive Plan",
+                            MedicalAidSchemeID = 101
+                        },
+                        new
+                        {
+                            MedicalAidPlanID = 103,
+                            Description = "Priority Plan",
+                            MedicalAidSchemeID = 101
+                        },
+                        new
+                        {
+                            MedicalAidPlanID = 104,
+                            Description = "Saver Plan",
+                            MedicalAidSchemeID = 101
+                        },
+                        new
+                        {
+                            MedicalAidPlanID = 105,
+                            Description = "Core Plan",
+                            MedicalAidSchemeID = 101
+                        },
+                        new
+                        {
+                            MedicalAidPlanID = 106,
+                            Description = "Smart Plan",
+                            MedicalAidSchemeID = 101
+                        },
+                        new
+                        {
+                            MedicalAidPlanID = 107,
+                            Description = "Key-care Plan",
+                            MedicalAidSchemeID = 102
+                        },
+                        new
+                        {
+                            MedicalAidPlanID = 108,
+                            Description = "Standard Plan",
+                            MedicalAidSchemeID = 102
+                        },
+                        new
+                        {
+                            MedicalAidPlanID = 109,
+                            Description = "Family Plan",
+                            MedicalAidSchemeID = 102
+                        },
+                        new
+                        {
+                            MedicalAidPlanID = 110,
+                            Description = "Premium Plan",
+                            MedicalAidSchemeID = 102
+                        });
                 });
 
             modelBuilder.Entity("EFCore.Model.MedicalAidScheme", b =>
@@ -248,6 +317,18 @@ namespace CovidXWebApp.Migrations
                     b.HasKey("MedicalAidSchemeID");
 
                     b.ToTable("MedicalAidScheme");
+
+                    b.HasData(
+                        new
+                        {
+                            MedicalAidSchemeID = 101,
+                            Description = "Discovery Health"
+                        },
+                        new
+                        {
+                            MedicalAidSchemeID = 102,
+                            Description = "ProfMed"
+                        });
                 });
 
             modelBuilder.Entity("EFCore.Model.Nurse", b =>
@@ -453,6 +534,78 @@ namespace CovidXWebApp.Migrations
                     b.HasIndex("CityID");
 
                     b.ToTable("Suburb");
+
+                    b.HasData(
+                        new
+                        {
+                            SuburbID = 101,
+                            CityID = 101,
+                            PostalCode = "6070",
+                            SuburbName = "Walmer"
+                        },
+                        new
+                        {
+                            SuburbID = 102,
+                            CityID = 101,
+                            PostalCode = "6001",
+                            SuburbName = "Summerstrand"
+                        },
+                        new
+                        {
+                            SuburbID = 103,
+                            CityID = 101,
+                            PostalCode = "6013",
+                            SuburbName = "Humewood"
+                        },
+                        new
+                        {
+                            SuburbID = 104,
+                            CityID = 101,
+                            PostalCode = "6001",
+                            SuburbName = "South End"
+                        },
+                        new
+                        {
+                            SuburbID = 105,
+                            CityID = 101,
+                            PostalCode = "6001",
+                            SuburbName = "Forest Hill"
+                        },
+                        new
+                        {
+                            SuburbID = 106,
+                            CityID = 101,
+                            PostalCode = "6011",
+                            SuburbName = "Schoenmakerskop"
+                        },
+                        new
+                        {
+                            SuburbID = 107,
+                            CityID = 101,
+                            PostalCode = "6070",
+                            SuburbName = "Lovemore Park"
+                        },
+                        new
+                        {
+                            SuburbID = 108,
+                            CityID = 101,
+                            PostalCode = "6001",
+                            SuburbName = "North End"
+                        },
+                        new
+                        {
+                            SuburbID = 109,
+                            CityID = 101,
+                            PostalCode = "6020",
+                            SuburbName = "Korsten"
+                        },
+                        new
+                        {
+                            SuburbID = 110,
+                            CityID = 101,
+                            PostalCode = "6025",
+                            SuburbName = "Western Hills"
+                        });
                 });
 
             modelBuilder.Entity("EFCore.Model.SuburbsPreferred", b =>

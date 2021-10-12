@@ -1,4 +1,5 @@
-﻿using EFCore.Model;
+﻿using EFCore.EFCoreConfigurationMethods;
+using EFCore.Model;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EFCore
 {
-    public class DatabaseContext : IdentityDbContext
+    public class DatabaseContext : IdentityDbContext<EFCoreIdentityUser>
     {
        
 
@@ -29,7 +30,6 @@ namespace EFCore
         public virtual DbSet<Nurse> Nurse { get; set; }
         public virtual DbSet<NurseSchedule> NurseSchedule { get; set; }
         public virtual DbSet<Patient> Patient { get; set; }
-        public virtual DbSet<DependentRelationship> Relationship { get; set; }
         public virtual DbSet<RequestHistory> RequestHistory { get; set; }
         public virtual DbSet<Suburb> Suburb { get; set; }
         public virtual DbSet<SuburbsPreferred> SuburbsPreferred { get; set; }

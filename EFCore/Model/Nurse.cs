@@ -1,7 +1,9 @@
-﻿using EFCore.Model;
+﻿using EFCore.EFCoreConfigurationMethods;
+using EFCore.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -58,7 +60,13 @@ namespace EFCore.Model
         public string Qualification { get; set; }
 
         [Required]
+        public string UserID { get; set; }
+
+        [Required]
         public Genders Gender { get; set; }
+
+        [ForeignKey(nameof(UserID))]
+        public virtual EFCoreIdentityUser User { get; set; }
         public virtual ICollection<NurseSchedule> NurseSchedules { get; set; }
         public virtual ICollection<SuburbsPreferred> SuburbsPreferreds { get; set; }
         public virtual ICollection<TestRequest> TestRequests { get; set; }

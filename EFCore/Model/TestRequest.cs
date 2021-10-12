@@ -31,8 +31,8 @@ namespace EFCore.Model
         [Required]
         public int SuburbID { get; set; }
 
-        [Required]
-        public int NurseID { get; set; }
+        
+        public int? NurseID { get; set; }
 
         [Required]
         public DateTime DateAssigned { get; set; }

@@ -1,7 +1,9 @@
-﻿using EFCore.Model;
+﻿using EFCore.EFCoreConfigurationMethods;
+using EFCore.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 
@@ -44,7 +46,7 @@ namespace EFCore.Model
             MaxLength(1024)]
         public string AddressLine1 { get; set; }
 
-        [Required]
+        [MaxLength(1024)]
         public string AddressLine2 { get; set; }
 
         [Required]
@@ -53,8 +55,8 @@ namespace EFCore.Model
         [Required]
         public bool MedicalAidStatus { get; set; }
 
-        [Required]
-        public int MedicalAidPlanID { get; set; }
+        [Display(Name = "Medical Aid")]
+        public int? MedicalAidPlanID { get; set; }
 
         [Required]
         public int MedicalAidNo { get; set; }
@@ -68,9 +70,19 @@ namespace EFCore.Model
         [Required]
         public Genders Gender { get; set; }
 
+        [Required]
+        public string UserID { get; set; }
+
+        [ForeignKey(nameof(MedicalAidPlanID))]
         public virtual MedicalAidPlan MedicalAidPlan { get; set; }
+
+        [ForeignKey(nameof(SuburbID))]
         public virtual Suburb Suburb { get; set; }
+
+        [ForeignKey(nameof(UserID))]
+        public virtual EFCoreIdentityUser User { get; set; }
         public virtual ICollection<Dependent> Dependents { get; set; }
         public virtual ICollection<TestRequest> TestRequests { get; set; }
+
     }
 }
