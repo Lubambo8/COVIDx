@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -19,7 +20,7 @@ namespace EFCore.Model
 
         [Required,
             MaxLength(128)]
-        public string RequestStatus { get; set; }
+        public TestRequestStatus RequestStatus { get; set; }
 
         [Required,
             MaxLength(1024)]
@@ -30,19 +31,27 @@ namespace EFCore.Model
 
         [Required]
         public int SuburbID { get; set; }
-
-        
         public int? NurseID { get; set; }
+        public DateTime? DateAssigned { get; set; }
+        public DateTime? TimeSlotAssigned { get; set; }
+        public int? DependentID { get; set; }
 
-        [Required]
-        public DateTime DateAssigned { get; set; }
+        [ForeignKey(nameof(DependentID))]
+        public virtual Dependent Dependent { get; set; }
 
-        [Required]
-        public DateTime TimeSlotAssigned { get; set; }
-
+        [ForeignKey(nameof(NurseID))]
         public virtual Nurse Nurse { get; set; }
+
+        [ForeignKey(nameof(PatientId))]
         public virtual Patient Patient { get; set; }
+
+        [ForeignKey(nameof(SuburbID))]
         public virtual Suburb Suburb { get; set; }
+
         public virtual Test Test { get; set; }
+
+        public virtual ICollection<RequestHistory> RequestHistories { get; set; }
+
+        public virtual ICollection<NurseSchedule> NurseSchedules { get; set; }
     }
 }

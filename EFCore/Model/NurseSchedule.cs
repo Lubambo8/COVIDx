@@ -12,10 +12,13 @@ namespace EFCore.Model
         [Required]
         public int TestRequestID { get; set; }
 
-        [Key]
+        [Required]
         public int NurseID { get; set; }
 
         [ForeignKey(nameof(NurseID))]
         public virtual Nurse Nurse { get; set; }
+
+        [ForeignKey(nameof(TestRequestID))]
+        public virtual TestRequest TestRequest { get; set; }
     }
 }

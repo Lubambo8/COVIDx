@@ -35,10 +35,6 @@ namespace EFCore.Model
         public string IDnumber { get; set; }
 
         [Required,
-            MaxLength(128)]
-        public string EmailAddress { get; set; }
-
-        [Required,
             MaxLength(10)]
         public string MobileNumber { get; set; }
 
@@ -58,13 +54,16 @@ namespace EFCore.Model
         [Display(Name = "Medical Aid")]
         public int? MedicalAidPlanID { get; set; }
 
-        [Required]
-        public int MedicalAidNo { get; set; }
+        [Required,
+            MaxLength(128)]
+        public string MedicalAidNo { get; set; }
 
-        [Required]
-        public int DependencyCode { get; set; }
+        [Required,
+            MaxLength(128)]
+        public string DependencyCode { get; set; }
 
-        [Required]
+        [Required,
+            Display(Name = "Date Of Birth")]
         public DateTime DateOfBirth { get; set; }
 
         [Required]

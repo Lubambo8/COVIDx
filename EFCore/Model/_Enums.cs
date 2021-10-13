@@ -42,4 +42,12 @@ namespace EFCore.Model
         Husband
 
     }
+    public enum TestRequestStatus
+    {
+        New,
+        Picked,
+        Scheduled,
+        Performed,
+        Cancel
+    }
 }

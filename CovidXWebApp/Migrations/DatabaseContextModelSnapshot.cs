@@ -103,7 +103,6 @@ namespace CovidXWebApp.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AddressLine1")
-                        .IsRequired()
                         .HasMaxLength(1024)
                         .HasColumnType("nvarchar(1024)");
 
@@ -114,8 +113,10 @@ namespace CovidXWebApp.Migrations
                     b.Property<DateTime>("DateOfbirth")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DependencyCode")
-                        .HasColumnType("int");
+                    b.Property<string>("DependencyCode")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
@@ -143,6 +144,10 @@ namespace CovidXWebApp.Migrations
                     b.Property<int>("MainMemberID")
                         .HasColumnType("int");
 
+                    b.Property<string>("MedicalAidNo")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
                     b.Property<int?>("MedicalAidPlanID")
                         .HasColumnType("int");
 
@@ -157,7 +162,7 @@ namespace CovidXWebApp.Migrations
                     b.Property<int>("Relationship")
                         .HasColumnType("int");
 
-                    b.Property<int>("SuburbID")
+                    b.Property<int?>("SuburbID")
                         .HasColumnType("int");
 
                     b.HasKey("DependentID");
@@ -407,6 +412,8 @@ namespace CovidXWebApp.Migrations
 
                     b.HasKey("NurseID", "TestRequestID");
 
+                    b.HasIndex("TestRequestID");
+
                     b.ToTable("NurseSchedule");
                 });
 
@@ -429,10 +436,7 @@ namespace CovidXWebApp.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DependencyCode")
-                        .HasColumnType("int");
-
-                    b.Property<string>("EmailAddress")
+                    b.Property<string>("DependencyCode")
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
@@ -455,8 +459,10 @@ namespace CovidXWebApp.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<int>("MedicalAidNo")
-                        .HasColumnType("int");
+                    b.Property<string>("MedicalAidNo")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<int?>("MedicalAidPlanID")
                         .HasColumnType("int");
@@ -489,7 +495,7 @@ namespace CovidXWebApp.Migrations
 
             modelBuilder.Entity("EFCore.Model.RequestHistory", b =>
                 {
-                    b.Property<int>("TestRequestID")
+                    b.Property<int>("RequestHistoryID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -502,7 +508,12 @@ namespace CovidXWebApp.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.HasKey("TestRequestID");
+                    b.Property<int>("TestRequestID")
+                        .HasColumnType("int");
+
+                    b.HasKey("RequestHistoryID");
+
+                    b.HasIndex("TestRequestID");
 
                     b.ToTable("RequestHistory");
                 });
@@ -649,7 +660,7 @@ namespace CovidXWebApp.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<DateTime>("ResultDate")
+                    b.Property<DateTime?>("ResultDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Temperature")
@@ -664,7 +675,6 @@ namespace CovidXWebApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("TestResult")
-                        .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
@@ -688,8 +698,11 @@ namespace CovidXWebApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateAssigned")
+                    b.Property<DateTime?>("DateAssigned")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("DependentID")
+                        .HasColumnType("int");
 
                     b.Property<int?>("NurseID")
                         .HasColumnType("int");
@@ -700,10 +713,9 @@ namespace CovidXWebApp.Migrations
                     b.Property<DateTime>("RequestDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("RequestStatus")
-                        .IsRequired()
+                    b.Property<int>("RequestStatus")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("int");
 
                     b.Property<int>("SuburbID")
                         .HasColumnType("int");
@@ -717,10 +729,12 @@ namespace CovidXWebApp.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<DateTime>("TimeSlotAssigned")
+                    b.Property<DateTime?>("TimeSlotAssigned")
                         .HasColumnType("datetime2");
 
                     b.HasKey("TestRequestID");
+
+                    b.HasIndex("DependentID");
 
                     b.HasIndex("NurseID");
 
@@ -860,9 +874,7 @@ namespace CovidXWebApp.Migrations
 
                     b.HasOne("EFCore.Model.Suburb", "Suburb")
                         .WithMany("Dependents")
-                        .HasForeignKey("SuburbID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SuburbID");
 
                     b.Navigation("MainMember");
 
@@ -898,10 +910,18 @@ namespace CovidXWebApp.Migrations
                     b.HasOne("EFCore.Model.Nurse", "Nurse")
                         .WithMany("NurseSchedules")
                         .HasForeignKey("NurseID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("EFCore.Model.TestRequest", "TestRequest")
+                        .WithMany("NurseSchedules")
+                        .HasForeignKey("TestRequestID")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Nurse");
+
+                    b.Navigation("TestRequest");
                 });
 
             modelBuilder.Entity("EFCore.Model.Patient", b =>
@@ -927,6 +947,17 @@ namespace CovidXWebApp.Migrations
                     b.Navigation("Suburb");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("EFCore.Model.RequestHistory", b =>
+                {
+                    b.HasOne("EFCore.Model.TestRequest", "TestRequest")
+                        .WithMany("RequestHistories")
+                        .HasForeignKey("TestRequestID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TestRequest");
                 });
 
             modelBuilder.Entity("EFCore.Model.Suburb", b =>
@@ -978,6 +1009,10 @@ namespace CovidXWebApp.Migrations
 
             modelBuilder.Entity("EFCore.Model.TestRequest", b =>
                 {
+                    b.HasOne("EFCore.Model.Dependent", "Dependent")
+                        .WithMany()
+                        .HasForeignKey("DependentID");
+
                     b.HasOne("EFCore.Model.Nurse", "Nurse")
                         .WithMany("TestRequests")
                         .HasForeignKey("NurseID");
@@ -993,6 +1028,8 @@ namespace CovidXWebApp.Migrations
                         .HasForeignKey("SuburbID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Dependent");
 
                     b.Navigation("Nurse");
 
@@ -1088,6 +1125,10 @@ namespace CovidXWebApp.Migrations
 
             modelBuilder.Entity("EFCore.Model.TestRequest", b =>
                 {
+                    b.Navigation("NurseSchedules");
+
+                    b.Navigation("RequestHistories");
+
                     b.Navigation("Test");
                 });
 #pragma warning restore 612, 618

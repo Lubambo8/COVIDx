@@ -29,18 +29,20 @@ namespace EFCore.Model
             MaxLength(128)]
         public string EmailAddress { get; set; }
 
-        [Required,
-            MaxLength(1024)]
+        [MaxLength(1024)]
         public string AddressLine1 { get; set; }
 
         [MaxLength(1024)]
         public string AddressLine2 { get; set; }
 
-        [Required]
-        public int SuburbID { get; set; }
+        public int? SuburbID { get; set; }
 
-        [Required]
+        [Required,
+            Display(Name = "Date Of Birth")]
         public DateTime DateOfbirth { get; set; }
+
+        [MaxLength(128)]
+        public string MedicalAidNo { get; set; }
 
         [Display(Name = "Medical Aid")]
         public int? MedicalAidPlanID { get; set; }
@@ -55,8 +57,9 @@ namespace EFCore.Model
         [Required]
         public Relationships Relationship { get; set; }
 
-        [Required]
-        public int DependencyCode { get; set; }
+        [Required,
+            MaxLength(128)]
+        public string DependencyCode { get; set; }
 
         [Required]
         public int MainMemberID { get; set; }
