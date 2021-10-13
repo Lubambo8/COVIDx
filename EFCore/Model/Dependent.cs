@@ -57,8 +57,7 @@ namespace EFCore.Model
         [Required]
         public Relationships Relationship { get; set; }
 
-        [Required,
-            MaxLength(128)]
+        [MaxLength(128)]
         public string DependencyCode { get; set; }
 
         [Required]
