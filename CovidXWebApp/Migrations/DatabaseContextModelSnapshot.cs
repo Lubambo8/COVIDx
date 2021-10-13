@@ -114,7 +114,6 @@ namespace CovidXWebApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DependencyCode")
-                        .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
@@ -437,7 +436,6 @@ namespace CovidXWebApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DependencyCode")
-                        .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
@@ -460,7 +458,6 @@ namespace CovidXWebApp.Migrations
                         .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("MedicalAidNo")
-                        .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 

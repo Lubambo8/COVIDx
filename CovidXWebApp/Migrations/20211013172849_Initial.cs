@@ -265,8 +265,8 @@ namespace CovidXWebApp.Migrations
                     SuburbID = table.Column<int>(type: "int", nullable: false),
                     MedicalAidStatus = table.Column<bool>(type: "bit", nullable: false),
                     MedicalAidPlanID = table.Column<int>(type: "int", nullable: true),
-                    MedicalAidNo = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    DependencyCode = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    MedicalAidNo = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    DependencyCode = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
                     UserID = table.Column<string>(type: "nvarchar(450)", nullable: false)
@@ -336,7 +336,7 @@ namespace CovidXWebApp.Migrations
                     MedicalAidStatus = table.Column<bool>(type: "bit", nullable: false),
                     MobileNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Relationship = table.Column<int>(type: "int", nullable: false),
-                    DependencyCode = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    DependencyCode = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
                     MainMemberID = table.Column<int>(type: "int", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false)
                 },
