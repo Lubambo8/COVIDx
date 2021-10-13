@@ -34,12 +34,10 @@ namespace EFCore.Model
         [Required]
         public TimeSpan TestTime { get; set; }
 
-        [Required,
-            MaxLength(128)]
+        [ MaxLength(128)]
         public string TestResult { get; set; }
 
-        [Required]
-        public DateTime ResultDate { get; set; }
+        public DateTime? ResultDate { get; set; }
 
         
         public int? LabUserID { get; set; }

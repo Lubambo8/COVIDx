@@ -26,6 +26,16 @@ namespace EFCore.EFCoreConfigurationMethods
         public void Configure(EntityTypeBuilder<NurseSchedule> builder)
         {
             builder.HasKey(e => new { e.NurseID, e.TestRequestID });
+
+            builder.HasOne(fk => fk.TestRequest)
+                 .WithMany(fk => fk.NurseSchedules)
+                .HasForeignKey(fk => fk.TestRequestID)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne(fk => fk.Nurse)
+                .WithMany(fk => fk.NurseSchedules)
+               .HasForeignKey(fk => fk.NurseID)
+               .OnDelete(DeleteBehavior.NoAction);
         }
 
         public void Configure(EntityTypeBuilder<SuburbsPreferred> builder)
