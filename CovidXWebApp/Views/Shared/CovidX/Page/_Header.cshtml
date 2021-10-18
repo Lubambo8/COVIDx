@@ -1,0 +1,27 @@
+﻿@model string
+
+@{
+    var controllerName = Url.ActionContext.RouteData.Values["controller"].ToString();
+    var actionName = Url.ActionContext.RouteData.Values["action"].ToString();
+}
+
+<div class="col-sm-6">
+    <h1 class="m-0 text-dark">@Model</h1>
+</div>
+<div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+        @if (controllerName.Contains("Home"))
+        {
+            <li class="breadcrumb-item">Home </li>
+        }
+        else
+        {
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item">@controllerName</li>
+        }
+        @if (actionName.Contains("Index") == false)
+        {
+            <li class="breadcrumb-item active">@actionName</li>
+        }
+    </ol>
+</div>

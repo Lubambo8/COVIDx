@@ -78,5 +78,41 @@ namespace CovidXWebApp.Services
 
             // return _context.SaveChanges() > 0;
         }
+
+        public Patient FindPatientByPatientID(int PatientID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool AddDependent(Dependent model)
+        {
+            _context.Dependent.Add(model);
+
+            var rowsAffected = _context.SaveChanges();
+
+            if(rowsAffected > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public List<TestRequest> GetTestRequests(int PatientID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Dependent> GetDependents(int PatientID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Patient FindPatientByUserID(string UserID)
+        {
+            var patientByUserID = _context.Patient.FirstOrDefault(x => x.UserID == UserID);
+
+            return patientByUserID;
+        }
     }
 }
