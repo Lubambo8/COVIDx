@@ -23,6 +23,17 @@ namespace CovidXWebApp.Controllers
             return View();
         }
 
+        public IActionResult Dashboard()
+        {
+            var name = User.Identity.Name;
+
+            //while (true)
+            //{
+
+            //}
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
