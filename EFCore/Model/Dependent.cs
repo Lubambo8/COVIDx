@@ -66,6 +66,8 @@ namespace EFCore.Model
         [Required]
         public Genders Gender { get; set; }
 
+        public string PersonResponsible { get; set; }
+
         [ForeignKey(nameof(MainMemberID))]
         public virtual Patient MainMember { get; set; }
 

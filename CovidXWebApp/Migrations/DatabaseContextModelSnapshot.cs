@@ -27,6 +27,9 @@ namespace CovidXWebApp.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -34,6 +37,9 @@ namespace CovidXWebApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
@@ -157,6 +163,9 @@ namespace CovidXWebApp.Migrations
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("PersonResponsible")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Relationship")
                         .HasColumnType("int");
