@@ -1,0 +1,80 @@
+﻿@model DependentCreateViewModel
+
+@inject IPatientServices _patientService
+<!-- Medical Aid Plan INPUT START -->
+<!-- SWITCH MedicalAid Status INPUT START -->
+<div class="form-group">
+    <div class="custom-control custom-switch">
+        <!-- INPUT ITEM -->
+        <input asp-for="MedicalAidStatus"
+               class="custom-control-input">
+        <!-- INPUT LABEL -->
+        <label asp-for="MedicalAidStatus"
+               class="custom-control-label">Has Medical Aid?</label>
+    </div>
+</div>
+<!-- SWITCH INPUT END -->
+<!-- SWITCH MedicalAidSameAsMainMember Status INPUT START -->
+<div class="form-group">
+    <div class="custom-control custom-switch">
+        <!-- INPUT ITEM -->
+        <input asp-for="MedicalAidSameasMainMember"
+               class="custom-control-input">
+        <!-- INPUT LABEL -->
+        <label asp-for="MedicalAidSameasMainMember"
+               class="custom-control-label">MedicalAid Same as Main Member?</label>
+    </div>
+</div>
+<!-- SWITCH INPUT END -->
+<!-- Dependency Code -->
+<label asp-for="DependencyCode">Dependent Code</label>
+<div class="input-group mb-3">
+
+    <input asp-for="DependencyCode" class="form-control" placeholder="Dependent Code">
+    <div class="input-group-append">
+        <div class="input-group-text">
+            <span class="fas fa-file-medical"></span>
+        </div>
+    </div>
+    <span asp-validation-for="DependencyCode" class="error invalid-feedback" />
+</div>
+
+
+<!-- Medical Aid Plan INPUT START -->
+<div class="form-group">
+
+    <!-- INPUT LABEL -->
+    <label asp-for="MedicalAidPlanId"></label>
+
+    <!-- INPUT ITEM -->
+    <select asp-for="MedicalAidPlanId"
+            class="selectpicker"
+            data-width="100%"
+            data-live-search="true"
+            title="Select Medical Aid">
+        @foreach (var option in _patientService.GetMedicalAidList())
+        {
+            <option data-subtext="@option.DisplaySubtext"
+                    value="@option.Value">
+                @option.DisplayText
+            </option>
+        }
+    </select>
+
+    <!-- INPUT VALIDATION MESSAGE -->
+    <span asp-validation-for="MedicalAidPlanId"
+          style="display:inline" />
+</div>
+<!-- Medical Aid Plan INPUT END -->
+<!-- Medical Aid No -->
+<label asp-for="MedicalAidNo">Medical Aid Number</label>
+<div class="input-group mb-3">
+
+    <input asp-for="MedicalAidNo" class="form-control" placeholder="Medical Aid Number">
+    <div class="input-group-append">
+        <div class="input-group-text">
+            <span class="fas fa-file-medical"></span>
+        </div>
+    </div>
+    <span asp-validation-for="MedicalAidNo" class="error invalid-feedback" />
+</div>
