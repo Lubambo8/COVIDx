@@ -1,4 +1,5 @@
-﻿using CovidXWebApp.Services.Interface;
+﻿using CovidXWebApp.Models.ViewModel;
+using CovidXWebApp.Services.Interface;
 using EFCore;
 using EFCore.Model;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -113,6 +114,68 @@ namespace CovidXWebApp.Services
             var patientByUserID = _context.Patient.FirstOrDefault(x => x.UserID == UserID);
 
             return patientByUserID;
+        }
+
+        public SelectList GetDependentAddress(int patientID)
+        {
+            // get list of dependents address from the database
+            var list = _context.Dependent.Where(x => x.MainMemberID == patientID).ToList();
+
+            // create a select list with 'DependentD' as the selected value and 'SuburbName' as the display value
+            var output = new SelectList(list, "DependentID", "AddressLine1");
+
+            return output;
+        }
+
+        public SelectList GetDependentSuburb(int patientID)
+        {
+            // get list of dependents address from the database
+            var list = _context.Dependent.Where(x => x.MainMemberID == patientID).ToList();
+            // var list = _db.Suburbs.Include(x => x.Dependents).ThenInclude(x => x.MainMemberId == patientID);
+
+            // create a select list with 'SuburbID' as the selected value and 'SuburbName' as the display value
+            var output = new SelectList(list, "DependentId", "SuburbName");
+
+            return output;
+        }
+
+        public SelectList GetDependentByPatientID(int patientID)
+        {
+            // get list of dependents from the database
+            var list = _context.Dependent.Where(x => x.MainMemberID == patientID).ToList();
+
+            // create a select list with 'SuburbID' as the selected value and 'SuburbName' as the display value
+            var output = new SelectList(list, "DependentID", "FirstName");
+
+            return output;
+        }
+
+        public bool AddTestRequest(TestRequestViewModel data)
+        {
+            //Map ViewModel info to EF Core Entity
+            var entity = new TestRequest()
+            {
+                PatientId = data.PatientId,
+                DependentID = data.DependentId,
+                RequestDate = DateTime.Now,
+                RequestStatus = TestRequestStatus.New,
+                TestAddress1 = data.TestAddress1,
+                SuburbID = data.SuburbId
+            };
+
+            
+            //Add entity to Db
+            _context.TestRequest.Add(entity);
+
+            //Save changes to db
+            var rowsAffected = _context.SaveChanges();
+
+            if (rowsAffected > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

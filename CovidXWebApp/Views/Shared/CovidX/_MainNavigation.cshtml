@@ -9,30 +9,35 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <partial name="CovidX/MainNavigation/_UserAccount" />
+        @if (User.Identity.IsAuthenticated)
+        {
+            <partial name="CovidX/MainNavigation/_UserAccount" />
 
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column"
-                data-widget="treeview"
-                role="menu"
-                data-accordion="false">
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column"
+                    data-widget="treeview"
+                    role="menu"
+                    data-accordion="false">
 
-                <!-- Home Controller Navigation -->
-                @*@if (User.IsInRole(CovidXRoles.PATIENT) || User.IsInRole(CovidXRoles.ADMIN))
-                {
+                    <!-- Home Controller Navigation -->
+                    @if (User.IsInRole(CovidXRoles.PATIENT) || User.IsInRole(CovidXRoles.ADMIN))
+                    {
+                        <partial name="CovidX/MainNavigation/_HomeNavigation" />
+                        <!-- Patient Controller Navigation -->
+                        <partial name="CovidX/MainNavigation/_PatientNavigation" />
+                    }
 
-                }*@
+                    @if (User.IsInRole(CovidXRoles.NURSE) || User.IsInRole(CovidXRoles.ADMIN))
+                    {
+                        <!--Calander controller Navigation-->
+                        <partial name="CovidX/MainNavigation/_CalanderNavigation" />
+                    }
 
-                <partial name="CovidX/MainNavigation/_HomeNavigation" />
-                <!-- Patient Controller Navigation -->
-                <partial name="CovidX/MainNavigation/_PatientNavigation" />
 
-                <!-- Calendar Controller Navigation -->
-                @*<partial name="CovidX/MainNavigation/_CalanderNavigation" />*@
-
-            </ul>
-        </nav>
+                </ul>
+            </nav>
+        }
         <!-- /.sidebar-menu -->
     </div>
 </aside>

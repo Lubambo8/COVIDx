@@ -1,0 +1,77 @@
+﻿@model TestRequestViewModel
+
+@inject IPatientServices _patientService
+@inject UserManager<EFCoreIdentityUser> _userManager
+
+@section Scripts{
+    <script>
+        $(function () {
+
+            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+
+            $('[data-mask]').inputmask()
+        })
+    </script>
+}
+
+@{
+    var user1 = _userManager.FindByEmailAsync(User.Identity.Name).Result;
+
+    //// ...add that as a foreign key
+    ////model.UserID = user.Id;
+
+    ////find patient using USerID
+    var patient = _patientService.FindPatientByUserID(user1.Id);
+}
+
+<!-- SWITCH isTestForMyself  INPUT START -->
+<div class="form-group">
+    <div class="custom-control custom-switch">
+        <!-- INPUT ITEM -->
+        <input asp-for="testforMyself"
+               class="custom-control-input">
+        <!-- INPUT LABEL -->
+        <label asp-for="testforMyself"
+               class="custom-control-label">Is test for myself?</label>
+    </div>
+</div>
+
+<!-- Address List -->
+<div class="input-group mb-3">
+
+    <!-- INPUT LABEL -->
+    <label asp-for="TestAddress1">Patient Test Address</label>
+    <!-- INPUT ITEM -->
+    <select asp-for="TestAddress1"
+            asp-items="_patientService.GetDependentAddress(patient.PatientID)"
+            class="selectpicker"
+            data-width="100%"
+            data-live-search="true"
+            title="Select address">
+    </select>
+
+    <!-- INPUT VALIDATION MESSAGE -->
+    <span asp-validation-for="TestAddress1"
+          style="display:inline" />
+</div>
+
+<!-- Suburb List -->
+<div class="input-group mb-3">
+
+    <!-- INPUT LABEL -->
+    <label asp-for="SuburbId">Suburb</label>
+    <!-- INPUT ITEM -->
+    <select asp-for="SuburbId"
+            asp-items="_patientService.GetSuburbList()"
+            class="selectpicker"
+            data-width="100%"
+            data-live-search="true"
+            title="Select suburb options">
+    </select>
+
+    <!-- INPUT VALIDATION MESSAGE -->
+    <span asp-validation-for="SuburbId"
+          style="display:inline" />
+</div>
+
+
