@@ -72,7 +72,8 @@ namespace CovidXWebApp.Controllers
                     AddressLine2 = model.AddressLine2,
                     DateOfBirth = model.DateOfBirth,
                     MedicalAidStatus = model.MedicalAidStatus,
-                    SuburbID = model.SuburbID
+                    SuburbID = model.SuburbID,
+                    Gender = model.Gender
                 };
 
                 // create the database entry
@@ -151,6 +152,7 @@ namespace CovidXWebApp.Controllers
                         IDnumber = model.Idnumber,
                         MobileNumber = model.MobileNumber,
                         EmailAddress = model.EmailAddress,
+                        Gender = model.Gender,
 
                         DateOfbirth = model.Dob,
                         MedicalAidStatus = model.MedicalAidStatus,
@@ -224,6 +226,68 @@ namespace CovidXWebApp.Controllers
                 //ModelState.AddModelError(string.Empty, "Could not create profile. Try again");
                 return View(model);
             
+        }
+
+
+        [HttpGet]
+
+        public IActionResult RequestTest()
+        {
+            var user1 = _userManager.FindByEmailAsync(User.Identity.Name).Result;
+
+            ////find patient using USerID
+            var patient = _patientService.FindPatientByUserID(user1.Id);
+            //patient.PatientId = patient.PatientId;
+
+            TestRequestViewModel vm = new TestRequestViewModel();
+
+
+            vm.SuburbId = patient.SuburbID;
+
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RequestTest(TestRequestViewModel model)
+        {
+            // no validation errors
+            if (ModelState.IsValid)
+            {
+                // who is making the test request ?
+                var user = await _userManager.GetUserAsync(User);
+                var patient = _patientService.FindPatientByUserID(user.Id);
+
+
+                // Assign PatientID 
+                model.PatientId = patient.PatientID;
+
+                // is this request for the patient ?
+                if (model.testforMyself)
+                {
+                    // create a test request for the patient
+                    _patientService.AddTestRequest(model);
+                }
+
+                // is this request for the dependant ?
+                if (model.SelectedDependentIds.Length > 0)
+                {
+                    // create a test request for the dependant(s)
+                    foreach (var dependantID in model.SelectedDependentIds)
+                    {
+                        //Assign PatientID
+
+                        // Assign dependentID 
+                        model.DependentId = dependantID;
+                        // create a test request for one depedant
+                        _patientService.AddTestRequest(model);
+                    }
+                }
+            }
+
+
+            return View(model);
         }
     }
 }

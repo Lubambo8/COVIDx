@@ -1,4 +1,5 @@
-﻿using EFCore.Model;
+﻿using CovidXWebApp.Models.ViewModel;
+using EFCore.Model;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -48,5 +49,25 @@ namespace CovidXWebApp.Services.Interface
         /// </summary>
         /// <param name="UserID"></param>
         Patient FindPatientByUserID(string UserID);
+
+        /// <summary>
+        /// Gets a list of addresses based on a patientID to load items for a drop-down
+        /// </summary>
+        /// <returns></returns>
+        SelectList GetDependentAddress(int patientID);
+
+        // <summary>
+        /// Gets a list of addresses based on a patientID to load items for a drop-down
+        /// </summary>
+        /// <returns></returns>
+        SelectList GetDependentSuburb(int patientID);
+
+        /// <summary>
+        /// Gets a list of dependents based on a patientID to load items for a drop-down
+        /// </summary>
+        /// <returns></returns>
+        SelectList GetDependentByPatientID(int patientID);
+
+        public bool AddTestRequest(TestRequestViewModel data);
     }
 }
