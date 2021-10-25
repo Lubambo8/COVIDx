@@ -61,52 +61,38 @@ namespace CovidXWebApp.Controllers
 
                 //If patient does not exist..
                 //Create new Patient object
-                var patient = new Patient
-                {
-                    UserID = user.Id,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    IDnumber = model.IDnumber,
-                    MobileNumber = model.MobileNumber,
-                    AddressLine1 = model.AddressLine1,
-                    AddressLine2 = model.AddressLine2,
-                    DateOfBirth = model.DateOfBirth,
-                    MedicalAidStatus = model.MedicalAidStatus,
-                    SuburbID = model.SuburbID,
-                    Gender = model.Gender
-                };
+                model.UserID = user.Id;
+                model.EmailAddress = user.Email;
 
                 // create the database entry
                 if (model.MedicalAidStatus == true)
                 {
                     //If MedicalAid Switch Selected
                     //Changed MedicalAidStatus to true
-                    patient.MedicalAidStatus = true;
-                    patient.MedicalAidPlanID = model.MedicalAidPlanID;
-                    patient.MedicalAidNo = model.MedicalAidNo;
-                    patient.DependencyCode = model.DependencyCode;
+                    
                     //ADD PATIENT
-                    _patientService.AddPatient(patient);
-
-                    //if (success)
-                    //{
-                    //    // update the Identity user-name
-                    //    string username = model.Patient.FirstName + " " + model.Patient.LastName;
-                    //    await _userManager.SetUserNameAsync(user, username);
-                    //}
+                   var success = _patientService.AddPatient(model);
+                    if(success)
+                    {
+                        // set avatar and activate user
+                        user.Avatar = model.Avatar;
+                        user.IsActive = true;
+                        await _userManager.UpdateAsync(user);
+                    }
                 }
                 else if (model.MedicalAidStatus == false)
                 {
                     //If MedicalAid Switch not selected
-                    patient.MedicalAidStatus = false;
-                    _patientService.AddPatient(patient);
+                    model.MedicalAidStatus = false;
+                    var success = _patientService.AddPatient(model);
 
-                    //if (success)
-                    //{
-                    //    // update the Identity user-name
-                    //    string username = model.Patient.FirstName + " " + model.Patient.LastName;
-                    //    await _userManager.SetUserNameAsync(user, username);
-                    //}
+                    if (success)
+                    {
+                        // set avatar and activate user
+                        user.Avatar = model.Avatar;
+                        user.IsActive = true;
+                        await _userManager.UpdateAsync(user);
+                    }
                 }
 
                 //return View();

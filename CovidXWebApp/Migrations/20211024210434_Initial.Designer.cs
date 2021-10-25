@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CovidXWebApp.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20211018203601_Initial")]
+    [Migration("20211024210434_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,6 +77,38 @@ namespace CovidXWebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("EFCore.Model.CalendarEvent", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("AllDay")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("CalendarEventID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("End")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CalendarEventID");
+
+                    b.ToTable("CalendarEvents");
                 });
 
             modelBuilder.Entity("EFCore.Model.City", b =>
@@ -398,6 +430,9 @@ namespace CovidXWebApp.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
+                    b.Property<int>("SuburbID")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserID")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -450,6 +485,10 @@ namespace CovidXWebApp.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
+                    b.Property<string>("EmailAddress")
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(128)
@@ -499,31 +538,6 @@ namespace CovidXWebApp.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("Patient");
-                });
-
-            modelBuilder.Entity("EFCore.Model.RequestHistory", b =>
-                {
-                    b.Property<int>("RequestHistoryID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("OldRequestStatus")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<int>("TestRequestID")
-                        .HasColumnType("int");
-
-                    b.HasKey("RequestHistoryID");
-
-                    b.HasIndex("TestRequestID");
-
-                    b.ToTable("RequestHistory");
                 });
 
             modelBuilder.Entity("EFCore.Model.Suburb", b =>
@@ -706,11 +720,17 @@ namespace CovidXWebApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CalendarEventID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("DateAssigned")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("DependentID")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("EndTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("NurseID")
                         .HasColumnType("int");
@@ -725,6 +745,9 @@ namespace CovidXWebApp.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("StartTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("SuburbID")
                         .HasColumnType("int");
 
@@ -736,9 +759,6 @@ namespace CovidXWebApp.Migrations
                     b.Property<string>("TestAddress2")
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
-
-                    b.Property<DateTime?>("TimeSlotAssigned")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("TestRequestID");
 
@@ -868,6 +888,13 @@ namespace CovidXWebApp.Migrations
                     b.ToTable("UserTokens");
                 });
 
+            modelBuilder.Entity("EFCore.Model.CalendarEvent", b =>
+                {
+                    b.HasOne("EFCore.Model.TestRequest", null)
+                        .WithMany("CalendarEvents")
+                        .HasForeignKey("CalendarEventID");
+                });
+
             modelBuilder.Entity("EFCore.Model.Dependent", b =>
                 {
                     b.HasOne("EFCore.Model.Patient", "MainMember")
@@ -955,17 +982,6 @@ namespace CovidXWebApp.Migrations
                     b.Navigation("Suburb");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("EFCore.Model.RequestHistory", b =>
-                {
-                    b.HasOne("EFCore.Model.TestRequest", "TestRequest")
-                        .WithMany("RequestHistories")
-                        .HasForeignKey("TestRequestID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TestRequest");
                 });
 
             modelBuilder.Entity("EFCore.Model.Suburb", b =>
@@ -1133,9 +1149,9 @@ namespace CovidXWebApp.Migrations
 
             modelBuilder.Entity("EFCore.Model.TestRequest", b =>
                 {
-                    b.Navigation("NurseSchedules");
+                    b.Navigation("CalendarEvents");
 
-                    b.Navigation("RequestHistories");
+                    b.Navigation("NurseSchedules");
 
                     b.Navigation("Test");
                 });

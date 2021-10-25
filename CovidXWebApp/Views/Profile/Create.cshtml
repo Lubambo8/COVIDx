@@ -54,6 +54,9 @@
                         <!-- CARD TOOLS START -->
                         <div class="card-tools">
                             <!-- ADD CARD TOOLS HERE -->
+                            <partial name="CovidX/Card/Tool/_collapse" />
+                            <partial name="CovidX/Card/Tool/_maximize" />
+                            <!-- <partial name="AdminLTE/Card/Tool/_remove" /> -->
 
                         </div>
                         <!-- CARD TOOLS END -->
@@ -64,6 +67,21 @@
                         <!-- ADD CONTENT HERE -->
                         <!-- we are adding the accordion ID so Bootstrap's collapse plugin detects it -->
                         <div id="accordion">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h4 class="card-title w-100">
+                                        <a class="d-block w-100" data-toggle="collapse" href="#collapseOne">
+                                            Avatar
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="collapse" data-parent="#accordion">
+                                    <div class="card-body">
+                                        -Partial Avatar
+                                        <partial name="ProfileDetails/_AvatarSelect" model="Model" />
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="card card-navy">
                                 <div class="card-header">

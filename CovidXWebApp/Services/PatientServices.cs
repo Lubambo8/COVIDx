@@ -1,4 +1,5 @@
-﻿using CovidXWebApp.Models.ViewModel;
+﻿using AutoMapper;
+using CovidXWebApp.Models.ViewModel;
 using CovidXWebApp.Services.Interface;
 using EFCore;
 using EFCore.Model;
@@ -14,10 +15,12 @@ namespace CovidXWebApp.Services
     public class PatientServices : IPatientServices
     {
         private readonly DatabaseContext _context;
+        private readonly IMapper _mapper;
 
-        public PatientServices(DatabaseContext context)
+        public PatientServices(DatabaseContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public SelectList GetSuburbList()
@@ -64,9 +67,12 @@ namespace CovidXWebApp.Services
             //var getSpecificPlan = list.Where(plan => plan.Name == "this");
         }
 
-        public bool AddPatient(Patient model)
+        public bool AddPatient(PatientCreateViewModel model)
         {
-            _context.Patient.Add(model);
+            // map the data from the model to the a patient entity
+            var patient = _mapper.Map<Patient>(model);
+
+            _context.Patient.Add(patient);
 
             var rowsAffected = _context.SaveChanges();
 

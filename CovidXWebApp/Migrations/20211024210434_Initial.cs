@@ -176,6 +176,7 @@ namespace CovidXWebApp.Migrations
                     EmailAddress = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     AddressLine1 = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
                     AddressLine2 = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    SuburbID = table.Column<int>(type: "int", nullable: false),
                     YearsQualified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Rank = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Qualification = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
@@ -271,7 +272,8 @@ namespace CovidXWebApp.Migrations
                     DependencyCode = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
-                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EmailAddress = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -379,8 +381,10 @@ namespace CovidXWebApp.Migrations
                     SuburbID = table.Column<int>(type: "int", nullable: false),
                     NurseID = table.Column<int>(type: "int", nullable: true),
                     DateAssigned = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    TimeSlotAssigned = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DependentID = table.Column<int>(type: "int", nullable: true)
+                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DependentID = table.Column<int>(type: "int", nullable: true),
+                    CalendarEventID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -412,6 +416,30 @@ namespace CovidXWebApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CalendarEvents",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Start = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    End = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AllDay = table.Column<bool>(type: "bit", nullable: false),
+                    CalendarEventID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CalendarEvents", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_CalendarEvents_TestRequest_CalendarEventID",
+                        column: x => x.CalendarEventID,
+                        principalTable: "TestRequest",
+                        principalColumn: "TestRequestID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "NurseSchedule",
                 columns: table => new
                 {
@@ -431,27 +459,6 @@ namespace CovidXWebApp.Migrations
                         column: x => x.TestRequestID,
                         principalTable: "TestRequest",
                         principalColumn: "TestRequestID");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RequestHistory",
-                columns: table => new
-                {
-                    RequestHistoryID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TestRequestID = table.Column<int>(type: "int", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    OldRequestStatus = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RequestHistory", x => x.RequestHistoryID);
-                    table.ForeignKey(
-                        name: "FK_RequestHistory_TestRequest_TestRequestID",
-                        column: x => x.TestRequestID,
-                        principalTable: "TestRequest",
-                        principalColumn: "TestRequestID",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -538,6 +545,11 @@ namespace CovidXWebApp.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_CalendarEvents_CalendarEventID",
+                table: "CalendarEvents",
+                column: "CalendarEventID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Dependent_MainMemberID",
                 table: "Dependent",
                 column: "MainMemberID");
@@ -581,11 +593,6 @@ namespace CovidXWebApp.Migrations
                 name: "IX_Patient_UserID",
                 table: "Patient",
                 column: "UserID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RequestHistory_TestRequestID",
-                table: "RequestHistory",
-                column: "TestRequestID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Suburb_CityID",
@@ -643,10 +650,10 @@ namespace CovidXWebApp.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "NurseSchedule");
+                name: "CalendarEvents");
 
             migrationBuilder.DropTable(
-                name: "RequestHistory");
+                name: "NurseSchedule");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");

@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFCore", "EFCore\EFCore.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CovidXWebApp", "CovidXWebApp\CovidXWebApp.csproj", "{509D28CE-9678-4748-B145-5D4B3CDE73A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.csproj", "{6549FCB0-CAF4-4210-AFF4-CE280AA91053}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility", "Utility\Utility.csproj", "{6549FCB0-CAF4-4210-AFF4-CE280AA91053}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

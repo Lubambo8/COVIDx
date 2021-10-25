@@ -45,9 +45,20 @@ namespace EFCore.Model
     public enum TestRequestStatus
     {
         New,
-        Picked,
+        Cancelled,
+        Assigned,
         Scheduled,
         Performed,
-        Cancel
+        AtLab,
+        Closed
+    }
+
+    public enum Rank
+    {
+        General,
+        Enrolled,
+        Specialized,
+        Midwife
+
     }
 }

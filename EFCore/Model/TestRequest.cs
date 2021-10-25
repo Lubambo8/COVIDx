@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EFCore.ModelInterfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,6 +10,10 @@ namespace EFCore.Model
 {
     public partial class TestRequest
     {
+        public TestRequest()
+        {
+            CalendarEvents = new HashSet<CalendarEvent>();
+        }
         [Key]
         public int TestRequestID { get; set; }
 
@@ -33,7 +38,9 @@ namespace EFCore.Model
         public int SuburbID { get; set; }
         public int? NurseID { get; set; }
         public DateTime? DateAssigned { get; set; }
-        public DateTime? TimeSlotAssigned { get; set; }
+        public DateTime? StartTime { get; set; }
+        public DateTime? EndTime { get; set; }
+
         public int? DependentID { get; set; }
 
         [ForeignKey(nameof(DependentID))]
@@ -50,8 +57,10 @@ namespace EFCore.Model
 
         public virtual Test Test { get; set; }
 
-        public virtual ICollection<RequestHistory> RequestHistories { get; set; }
+        public int? CalendarEventID { get; set; }
 
+        [ForeignKey(nameof(CalendarEventID))]
+        public virtual ICollection<CalendarEvent> CalendarEvents { get; set; }
         public virtual ICollection<NurseSchedule> NurseSchedules { get; set; }
     }
 }

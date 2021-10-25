@@ -1,4 +1,5 @@
 ﻿using EFCore.Model;
+using EFCore.ModelInterfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EFCore.Model
 {
-    public partial class Dependent
+    public partial class Dependent : IDependent
     {
         [Key]
         public int DependentID { get; set; }

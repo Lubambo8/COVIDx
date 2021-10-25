@@ -1,4 +1,5 @@
 ﻿using EFCore.Model;
+using EFCore.ModelInterfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,9 +8,12 @@ using System.Threading.Tasks;
 
 namespace CovidXWebApp.Models.ViewModel
 {
-    public class PatientCreateViewModel
+    public class PatientCreateViewModel : IPatient
     {
         public string UserID { get; set; }
+
+        public string Avatar { get; set; }
+
 
         [Required(ErrorMessage = "First Name is required"),
             MaxLength(128)]
@@ -31,6 +35,7 @@ namespace CovidXWebApp.Models.ViewModel
 
         [Required(ErrorMessage = "Date of Birth is Required"),
             Display(Name = "Date Of Birth")]
+
         public DateTime DateOfBirth { get; set; }
 
         [Required(ErrorMessage = "Address is Required"),
@@ -48,8 +53,8 @@ namespace CovidXWebApp.Models.ViewModel
 
         [Required(ErrorMessage = "Gender is required")]
         public Genders Gender { get; set; }
-
-
+        public string EmailAddress { get; set; }
+        public int PatientID { get; set; }
     }
 }
 

@@ -11,7 +11,7 @@ namespace CovidXWebApp.Services.Interface
 {
     public interface IPatientServices
     {
-        bool AddPatient(Patient model);
+        bool AddPatient(PatientCreateViewModel model);
 
         List<SubtextOption> GetMedicalAidList();
 

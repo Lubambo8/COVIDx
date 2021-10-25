@@ -1,0 +1,37 @@
+﻿<li class="nav-item has-treeview @Url.MakeMenuOpenClass(controllerName: "Nurse")">
+    <a asp-controller="Profile"
+       asp-action="Index"
+       class="nav-link @Url.MakeActiveClass(controllerName: "Nurse")">
+        <i class="nav-icon fas fa-user"></i>
+        <p>
+            Profile
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview ml-3">
+        <li class="nav-item">
+            <a asp-controller=""
+               asp-action=""
+               class="nav-link @Url.MakeActiveClass(controllerName: "Profile", actionName: "Index")">
+                <i class="nav-icon fas fa-user-plus"></i>
+                <p>View Profile</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a asp-controller=""
+               asp-action=""
+               class="nav-link @Url.MakeActiveClass(controllerName: "Profile", actionName: "RequestTest")">
+                <i class="nav-icon fas fa-file-medical-alt"></i>
+                <p>Schedule a Test</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a asp-controller=""
+               asp-action=""
+               class="nav-link @Url.MakeActiveClass(controllerName: "Profile", actionName: "Book")">
+                <i class="nav-icon fas fa-file-medical-alt"></i>
+                <p>View Test Request Details</p>
+            </a>
+        </li>
+    </ul>
+</li>

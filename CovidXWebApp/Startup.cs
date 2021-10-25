@@ -66,6 +66,10 @@ namespace CovidXWebApp
            
 
             services.AddTransient<IPatientServices, PatientServices>();
+            services.AddTransient<INurseServices, NurseService>();
+            services.AddTransient<ICalendarService, CalendarService>();
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddControllersWithViews();
             

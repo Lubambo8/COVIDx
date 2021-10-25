@@ -1,0 +1,53 @@
+﻿<li class="nav-item has-treeview @Url.MakeMenuOpenClass(controllerName: "Manager")">
+    <a asp-controller="Profile"
+       asp-action="Index"
+       class="nav-link @Url.MakeActiveClass(controllerName: "Manager")">
+        <i class="nav-icon fas fa-user"></i>
+        <p>
+            Manager
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview ml-3">
+        <li class="nav-item">
+            <a asp-controller="Profile"
+               asp-action="Index"
+               class="nav-link @Url.MakeActiveClass(controllerName: "Profile", actionName: "Index")">
+                <i class="nav-icon fas fa-user"></i>
+                <p>View Profile</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a asp-controller="Profile"
+               asp-action="CreateDependent"
+               class="nav-link @Url.MakeActiveClass(controllerName: "Profile", actionName: "CreateDependent")">
+                <i class="nav-icon fas fa-clipboard"></i>
+                <p>Reports</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a asp-controller="Nurse"
+               asp-action="NurseRegister"
+               class="nav-link @Url.MakeActiveClass(controllerName: "Nurse", actionName: "NurseRegister")">
+                <i class="nav-icon fas fa-user-plus"></i>
+                <p>Add Nurses</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a asp-controller="Profile"
+               asp-action="Book"
+               class="nav-link @Url.MakeActiveClass(controllerName: "Profile", actionName: "Book")">
+                <i class="nav-icon fas fa-file-medical-alt"></i>
+                <p>View Test Request Details</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a asp-controller="Profile"
+               asp-action="Book"
+               class="nav-link @Url.MakeActiveClass(controllerName: "Profile", actionName: "Book")">
+                <i class="nav-icon fas fa-users"></i>
+                <p>Patients</p>
+            </a>
+        </li>
+    </ul>
+</li>

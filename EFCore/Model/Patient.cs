@@ -1,5 +1,6 @@
 ﻿using EFCore.EFCoreConfigurationMethods;
 using EFCore.Model;
+using EFCore.ModelInterfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,7 +12,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EFCore.Model
 {
-    public partial class Patient
+    public partial class Patient : IPatient
     {
         public Patient()
         {
@@ -81,5 +82,8 @@ namespace EFCore.Model
         public virtual ICollection<Dependent> Dependents { get; set; }
         public virtual ICollection<TestRequest> TestRequests { get; set; }
 
+        [MaxLength(1024),
+            Display(Name = "Email Address")]
+        public string EmailAddress { get; set; }
     }
 }

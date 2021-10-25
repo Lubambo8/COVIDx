@@ -1,0 +1,106 @@
+﻿@{
+    Layout = "~/Views/Shared/CovidX/Dashboard.cshtml";
+
+}
+
+@{
+    string headerText = "Register Dependent";
+}
+
+@model NurseCreateViewModel
+
+@inject IPatientServices _patientService
+
+@section PageHeader{
+
+    <partial name="CovidX/Page/_Header" model="headerText" />
+}
+
+@section Scripts{
+    <script>
+        $(function () {
+
+            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+
+            $('[data-mask]').inputmask()
+        })
+    </script>
+
+    @*<partial name="AdminLTE/Script/_Avatar" />*@
+}
+
+<!-- 12 COLUMN CARD START -->
+<form asp-controller="Nurse"
+      asp-action="NurseCreate"
+      class="col-md-12 form-horizontal">
+    <div class="card">
+        <!-- CARD HEADER START -->
+        <div class="card-header">
+            <h3 class="card-title">Your profile</h3>
+            <!-- CARD TOOLS START -->
+            <div class="card-tools">
+                <!-- ADD CARD TOOLS HERE -->
+                @*<partial name="AdminLTE/Card/Tool/_collapse" />
+                    <partial name="AdminLTE/Card/Tool/_maximize" />*@
+                <!-- <partial name="AdminLTE/Card/Tool/_remove" /> -->
+
+            </div>
+            <!-- CARD TOOLS END -->
+        </div>
+        <!-- CARD HEADER END -->
+        <!-- CARD BODY START -->
+        <div class="card-body">
+            <!-- ADD CONTENT HERE -->
+            <!-- we are adding the accordion ID so Bootstrap's collapse plugin detects it -->
+            <div id="accordion">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h4 class="card-title w-100">
+                            <a class="d-block w-100" data-toggle="collapse" href="#collapseOne">
+                                Avatar
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="collapse" data-parent="#accordion">
+                        <div class="card-body">
+                            <!---Partial Avatar-->
+                            @*<partial name="Detail/_AvatarSelect.cshtml" />*@
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h4 class="card-title w-100 h-100">
+                            <a class="d-block w-100" data-toggle="collapse" href="#collapseDetail">
+                                Nurse Details
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseDetail" class="collapse" data-parent="#accordion">
+                        <div class="card-body">
+                            <!--Partial View for Patient Profile Info-->
+                            <partial name="NurseDetails/_NurseInfo.cshtml" model="Model" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- CARD BODY END -->
+        <!-- CARD FOOTER START -->
+        <div class="card-footer">
+            <!-- ADD BUTTONS HERE -->
+            <button type="submit"
+                    class="btn btn-outline-primary">
+                Save
+            </button>
+            <a asp-action="Index"
+               asp-controller="Home"
+               class="btn btn-outline-secondary float-right">
+                Cancel
+            </a>
+        </div>
+        <!-- CARD FOOTER END -->
+    </div>
+</form>
+<!-- 12 COLUMN CARD END -->

@@ -2,9 +2,9 @@
     string BrandName = "CO-X!";
             }
 
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    @*<partial name="CovidX/MainNavigation/_Brand" model="BrandName" />*@
+<aside class="main-sidebar sidebar-light-blue elevation-4">
+     Brand Logo 
+    <partial name="CovidX/MainNavigation/_Brand" model="BrandName" />
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -21,17 +21,24 @@
                     data-accordion="false">
 
                     <!-- Home Controller Navigation -->
-                    @if (User.IsInRole(CovidXRoles.PATIENT) || User.IsInRole(CovidXRoles.ADMIN))
+                    <partial name="CovidX/MainNavigation/_HomeNavigation" />
+                    @if (User.IsInRole(CovidXRoles.PATIENT))
                     {
-                        <partial name="CovidX/MainNavigation/_HomeNavigation" />
+
                         <!-- Patient Controller Navigation -->
                         <partial name="CovidX/MainNavigation/_PatientNavigation" />
                     }
 
-                    @if (User.IsInRole(CovidXRoles.NURSE) || User.IsInRole(CovidXRoles.ADMIN))
+                    @if (User.IsInRole(CovidXRoles.NURSE))
                     {
+                        <partial name="CovidX/MainNavigation/_NurseNavigation" />
                         <!--Calander controller Navigation-->
                         <partial name="CovidX/MainNavigation/_CalanderNavigation" />
+                    }
+
+                    @if (User.IsInRole(CovidXRoles.ADMIN))
+                    {
+                        <partial name="CovidX/MainNavigation/_ManagerNavigation" />
                     }
 
 
