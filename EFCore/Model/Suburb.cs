@@ -13,6 +13,7 @@ namespace EFCore.Model
         {
             Dependents = new HashSet<Dependent>();
             Patients = new HashSet<Patient>();
+            SuburbsPreferred = new HashSet<SuburbsPreferred>();
             TestRequests = new HashSet<TestRequest>();
         }
 
@@ -33,7 +34,7 @@ namespace EFCore.Model
         [ForeignKey(nameof(CityID))]
 
         public virtual City City { get; set; }
-        public virtual SuburbsPreferred SuburbsPreferred { get; set; }
+        public virtual ICollection<SuburbsPreferred> SuburbsPreferred { get; set; }
         public virtual ICollection<Dependent> Dependents { get; set; }
         public virtual ICollection<Patient> Patients { get; set; }
         public virtual ICollection<TestRequest> TestRequests { get; set; }

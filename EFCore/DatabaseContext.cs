@@ -30,9 +30,9 @@ namespace EFCore
         public virtual DbSet<Nurse> Nurse { get; set; }
         public virtual DbSet<NurseSchedule> NurseSchedule { get; set; }
         public virtual DbSet<Patient> Patient { get; set; }
-        public virtual DbSet<RequestHistory> RequestHistory { get; set; }
         public virtual DbSet<Suburb> Suburb { get; set; }
         public virtual DbSet<SuburbsPreferred> SuburbsPreferred { get; set; }
+        public virtual DbSet<CalendarEvent> CalendarEvents { get; set; }
         public virtual DbSet<Test> Test { get; set; }
         public virtual DbSet<TestRequest> TestRequest { get; set; }
 

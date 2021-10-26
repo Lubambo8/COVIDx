@@ -40,7 +40,8 @@ namespace EFCore.EFCoreConfigurationMethods
 
         public void Configure(EntityTypeBuilder<SuburbsPreferred> builder)
         {
-            builder.HasKey(e => new { e.SuburbID, e.NurseID });
+            builder.HasKey(composite => new {composite.SuburbID, composite.NurseID });
+
         }
 
 
@@ -68,5 +69,6 @@ namespace EFCore.EFCoreConfigurationMethods
                 .HasForeignKey(item => item.SuburbID)
                 .OnDelete(DeleteBehavior.NoAction);
         }
+
     }
 }

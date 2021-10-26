@@ -66,6 +66,17 @@ namespace CovidXWebApp
            
 
             services.AddTransient<IPatientServices, PatientServices>();
+            services.AddTransient<INurseServices, NurseService>();
+            services.AddTransient<ICalendarService, CalendarService>();
+
+            // configure session and memory caching
+            services.AddDistributedMemoryCache();
+            services.AddSession(options => {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.Name = "CovidX.Session";
+            });
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddControllersWithViews();
             
@@ -86,7 +97,8 @@ namespace CovidXWebApp
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            // add session middleware
+            app.UseSession();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

@@ -1,0 +1,47 @@
+﻿@model AlertModel
+
+@if (Model is not null)
+{
+    <div class="col-md-12">
+        @switch (Model.AlertType)
+        {
+            case AlertType.Error:
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button"
+                            class="close"
+                            data-dismiss="alert"
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    @Model.Message
+                </div>
+                break;
+            case AlertType.Information:
+                <div class="alert alert-info alert-dismissible">
+                    <button type="button"
+                            class="close"
+                            data-dismiss="alert"
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    @Model.Message
+                </div>
+                break;
+            case AlertType.Success:
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button"
+                            class="close"
+                            data-dismiss="alert"
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    @Model.Message
+                </div>
+                break;
+            case AlertType.None:
+                break;
+            default:
+                break;
+        }
+    </div>
+}

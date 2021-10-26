@@ -1,0 +1,92 @@
+﻿@model Patient
+
+@inject IPatientServices _patientService
+@inject UserManager<EFCoreIdentityUser> _userManager
+
+@{
+
+    var user = await _userManager.GetUserAsync(User);
+    //Find patient by user ID
+    var patient = _patientService.FindPatientByUserID(user.Id);
+
+
+
+}
+
+<div class="card">
+    <!-- CARD HEADER START -->
+    <div class="card-header border-0">
+        <h3 class="card-title">Dependants for @Model.FirstName @Model.LastName</h3>
+        <!-- CARD TOOLS START -->
+        <div class="card-tools">
+            <!-- ADD CARD TOOLS HERE -->
+            <partial name="CovidX/Card/Tool/_collapse" />
+            <partial name="CovidX/Card/Tool/_maximize" />
+
+        </div>
+        <!-- CARD TOOLS END -->
+    </div>
+    <!-- CARD HEADER END -->
+    <!-- CARD BODY START -->
+    <div class="card-body table-responsive p-0">
+        <!-- ADD CONTENT HERE -->
+        <table class="table table-striped table-valign-middle">
+            <thead>
+                <tr>
+                    <!-- TABLE HEADERS -->
+                    <th>Dependant</th>
+                    <th>Relationship</th>
+                    <th>Address</th>
+                    <th>Dependant Code</th>
+                </tr>
+            </thead>
+
+            @if (patient == null)
+            {
+                @*@if (_patientService.GetDependents(patient.PatientId) is null)
+                    {*@
+                // no content to display
+
+                //}
+
+
+            }
+            else
+            {
+            <tbody>
+                <!-- TABLE CONTENT ROW -->
+               
+
+                @foreach (var dependent in Model.Dependents)
+                {
+                    <tr>
+                        <td>
+                            @dependent.FirstName @dependent.LastName
+                        </td>
+                        <td>
+                            @dependent.Relationship
+                        </td>
+                        <td>
+                            @dependent.AddressLine1
+                        </td>
+                        <td>
+                            @( "00" + dependent.DependentID)
+                        </td>
+                    </tr>
+                }
+                
+            </tbody>
+
+            }
+
+        </table>
+
+    </div>
+    <!-- CARD BODY END -->
+    <!-- CARD FOOTER START -->
+    <div class="card-footer">
+        <!-- ADD BUTTONS HERE -->
+
+    </div>
+    <!-- CARD FOOTER END -->
+</div>

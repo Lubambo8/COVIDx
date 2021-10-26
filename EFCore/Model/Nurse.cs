@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EFCore.Model
 {
-    public partial class Nurse
+    public partial class Nurse : INurse
     {
         public Nurse()
         {
@@ -49,15 +49,15 @@ namespace EFCore.Model
         public string AddressLine2 { get; set; }
 
         [Required]
+        public int SuburbID { get; set; }
+
+        [Required]
         public DateTime YearsQualified { get; set; }
 
         [Required,
             MaxLength(128)]
-        public string Rank { get; set; }
+        public Rank Rank { get; set; }
 
-        [Required,
-            MaxLength(128)]
-        public string Qualification { get; set; }
 
         [Required]
         public string UserID { get; set; }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Utility;
 
 namespace CovidXWebApp.Models.ViewModel
 {
@@ -12,7 +13,7 @@ namespace CovidXWebApp.Models.ViewModel
         public int[] SelectedDependentIds { get; set; }
         // public string SuburbName { get; set; }
 
-        
+        public AlertModel Alert { get; set; }
         public bool testforMyself { get; set; }
 
         [Required]

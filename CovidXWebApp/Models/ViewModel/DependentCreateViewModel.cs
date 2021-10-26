@@ -1,14 +1,17 @@
 ﻿using EFCore.Model;
+using EFCore.ModelInterfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Utility;
 
 namespace CovidXWebApp.Models.ViewModel
 {
-    public class DependentCreateViewModel
+    public class DependentCreateViewModel : IDependent
     {
+        public AlertModel Alert { get; set; }
         [Required(ErrorMessage = "First Name is required"),
             MaxLength(128)]
         public string FirstName { get; set; }
@@ -38,7 +41,7 @@ namespace CovidXWebApp.Models.ViewModel
         public string AddressLine2 { get; set; }
 
 
-        public int? SuburbId { get; set; }
+        public int? SuburbID { get; set; }
 
         [Required,
             Display(Name = "Date of Birth")]
@@ -60,6 +63,7 @@ namespace CovidXWebApp.Models.ViewModel
         public string DependencyCode { get; set; }
 
         //PatientID
-        public int MainMemberId { get; set; }
+        public int MainMemberID { get; set; }
+        public int DependentID { get; set; }
     }
 }

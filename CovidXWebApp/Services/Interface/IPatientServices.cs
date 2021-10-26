@@ -11,7 +11,7 @@ namespace CovidXWebApp.Services.Interface
 {
     public interface IPatientServices
     {
-        bool AddPatient(Patient model);
+        bool AddPatient(PatientCreateViewModel model);
 
         List<SubtextOption> GetMedicalAidList();
 
@@ -29,7 +29,7 @@ namespace CovidXWebApp.Services.Interface
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        bool AddDependent(Dependent model);
+        bool AddDependent(DependentCreateViewModel model);
 
         /// <summary>
         /// Get All Tests Requests 

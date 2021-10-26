@@ -1,0 +1,171 @@
+﻿@model NurseCreateViewModel
+
+@inject INurseServices _nurseService
+@inject UserManager<EFCoreIdentityUser> _userManager
+
+@{
+    var user = _userManager.GetUserAsync(User);
+}
+
+@section Scripts{
+    <script>
+        $(function () {
+
+            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+
+            $('[data-mask]').inputmask()
+        })
+    </script>
+}
+
+<!-- First Name -->
+<div class="input-group mb-3">
+    <input asp-for="FirstName" class="form-control" placeholder="First Name">
+    <div class="input-group-append">
+        <div class="input-group-text">
+            <span class="fas fa-envelope"></span>
+        </div>
+    </div>
+    <span asp-validation-for="FirstName" class="error invalid-feedback" />
+</div>
+
+<!-- Last Name -->
+<div class="input-group mb-3">
+    <input asp-for="LastName" class="form-control" placeholder="Last Name">
+    <div class="input-group-append">
+        <div class="input-group-text">
+            <span class="fas fa-envelope"></span>
+        </div>
+    </div>
+    <span asp-validation-for="LastName" class="error invalid-feedback" />
+</div>
+
+<!-- ID number -->
+<div class="input-group mb-3">
+    <input asp-for="IDnumber" class="form-control" placeholder="ID Number">
+    <div class="input-group-append">
+        <div class="input-group-text">
+            <span class="fas fa-envelope"></span>
+        </div>
+    </div>
+    <span asp-validation-for="IDnumber" class="error invalid-feedback" />
+</div>
+
+<!-- Mobile number -->
+<div class="input-group mb-3">
+    <input asp-for="MobileNumber" class="form-control" placeholder="Mobile Number">
+    <div class="input-group-append">
+        <div class="input-group-text">
+            <span class="fas fa-envelope"></span>
+        </div>
+    </div>
+    <span asp-validation-for="MobileNumber" class="error invalid-feedback" />
+</div>
+
+<!-- AddressLine 1 -->
+<div class="input-group mb-3">
+    <input asp-for="AddressLine1" class="form-control" placeholder="Address Line 1">
+    <div class="input-group-append">
+        <div class="input-group-text">
+            <span class="fas fa-envelope"></span>
+        </div>
+    </div>
+    <span asp-validation-for="AddressLine1" class="error invalid-feedback" />
+</div>
+
+<!-- AddressLine 2 -->
+<div class="input-group mb-3">
+    <input asp-for="AddressLine2" class="form-control" placeholder="Address Line 2 (optional)">
+    <div class="input-group-append">
+        <div class="input-group-text">
+            <span class="fas fa-envelope"></span>
+        </div>
+    </div>
+    <span asp-validation-for="AddressLine2" class="error invalid-feedback" />
+</div>
+
+<!-- Date of Birth -->
+
+
+<!-- Suburb List -->
+<div class="input-group mb-3">
+
+    <label asp-for="SuburbID">Suburb</label>
+    <!-- INPUT ITEM -->
+    <select asp-for="SuburbID"
+            asp-items="_nurseService.GetSuburbList()"
+            class="selectpicker"
+            data-width="100%"
+            data-live-search="true"
+            title="Select search options">
+    </select>
+
+    <!-- INPUT VALIDATION MESSAGE -->
+    <span asp-validation-for="SuburbID"
+          style="display:inline" />
+</div>
+
+<!-- Gender -->
+<div class="form-group">
+
+    <!-- INPUT LABEL -->
+    <label asp-for="Gender"></label>
+
+    <!-- INPUT ITEM -->
+    <select asp-for="Gender"
+            asp-items="Html.GetEnumSelectList<Genders>()"
+            class="selectpicker"
+            data-width="100%"
+            data-live-search="true"
+            title="Please select gender">
+    </select>
+
+    <!-- INPUT VALIDATION MESSAGE -->
+    <span asp-validation-for="Gender"
+          style="display:inline" />
+</div>
+
+
+<div class="form-group">
+
+    <!-- INPUT LABEL -->
+    <label asp-for="Rank"></label>
+
+    <!-- INPUT ITEM -->
+    <select asp-for="Rank"
+            asp-items="Html.GetEnumSelectList<Rank>()"
+            class="selectpicker"
+            data-width="100%"
+            data-live-search="true"
+            title="Please select gender">
+    </select>
+
+    <!-- INPUT VALIDATION MESSAGE -->
+    <span asp-validation-for="Rank"
+          style="display:inline" />
+</div>
+
+<div class="form-group">
+    <!-- LABEL -->
+
+    <div class="input-group">
+        <!-- INPUT -->
+        <input asp-for="YearsQualified"
+               type="text"
+               class="form-control"
+               data-inputmask-alias="datetime"
+               data-inputmask-inputformat="dd/mm/yyyy"
+               data-mask
+               id="datemask"
+               placeholder="Year Qualified">
+
+        <!-- ICON -->
+        <div class="input-group-append">
+            <span class="input-group-text">
+                <i class="far fa-calendar-alt"></i>
+            </span>
+        </div>
+        <!-- VALIDATION MESSAGE -->
+        <span asp-validation-for="YearsQualified" />
+    </div>
+</div>

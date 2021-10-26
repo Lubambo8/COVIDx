@@ -1,20 +1,20 @@
 ﻿@inject UserManager<EFCoreIdentityUser> _userManager;
 
 @{
-    var user = _userManager.GetUserAsync(User);
+    var user = await _userManager.GetUserAsync(User);
 }
 
-@if (user.Result is not null)
+@if (user is not null)
 {
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <!--<div class="image">
-            <img src="@user.Result.Avatar"
+        <div class="image">
+            <img src="@Url.Content("~/img/avatar/" + user.Avatar)"
                  class="img-circle elevation-2"
-                 alt="User Image">-->  <!--src="~/img/063-batman-img.svg"-->
-        <!--</div>-->
+                 alt="User Image">
+        </div>
         <div class="info">
             <a href="#"
-               class="d-block">@user.Result.UserName</a>
+               class="d-block">@user.UserName</a>
         </div>
     </div>
 }

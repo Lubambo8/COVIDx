@@ -13,7 +13,7 @@
             <a asp-controller="Profile"
                asp-action="Index"
                class="nav-link @Url.MakeActiveClass(controllerName: "Profile", actionName: "Index")">
-                <i class="nav-icon fas fa-user-plus"></i>
+                <i class="nav-icon fas fa-user"></i>
                 <p>View Profile</p>
             </a>
         </li>
@@ -21,14 +21,14 @@
             <a asp-controller="Profile"
                asp-action="CreateDependent"
                class="nav-link @Url.MakeActiveClass(controllerName: "Profile", actionName: "CreateDependent")">
-                <i class="nav-icon fas fa-users"></i>
+                <i class="nav-icon fas fa-user-plus"></i>
                 <p>Create Dependant</p>
             </a>
         </li>
         <li class="nav-item">
             <a asp-controller="Profile"
                asp-action="RequestTest"
-               class="nav-link @Url.MakeActiveClass(controllerName: "Profile", actionName: "Book")">
+               class="nav-link @Url.MakeActiveClass(controllerName: "Profile", actionName: "RequestTest")">
                 <i class="nav-icon fas fa-file-medical-alt"></i>
                 <p>Request a Test</p>
             </a>
@@ -37,7 +37,7 @@
             <a asp-controller="Profile"
                asp-action="Book"
                class="nav-link @Url.MakeActiveClass(controllerName: "Profile", actionName: "Book")">
-                <i class="nav-icon fas fa-file-medical-alt"></i>
+                <i class="nav-icon fas fa-clipboard-list"></i>
                 <p>View Test Request Details</p>
             </a>
         </li>

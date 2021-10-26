@@ -1,0 +1,47 @@
+﻿@model PatientCreateViewModel
+
+<div class="card card-widget widget-user">
+    <!-- Add the bg color to the header using any of the bg-* classes -->
+    <div class="widget-user-header bg-white">
+        <h3 class="widget-user-username">Avatar</h3>
+        <h5 class="widget-user-desc">Please choose an avatar image</h5>
+    </div>
+    <div class="widget-user-image" id="image-block">
+        <img class="img-thumbnail elevation-2" src="~/img/avatar/trans-devil-mask.png" alt="User Avatar">
+    </div>
+    <input asp-for="@Model.Avatar" type="hidden" />
+    <div class="card-footer bg-white">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="description-block">
+                    <button id="onFemaleInidan" type="button" class="btn btn-block btn-outline-primary btn-flat">Female</button>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="description-block">
+                    <button id="onFemaleNurse" type="button" class="btn btn-block btn-outline-primary btn-flat">Female Nurse</button>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="description-block">
+                    <button id="onMaleInidan" type="button" class="btn btn-block btn-outline-primary btn-flat">Male</button>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="description-block">
+                    <button id="onMaleNurse" type="button" class="btn btn-block btn-outline-primary btn-flat">Male Nurse</button>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="description-block">
+                    <button id="onDevilMask" type="button" class="btn btn-block btn-outline-primary btn-flat">Devil Mask</button>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="description-block">
+                    <button id="onReaper" type="button" class="btn btn-block btn-outline-primary btn-flat">Reaper</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
