@@ -56,11 +56,8 @@ namespace EFCore.Model
 
         [Required,
             MaxLength(128)]
-        public string Rank { get; set; }
+        public Rank Rank { get; set; }
 
-        [Required,
-            MaxLength(128)]
-        public string Qualification { get; set; }
 
         [Required]
         public string UserID { get; set; }

@@ -91,9 +91,11 @@ namespace CovidXWebApp.Services
             throw new NotImplementedException();
         }
 
-        public bool AddDependent(Dependent model)
+        public bool AddDependent(DependentCreateViewModel model)
         {
-            _context.Dependent.Add(model);
+            var dependent = _mapper.Map<Dependent>(model);
+
+            _context.Dependent.Add(dependent);
 
             var rowsAffected = _context.SaveChanges();
 

@@ -35,7 +35,11 @@ namespace CovidXWebApp.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View(new PatientCreateViewModel());
+            var model = new PatientCreateViewModel()
+            {
+                Alert = HttpContext.Session.GetAndRemove<AlertModel>(nameof(AlertModel)) ?? default
+            };
+            return View(model);
         }
 
         [HttpPost]
@@ -55,7 +59,15 @@ namespace CovidXWebApp.Controllers
 
                 // ...add that as a foreign key
                 //model.UserId = user.Id;
-
+                if (user is null)
+                {
+                    model.Alert = new AlertModel
+                    {
+                        AlertType = AlertType.Error,
+                        Message = "Please login!"
+                    };
+                    return View(model);
+                }
                 //Check if patient already exist
 
 
@@ -74,6 +86,14 @@ namespace CovidXWebApp.Controllers
                    var success = _patientService.AddPatient(model);
                     if(success)
                     {
+                        model.Alert = new AlertModel
+                        {
+                            AlertType = AlertType.Success,
+                            Message = $"{model.FirstName} {model.LastName} added as dependent!"
+                        };
+
+                        // store alert in session memory to show in different page
+                        HttpContext.Session.Set<AlertModel>(nameof(AlertModel), model.Alert);
                         // set avatar and activate user
                         user.Avatar = model.Avatar;
                         user.IsActive = true;
@@ -95,6 +115,14 @@ namespace CovidXWebApp.Controllers
                     }
                 }
 
+                model.Alert = new AlertModel
+                {
+                    AlertType = AlertType.Success,
+                    Message = "Patient added as Successfully!"
+                };
+
+                HttpContext.Session.Set<AlertModel>(nameof(AlertModel), model.Alert);
+
                 //return View();
                 return RedirectToAction("Login", "Account");
                 //return RedirectToAction("ProfileAvatar", "Profile", new { model });
@@ -108,7 +136,11 @@ namespace CovidXWebApp.Controllers
         [HttpGet]
         public IActionResult CreateDependent()
         {
-            return View(new DependentCreateViewModel());
+            var model = new DependentCreateViewModel()
+            {
+                Alert = HttpContext.Session.GetAndRemove<AlertModel>(nameof(AlertModel)) ?? default
+            };
+            return View(model);
         }
 
         [HttpPost]
@@ -124,43 +156,24 @@ namespace CovidXWebApp.Controllers
                     //Find patient by user ID
                     var patient = _patientService.FindPatientByUserID(user.Id);
 
-                    //If found  ...add that as a foreign key
+                //If found  ...add that as a foreign key
 
-                    //model.MainMemberId = patient.PatientId;
+                //model.MainMemberId = patient.PatientId;
 
-                    //If patient does not exist..
-                    //Create new Patient object
-                    var dependent = new Dependent
-                    {
-                        MainMemberID = patient.PatientID,
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        IDnumber = model.Idnumber,
-                        MobileNumber = model.MobileNumber,
-                        EmailAddress = model.EmailAddress,
-                        Gender = model.Gender,
+                //If patient does not exist..
 
-                        DateOfbirth = model.Dob,
-                        MedicalAidStatus = model.MedicalAidStatus,
-                        
-                        Relationship = model.Relationship,
-                        PersonResponsible = model.PersonResponsible
+                //Create new Patient object
+                model.MainMemberID = patient.PatientID;
+                   
 
-                    };
 
                     //If address is same as Main Member,
                     //populate those values from Main Member table
                     if (model.AddressSameasMainMember == true)
                     {
-                        dependent.AddressLine1 = patient.AddressLine1;
-                        dependent.AddressLine2 = patient.AddressLine2;
-                        dependent.SuburbID = patient.SuburbID;
-                    }
-                    else if (model.AddressSameasMainMember == false)
-                    {
-                        dependent.AddressLine1 = model.AddressLine1;
-                        dependent.AddressLine2 = model.AddressLine2;
-                        dependent.SuburbID = model.SuburbId;
+                        model.AddressLine1 = patient.AddressLine1;
+                        model.AddressLine2 = patient.AddressLine2;
+                        model.SuburbID = patient.SuburbID;
                     }
 
                     // create the database entry
@@ -168,42 +181,45 @@ namespace CovidXWebApp.Controllers
                     {
                         //If MedicalAid Switch Selected
                         //Changed MedicalAidStatus to true
-                        dependent.MedicalAidStatus = true;
 
                         //If MedicalAidSame as Main Member,
                         //get medical aid details from Patient Table
                         if (model.MedicalAidSameasMainMember == true)
                         {
-                            dependent.MedicalAidPlanID = patient.MedicalAidPlanID;
-                            dependent.MedicalAidNo = patient.MedicalAidNo;
-                            dependent.DependencyCode = model.DependencyCode;
+                            model.MedicalAidPlanId = patient.MedicalAidPlanID;
+                            model.MedicalAidNo = patient.MedicalAidNo;
+                            model.DependencyCode = model.DependencyCode;
                         }
-                        else if (model.MedicalAidSameasMainMember == false)
-                        {
-                            dependent.MedicalAidPlanID = model.MedicalAidPlanId;
-                            dependent.MedicalAidNo = model.MedicalAidNo;
-                            dependent.DependencyCode = model.DependencyCode;
-                        }
+                       
 
                         //Add dependent
-                        _patientService.AddDependent(dependent);
+                        _patientService.AddDependent(model);
 
 
                     }
                     else if (model.MedicalAidStatus == false)
                     {
                         //If MedicalAid Switch not selected
-                        dependent.MedicalAidStatus = false;
+                       
                         //ADD DEPENDENT
-                        _patientService.AddDependent(dependent);
+                        _patientService.AddDependent(model);
 
 
                     }
 
-                    //return View();
-                    //Add alert
-                    TempData[WCAlert.Success] = "Dependent added successfully!";
-                    return RedirectToAction("Dashboard", "Home");
+                     model.Alert = new AlertModel
+                    {
+                    AlertType = AlertType.Success,
+                     Message = $"{model.FirstName} {model.LastName} added as dependent!"
+                     };
+
+                         // store alert in session memory to show in different page
+                         HttpContext.Session.Set<AlertModel>(nameof(AlertModel), model.Alert);
+
+                            //return View();
+                            //Add alert
+                        TempData[WCAlert.Success] = "Dependent added successfully!";
+                            return RedirectToAction("Dashboard", "Home");
                     //return RedirectToAction("ProfileAvatar", "Profile", new { model });
                 }
 

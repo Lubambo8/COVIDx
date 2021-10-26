@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CovidXWebApp.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20211024210434_Initial")]
+    [Migration("20211025150328_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -420,15 +420,9 @@ namespace CovidXWebApp.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<string>("Qualification")
-                        .IsRequired()
+                    b.Property<int>("Rank")
                         .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<string>("Rank")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("int");
 
                     b.Property<int>("SuburbID")
                         .HasColumnType("int");
@@ -650,9 +644,6 @@ namespace CovidXWebApp.Migrations
                     b.HasKey("SuburbID", "NurseID");
 
                     b.HasIndex("NurseID");
-
-                    b.HasIndex("SuburbID")
-                        .IsUnique();
 
                     b.ToTable("SuburbsPreferred");
                 });
@@ -1004,8 +995,8 @@ namespace CovidXWebApp.Migrations
                         .IsRequired();
 
                     b.HasOne("EFCore.Model.Suburb", "Suburb")
-                        .WithOne("SuburbsPreferred")
-                        .HasForeignKey("EFCore.Model.SuburbsPreferred", "SuburbID")
+                        .WithMany("SuburbsPreferred")
+                        .HasForeignKey("SuburbID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -4,7 +4,7 @@
 }
 
 @{
-    string headerText = "Register Dependent";
+    string headerText = "Register Nurse";
 }
 
 @model NurseCreateViewModel
@@ -28,6 +28,10 @@
 
     @*<partial name="AdminLTE/Script/_Avatar" />*@
 }
+
+<div class="row justify-content-center">
+    <partial name="CovidX/Page/_Alert" model="Model.Alert" />
+</div>
 
 <!-- 12 COLUMN CARD START -->
 <form asp-controller="Nurse"
@@ -64,7 +68,7 @@
                     <div id="collapseOne" class="collapse" data-parent="#accordion">
                         <div class="card-body">
                             <!---Partial Avatar-->
-                            @*<partial name="Detail/_AvatarSelect.cshtml" />*@
+                            <partial name="NurseDetails/_AvatarSelect.cshtml" />
                         </div>
                     </div>
                 </div>

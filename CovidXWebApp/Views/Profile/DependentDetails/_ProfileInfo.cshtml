@@ -159,9 +159,9 @@
     <div class="input-group mb-3">
 
         <!-- INPUT LABEL -->
-        <label asp-for="SuburbId">Suburb</label>
+        <label asp-for="SuburbID">Suburb</label>
         <!-- INPUT ITEM -->
-        <select asp-for="SuburbId"
+        <select asp-for="SuburbID"
                 asp-items="_patientService.GetSuburbList()"
                 class="selectpicker"
                 data-width="100%"
@@ -170,7 +170,7 @@
         </select>
 
         <!-- INPUT VALIDATION MESSAGE -->
-        <span asp-validation-for="SuburbId"
+        <span asp-validation-for="SuburbID"
               style="display:inline" />
     </div>
 }

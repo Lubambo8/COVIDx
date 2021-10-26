@@ -29,5 +29,28 @@ namespace CovidXWebApp.Services.Interface
         /// <param name="UserID"></param>
         /// <returns></returns>
         bool NurseExists(string UserID);
+
+        /// <summary>
+        /// Add Nurse's favourite suburbs
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        bool AddSuburbs(NurseSuburbsModel model);
+
+        /// <summary>
+        /// Find nurse by user id
+        /// </summary>
+        /// <param name="UserID"></param>
+        /// <returns></returns>
+        Nurse FindNurseByUserID(string UserID);
+
+        IQueryable<SuburbsPreferred> GetFavouriteSuburbs();
+
+        /// <summary>
+        /// Find a nurse's favourite suburbs
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        List<SuburbsPreferred> GetSuburbsPreffereds(string userID);
     }
 }

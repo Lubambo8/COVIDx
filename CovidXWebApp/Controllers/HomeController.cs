@@ -25,7 +25,7 @@ namespace CovidXWebApp.Controllers
 
         public IActionResult Dashboard()
         {
-            var name = User.Identity.Name;
+           
 
             //while (true)
             //{

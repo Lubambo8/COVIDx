@@ -1,6 +1,6 @@
 ﻿@model NurseCreateViewModel
 
-@inject INurseServices _patientService
+@inject INurseServices _nurseService
 @inject UserManager<EFCoreIdentityUser> _userManager
 
 @{
@@ -88,6 +88,22 @@
 
 
 <!-- Suburb List -->
+<div class="input-group mb-3">
+
+    <label asp-for="SuburbID">Suburb</label>
+    <!-- INPUT ITEM -->
+    <select asp-for="SuburbID"
+            asp-items="_nurseService.GetSuburbList()"
+            class="selectpicker"
+            data-width="100%"
+            data-live-search="true"
+            title="Select search options">
+    </select>
+
+    <!-- INPUT VALIDATION MESSAGE -->
+    <span asp-validation-for="SuburbID"
+          style="display:inline" />
+</div>
 
 <!-- Gender -->
 <div class="form-group">
@@ -109,24 +125,24 @@
           style="display:inline" />
 </div>
 
-<div class="input-group mb-3">
-    <input asp-for="Qualification" class="form-control" placeholder="Qualification">
-    <div class="input-group-append">
-        <div class="input-group-text">
-            <span class="fas fa-envelope"></span>
-        </div>
-    </div>
-    <span asp-validation-for="Qualification" class="error invalid-feedback" />
-</div>
 
-<div class="input-group mb-3">
-    <input asp-for="Rank" class="form-control" placeholder="Rank">
-    <div class="input-group-append">
-        <div class="input-group-text">
-            <span class="fas fa-envelope"></span>
-        </div>
-    </div>
-    <span asp-validation-for="Rank" class="error invalid-feedback" />
+<div class="form-group">
+
+    <!-- INPUT LABEL -->
+    <label asp-for="Rank"></label>
+
+    <!-- INPUT ITEM -->
+    <select asp-for="Rank"
+            asp-items="Html.GetEnumSelectList<Rank>()"
+            class="selectpicker"
+            data-width="100%"
+            data-live-search="true"
+            title="Please select gender">
+    </select>
+
+    <!-- INPUT VALIDATION MESSAGE -->
+    <span asp-validation-for="Rank"
+          style="display:inline" />
 </div>
 
 <div class="form-group">

@@ -1,0 +1,151 @@
+﻿@{
+    Layout = "~/Views/Shared/CovidX/Dashboard.cshtml";
+
+}
+
+@{
+    string headerText = "Nurse Profile";
+}
+
+
+
+@model NurseSuburbsModel
+@inject INurseServices _nurseService
+@inject UserManager<EFCoreIdentityUser> _usermanager
+
+
+
+@{
+    var user = _usermanager.FindByNameAsync(User.Identity.Name).Result;
+    var nurse = _nurseService.FindNurseByUserID(user.Id);
+
+}
+
+@section PageHeader{
+
+    <partial name="CovidX/Page/_Header" model="headerText" />
+}
+
+@section Scripts{
+    <script>
+        $(function () {
+            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            $('[data-mask]').inputmask()
+        })
+    </script>
+}
+
+
+<div class="row">
+    <div class="col-md-3">
+
+        <form>
+            <div class="card card-lime card-outline">
+
+
+            <div class="card-body">
+                <div class="text-center">
+                    <img src="~/img/avatar/female-nurse.png"
+                         alt="User profile picture" class="profile-user-img img-fluid img-circle">
+                </div>
+
+                <h3 class="profile-username text-center">@nurse.FirstName @nurse.LastName </h3>
+
+                <p class="text-muted text-center">@nurse.Rank</p>
+
+                <div>
+
+                <ul class="list-group list-group-unbordered mb-3">
+                    <li class="list-group-item">
+                        <b>Residential Suburb</b> <a class="float-right">@nurse.SuburbID</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Assigned Requests</b> <a class="float-right">50</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Scheduled Requsts</b> <a class="float-right">38</a>
+                    </li>
+                </ul>
+                </div>
+            </div>
+            <div class="footer" style="text-align: center">
+                <a asp-action="Index"
+                   asp-controller="Home"
+                   class="btn btn-outline-secondary">
+                    Edit Profile
+                </a>
+            </div>
+            
+
+
+             </div>
+
+        </form>
+        <!-- Profile Image -->
+
+        
+        <!-- /.card -->
+    </div>
+    <div class="col-md-9">
+        <form asp-controller="Nurse"
+              asp-action="PickSuburbs"
+              class="col-md-9 form-horizontal">
+            <div class="card">
+                <!-- CARD HEADER START -->
+                <div class="card-header">
+                    <h3 class="card-title">Pick Favourite Suburbs</h3>
+                    <!-- CARD TOOLS START -->
+                    <div class="card-tools">
+                        <!-- ADD CARD TOOLS HERE -->
+                        <!-- This will cause the card to close when clicked -->
+                        <!--<partial name="Card/Tools/_removePartial.cshtml" />-->
+                        <!-- This will cause the card to maximize when clicked -->
+                        <!--<partial name="Card/Tools/_maximizePartial.cshtml" />-->
+                        <!-- This will cause the card to minimize when clicked -->
+                        <!--<partial name="Card/Tools/_collapsePartial.cshtml" />-->
+
+                    </div>
+                    <!-- CARD TOOLS END -->
+                </div>
+                <!-- CARD HEADER END -->
+                <!-- CARD BODY START -->
+                <div class="card-body">
+                    <!-- ADD CONTENT HERE -->
+                    <!--Dependents -->
+                    <partial name="NurseDetails/_SelectSuburbsPreferred" model="Model" />
+
+                </div>
+                <!-- CARD BODY END -->
+                <!-- CARD FOOTER START -->
+                <div class="card-footer">
+                    <!-- ADD BUTTONS HERE -->
+                    <button type="submit"
+                            class="btn btn-outline-primary">
+                        Save
+                    </button>
+                    <a asp-action="Index"
+                       asp-controller="Home"
+                       class="btn btn-outline-secondary float-right">
+                        Cancel
+                    </a>
+                </div>
+                <!-- CARD FOOTER END -->
+            </div>
+        </form>
+        <div class="card card-lime col-9">
+            <div class="card-header">
+                <h3 class="card-title">Favourite Suburbs</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <!--Partial View for Suburbs Preferred Info-->
+                <partial name="Table/_FavouriteSuburbs" />
+
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+
+
+
+</div>

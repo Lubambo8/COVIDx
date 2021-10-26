@@ -140,7 +140,15 @@ namespace CovidXWebApp.Controllers
 
                 // ...add that as a foreign key
                 //model.UserID = user.Id;
-
+                if (user is null)
+                {
+                    model.Alert = new AlertModel
+                    {
+                        AlertType = AlertType.Error,
+                        Message = "Please login!"
+                    };
+                    return View(model);
+                }
                 //Check if patient already exist
                 var nurseExists = _nurseServices.NurseExists(user.Id);
 
@@ -155,12 +163,15 @@ namespace CovidXWebApp.Controllers
                 //If patient does not exist..
                 //Create new Patient object
                 model.UserID = user.Id;
+                model.EmailAddress = user.Email;
 
                 var result = _nurseServices.AddNurse(model);
 
                 if (result)
                 {
-
+                    user.Avatar = model.Avatar;
+                    user.IsActive = true;
+                    await _userManager.UpdateAsync(user);
                     //return View();
                     //Add alert
                     TempData[WCAlert.Success] = "Nurse Profile created successfully!";
@@ -175,6 +186,46 @@ namespace CovidXWebApp.Controllers
             //ModelState.AddModelError(string.Empty, "Could not create profile. Try again");
             return View(model);
 
+        }
+
+        [HttpGet]
+        public IActionResult NurseViewProfile()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PickSuburbs(NurseSuburbsModel model)
+        {
+            // no validation errors
+            if (ModelState.IsValid)
+            {
+                // who is making the test request ?
+                var user = await _userManager.GetUserAsync(User);
+                var nurse = _nurseServices.FindNurseByUserID(user.Id);
+
+
+
+                //Loop through the selected suburbs
+                if (model.SelectedSuburbsIds?.Length > 0)
+                {
+                    // create a new suburbs preffered record for the nurse
+                    foreach (var nurseID in model.SelectedSuburbsIds)
+                    {
+                        //Assign NurseID
+                        model.NurseID = nurse.NurseID;
+                        // Assign suburb ID
+                        model.SuburbID = nurseID;
+                        // add a favourite suburb for one nurse
+                        _nurseServices.AddSuburbs(model);
+                    }
+                }
+
+                return View(model);
+            }
+
+
+            return View(model);
         }
     }
 }

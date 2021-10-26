@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EFCore.Model
 {
-    public partial class Test
+    public partial class Test : ITest
     {
         [Key]
         public int TestID { get; set; }
@@ -34,12 +34,12 @@ namespace EFCore.Model
         [Required]
         public TimeSpan TestTime { get; set; }
 
-        [ MaxLength(128)]
+        [MaxLength(128)]
         public string TestResult { get; set; }
 
         public DateTime? ResultDate { get; set; }
 
-        
+
         public int? LabUserID { get; set; }
 
         [Required]

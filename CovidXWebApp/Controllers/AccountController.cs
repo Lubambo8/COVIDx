@@ -112,7 +112,14 @@ namespace CovidXWebApp.Controllers
                     //    // redirect the user to the previous page
                     //    return Redirect(returnUrl);
                     //}
+                    model.Alert = new AlertModel
+                    {
+                        AlertType = AlertType.Success,
+                        Message = "Successfully registered!"
+                    };
 
+                    // store alert in session memory to show in different page
+                    HttpContext.Session.Set<AlertModel>(nameof(AlertModel), model.Alert);
                     // redirect the user to the dashboard ?
                     return RedirectToAction("Create", "Profile");
                 }

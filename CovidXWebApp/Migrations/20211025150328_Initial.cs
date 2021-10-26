@@ -178,8 +178,7 @@ namespace CovidXWebApp.Migrations
                     AddressLine2 = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
                     SuburbID = table.Column<int>(type: "int", nullable: false),
                     YearsQualified = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Rank = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Qualification = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Rank = table.Column<int>(type: "int", maxLength: 128, nullable: false),
                     UserID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false)
                 },
@@ -603,12 +602,6 @@ namespace CovidXWebApp.Migrations
                 name: "IX_SuburbsPreferred_NurseID",
                 table: "SuburbsPreferred",
                 column: "NurseID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SuburbsPreferred_SuburbID",
-                table: "SuburbsPreferred",
-                column: "SuburbID",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Test_LabUserID",

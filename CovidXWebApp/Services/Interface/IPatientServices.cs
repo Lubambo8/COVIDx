@@ -29,7 +29,7 @@ namespace CovidXWebApp.Services.Interface
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        bool AddDependent(Dependent model);
+        bool AddDependent(DependentCreateViewModel model);
 
         /// <summary>
         /// Get All Tests Requests 

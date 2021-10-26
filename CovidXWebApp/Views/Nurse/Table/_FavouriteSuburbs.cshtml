@@ -1,0 +1,59 @@
+﻿@inject INurseServices _nurseService
+@inject UserManager<EFCoreIdentityUser> _userManager
+
+
+
+@{
+
+    var user = await _userManager.GetUserAsync(User);
+
+
+    var favSuburbs = _nurseService.GetSuburbsPreffereds(user.Id);
+
+}
+
+
+
+
+
+
+
+<!-- DATA TABLE START -->
+<table class="table table-striped table-valign-middle">
+    <!-- HEADER START -->
+    <thead>
+        <tr>
+            <!-- BUTTON HEADER -->
+            <!-- COLUMN HEADER START-->
+            <th>Favourite Suburbs</th>
+        </tr>
+    </thead>
+    <!-- HEADER END -->
+    <!-- ADD CONTENT HERE -->
+
+    @if (favSuburbs == null)
+    {
+
+    }
+
+    else
+    {
+        <tbody>
+
+  
+                @foreach (var item in favSuburbs)
+                {
+                    <tr>
+                        <td>@item.Suburb.SuburbName</td>
+                    </tr>
+                
+            }
+
+            </tbody>
+
+        }
+    <tbody>
+    </tbody>
+    <!-- TABLE BODY CONTENT END -->
+</table>
+

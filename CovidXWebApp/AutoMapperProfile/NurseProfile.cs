@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace CovidXWebApp.AutoMapperProfile
 {
-    public class PatientProfile : Profile
+    public class NurseProfile : Profile
     {
-        public PatientProfile()
+        public NurseProfile()
         {
-            CreateMap<PatientCreateViewModel, Patient>();
+            CreateMap<NurseSuburbsModel, SuburbsPreferred>();
 
-            CreateMap<DependentCreateViewModel, Dependent>();
+            CreateMap<NurseCreateViewModel, Nurse>();
         }
     }
 }
