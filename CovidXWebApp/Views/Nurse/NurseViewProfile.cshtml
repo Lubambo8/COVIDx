@@ -35,6 +35,9 @@
     </script>
 }
 
+<div class="row justify-content-center">
+    <partial name="CovidX/Page/_Alert" model="Model.Alert" />
+</div>
 
 <div class="row">
     <div class="col-md-3">
@@ -88,7 +91,7 @@
     </div>
     <div class="col-md-9">
         <form asp-controller="Nurse"
-              asp-action="PickSuburbs"
+              asp-action="NurseViewProfile"
               class="col-md-9 form-horizontal">
             <div class="card">
                 <!-- CARD HEADER START -->
@@ -123,7 +126,7 @@
                             class="btn btn-outline-primary">
                         Save
                     </button>
-                    <a asp-action="Index"
+                    <a asp-action="Dashboard"
                        asp-controller="Home"
                        class="btn btn-outline-secondary float-right">
                         Cancel

@@ -11,6 +11,12 @@ namespace CovidXWebApp.Services.Interface
 {
     public interface IPatientServices
     {
+        /// <summary>
+        /// Gets the profile details of the current patient
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        Patient GetPatientDetail(string userID);
         bool AddPatient(PatientCreateViewModel model);
 
         List<SubtextOption> GetMedicalAidList();
@@ -54,6 +60,12 @@ namespace CovidXWebApp.Services.Interface
         /// Gets a list of addresses based on a patientID to load items for a drop-down
         /// </summary>
         /// <returns></returns>
+        SelectList GetPatientAddress(int patientID);
+
+        /// <summary>
+        /// Gets a list of addresses based on a patientID to load items for a drop-down
+        /// </summary>
+        /// <returns></returns>
         SelectList GetDependentAddress(int patientID);
 
         // <summary>
@@ -68,6 +80,12 @@ namespace CovidXWebApp.Services.Interface
         /// <returns></returns>
         SelectList GetDependentByPatientID(int patientID);
 
+        /// <summary>
+        /// Gets details about the requests made by the patient
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        List<TestRequestDetailModel> GetTestRequests(string userID);
         public bool AddTestRequest(TestRequestViewModel data);
     }
 }

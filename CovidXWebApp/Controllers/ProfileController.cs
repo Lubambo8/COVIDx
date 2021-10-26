@@ -273,7 +273,7 @@ namespace CovidXWebApp.Controllers
                 }
 
                 // is this request for the dependant ?
-                if (model.SelectedDependentIds.Length > 0)
+                if (model.SelectedDependentIds?.Length > 0)
                 {
                     // create a test request for the dependant(s)
                     foreach (var dependantID in model.SelectedDependentIds)
@@ -286,9 +286,22 @@ namespace CovidXWebApp.Controllers
                         _patientService.AddTestRequest(model);
                     }
                 }
+
+                return RedirectToAction("Dashboard", "Home");
             }
 
 
+            return View(model);
+        }
+
+        [HttpGet]
+
+        public IActionResult ViewTestRequestDetails()
+        {
+            var model = new TestRequestViewModel()
+            {
+                Alert = HttpContext.Session.GetAndRemove<AlertModel>(nameof(AlertModel)) ?? default
+            };
             return View(model);
         }
     }
