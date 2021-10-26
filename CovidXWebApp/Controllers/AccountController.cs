@@ -156,12 +156,21 @@ namespace CovidXWebApp.Controllers
                 {
                     // attempt to sign the user in
                     var result = await _signInManager.PasswordSignInAsync(user, password: model.Password, isPersistent: model.RememberMe, lockoutOnFailure: false);
-
                     // was the sign in successful
                     if (result.Succeeded)
-                    {
+                    { 
+                        if(User.IsInRole(CovidXRoles.PATIENT))
+                        {
+                            return RedirectToAction("PatientDashboard", "Home");
+                        }
+
+                        else if(User.IsInRole(CovidXRoles.NURSE))
+                        {
+                            return RedirectToAction("NurseDashboard", "Home");
+                        }
+
                         // send the user to the dashboard page
-                        return RedirectToAction("Dashboard", "Home");
+                        
                     }
                 }
             }

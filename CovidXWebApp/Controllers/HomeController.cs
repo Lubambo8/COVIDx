@@ -1,4 +1,5 @@
 ﻿using CovidXWebApp.Models;
+using CovidXWebApp.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Utility;
 
 namespace CovidXWebApp.Controllers
 {
@@ -32,6 +34,25 @@ namespace CovidXWebApp.Controllers
 
             //}
             return View();
+        }
+
+        public IActionResult NurseDashboard()
+        {
+            var model = new NurseSuburbsModel()
+            {
+                Alert = HttpContext.Session.GetAndRemove<AlertModel>(nameof(AlertModel)) ?? default
+            };
+            return View(model);
+        }
+
+        public IActionResult PatientDashboard()
+        {
+            var model = new PatientCreateViewModel()
+            {
+                Alert = HttpContext.Session.GetAndRemove<AlertModel>(nameof(AlertModel)) ?? default
+            };
+            return View(model);
+            
         }
 
         public IActionResult Privacy()

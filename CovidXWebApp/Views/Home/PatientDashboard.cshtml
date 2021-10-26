@@ -1,0 +1,62 @@
+﻿@{
+    Layout = "~/Views/Shared/CovidX/Dashboard.cshtml";
+
+}
+
+
+@model PatientCreateViewModel
+@inject IPatientServices _patientService
+@inject UserManager<EFCoreIdentityUser> _userManager
+
+@{
+    string headerText = "Patient Profile";
+    var user = await _userManager.GetUserAsync(User);
+    var patient = _patientService.GetPatientDetail(user.Id);
+    var pendingRequests = _patientService.GetTestRequests(user.Id).Where(req => req.Status == TestRequestStatus.New).Count();
+}
+
+@section PageHeader{
+    <partial name="CovidX/Page/_Header" model="headerText" />
+}
+
+<!-- 12 COLUMN ROW START -->
+<div class="row justify-content-center">
+    <partial name="CovidX/Page/_Alert" model="Model.Alert" />
+</div>
+
+<!-- 12 COLUMN ROW START -->
+<div class="row justify-content-center">
+    <!-- PROFILE SUMMARY-->
+    <div class="card card-primary card-outline col-md-4">
+        <div class="card-body box-profile">
+            <div class="text-center">
+                <img class="profile-user-img img-fluid img-circle" src="@Url.Content("~/img/avatar/" + user.Avatar)" alt="User profile picture">
+            </div>
+
+            <h3 class="profile-username text-center">@patient.FirstName @patient.LastName</h3>
+
+            <p class="text-muted text-center">@patient.Gender.ToString()</p>
+
+            <ul class="list-group list-group-unbordered mb-3">
+                <li class="list-group-item">
+                    <b>Date of Birth</b> <div class="float-right">@patient.DateOfBirth.ToShortDateString()</div>
+                </li>
+                <li class="list-group-item">
+                    <b>Test Requests Pending</b> <div class="float-right">@pendingRequests</div>
+                </li>
+                <li class="list-group-item">
+                    <b>Dependents</b> <div class="float-right">@patient.Dependents.Count()</div>
+                </li>
+            </ul>
+
+            <a href="@Url.Action(action: "CreateDependent", controller: "Profile")" class="btn btn-outline-primary btn-block"><b>Add Dependent</b></a>
+            <a href="@Url.Action(action: "RequestTest", controller: "Profile")" class="btn btn-outline-primary btn-block"><b>Schedule a Test</b></a>
+        </div>
+    </div>
+
+    <!-- DEPENDANT SUMMARY -->
+    <div class="col-md-8">
+        <partial name="Table/_DependentList" model="patient" />
+    </div>
+
+</div>

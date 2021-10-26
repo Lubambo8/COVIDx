@@ -52,5 +52,14 @@ namespace CovidXWebApp.Services.Interface
         /// <param name="userID"></param>
         /// <returns></returns>
         List<SuburbsPreferred> GetSuburbsPreffereds(string userID);
+
+        /// <summary>
+        /// Gets details about the requests made by the nurse favourite suburbs
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        IQueryable<TestRequest> GetFavouriteRequests(List<int> preferedSuburbsID);
+
+        IQueryable<TestRequest> GetMyTestRequests(int nurseID);
     }
 }

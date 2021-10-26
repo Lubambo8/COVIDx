@@ -191,11 +191,15 @@ namespace CovidXWebApp.Controllers
         [HttpGet]
         public IActionResult NurseViewProfile()
         {
-            return View();
+            var model = new NurseSuburbsModel()
+            {
+                Alert = HttpContext.Session.GetAndRemove<AlertModel>(nameof(AlertModel)) ?? default
+            };
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> PickSuburbs(NurseSuburbsModel model)
+        public async Task<IActionResult> NurseViewProfile(NurseSuburbsModel model)
         {
             // no validation errors
             if (ModelState.IsValid)
@@ -220,6 +224,14 @@ namespace CovidXWebApp.Controllers
                         _nurseServices.AddSuburbs(model);
                     }
                 }
+
+                model.Alert = new AlertModel
+                {
+                    AlertType = AlertType.Success,
+                    Message = "Favourite Suburb added successfully!"
+                };
+
+                HttpContext.Session.Set<AlertModel>(nameof(AlertModel), model.Alert);
 
                 return View(model);
             }

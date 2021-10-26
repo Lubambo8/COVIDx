@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EFCore.Model;
+using EFCore.ModelInterfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,7 +14,7 @@ namespace CovidXWebApp.Models.ViewModel
         [Required]
         public int[] SelectedDependentIds { get; set; }
         // public string SuburbName { get; set; }
-
+        public int TestRequestID { get; set; }
         public AlertModel Alert { get; set; }
         public bool testforMyself { get; set; }
 
@@ -31,5 +33,6 @@ namespace CovidXWebApp.Models.ViewModel
 
         [Required]
         public int SuburbId { get; set; }
+
     }
 }

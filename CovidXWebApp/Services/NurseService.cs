@@ -90,6 +90,41 @@ namespace CovidXWebApp.Services
             return prefered;
         }
 
+        public IQueryable<TestRequest> GetFavouriteRequests(List<int> preferedSuburbsID)
+        {
+            // get a select statement [SELECT * FROM TestRequest TR]
+            var query = _context.TestRequest
+                // left join to suburb table [LEFT JOIN Suburb S ON S.ID = TR.SuburbID]
+                .Include(x => x.Suburb)
+                // where the suburb id's match one or more of the suburb id's in test request [WHERE TR.SuburbID IN (101, 102. 103, 104)]
+                .Where(x => preferedSuburbsID.Contains(x.SuburbID));
+
+
+            return query;
+        }
+
+        public IQueryable<TestRequest> GetMyTestRequests(int nurseID)
+        {
+
+
+
+            //// get the nurse id
+            //var nurse = _db.Nurses.SingleOrDefault(item => item.UserID == userID)?? null;
+
+            // get all favourite suburbs
+            var prefered = _context.SuburbsPreferred.Where(item => item.NurseID == nurseID);
+
+            // get id list
+            var preferedList = prefered.Select(item => item.SuburbID).ToList();
+
+            // get favourite requests
+            var preferedTestRequests = GetFavouriteRequests(preferedList)
+                .Where(x => x.RequestStatus == TestRequestStatus.New);
+
+            return preferedTestRequests;
+
+        }
+
         public bool NurseExists(string UserID)
         {
             var patientExists = _context.Patient.FirstOrDefault(x => x.UserID == UserID);

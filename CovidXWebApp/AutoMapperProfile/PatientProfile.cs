@@ -15,6 +15,8 @@ namespace CovidXWebApp.AutoMapperProfile
             CreateMap<PatientCreateViewModel, Patient>();
 
             CreateMap<DependentCreateViewModel, Dependent>();
+
+            CreateMap<TestRequestViewModel, TestRequest>();
         }
     }
 }
