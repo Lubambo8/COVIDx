@@ -239,5 +239,16 @@ namespace CovidXWebApp.Controllers
 
             return View(model);
         }
+
+        [HttpPost]
+        public IActionResult Assign(int testRequestID, string userID)
+        {
+
+
+            // call the database service
+            _nurseServices.AssignNurse(testRequestID, userID);
+            return RedirectToAction("NurseDashboard", "Home");
+
+        }
     }
 }

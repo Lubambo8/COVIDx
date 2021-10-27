@@ -15,7 +15,8 @@ namespace EFCore.EFCoreConfigurationMethods
         IEntityTypeConfiguration<SuburbsPreferred>,
         IEntityTypeConfiguration<Dependent>,
         IEntityTypeConfiguration<TestRequest>,
-        IEntityTypeConfiguration<Patient>
+        IEntityTypeConfiguration<Patient>,
+        IEntityTypeConfiguration<CalendarEvent>
     {
         public void Configure(EntityTypeBuilder<Test> builder)
         {
@@ -70,5 +71,11 @@ namespace EFCore.EFCoreConfigurationMethods
                 .OnDelete(DeleteBehavior.NoAction);
         }
 
+        public void Configure(EntityTypeBuilder<CalendarEvent> builder)
+        {
+            builder.HasOne<TestRequest>(calendar => calendar.TestRequest)
+                 .WithOne(test => test.CalendarEvents)
+                 .HasForeignKey<CalendarEvent>(fk => fk.ID);
+        }
     }
 }

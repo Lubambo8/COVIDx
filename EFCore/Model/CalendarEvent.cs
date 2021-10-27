@@ -17,5 +17,7 @@ namespace EFCore.Model
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public bool AllDay { get; set; }
+
+        public virtual TestRequest TestRequest { get; set; }
     }
 }
