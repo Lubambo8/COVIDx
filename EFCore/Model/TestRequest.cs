@@ -12,7 +12,7 @@ namespace EFCore.Model
     {
         public TestRequest()
         {
-            CalendarEvents = new HashSet<CalendarEvent>();
+
         }
         [Key]
         public int TestRequestID { get; set; }
@@ -57,10 +57,11 @@ namespace EFCore.Model
 
         public virtual Test Test { get; set; }
 
+        #nullable enable
         public int? CalendarEventID { get; set; }
 
         [ForeignKey(nameof(CalendarEventID))]
-        public virtual ICollection<CalendarEvent> CalendarEvents { get; set; }
+        public CalendarEvent? CalendarEvents { get; set; }
         public virtual ICollection<NurseSchedule> NurseSchedules { get; set; }
     }
 }

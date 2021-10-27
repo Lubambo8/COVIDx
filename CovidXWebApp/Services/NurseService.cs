@@ -107,10 +107,6 @@ namespace CovidXWebApp.Services
         {
 
 
-
-            //// get the nurse id
-            //var nurse = _db.Nurses.SingleOrDefault(item => item.UserID == userID)?? null;
-
             // get all favourite suburbs
             var prefered = _context.SuburbsPreferred.Where(item => item.NurseID == nurseID);
 
@@ -123,6 +119,40 @@ namespace CovidXWebApp.Services
 
             return preferedTestRequests;
 
+        }
+
+
+        public bool AssignNurse(int testRequestID, string userID)
+        {
+            //find nurse by user id
+            var nurse = _context.Nurse.SingleOrDefault(x => x.UserID == userID);
+
+            //find the test request based on the passed in ID
+            var testRequest = _context.TestRequest.SingleOrDefault(x => x.TestRequestID == testRequestID);
+
+            //update nurseid and request status for that found request
+            testRequest.NurseID = nurse.NurseID;
+            testRequest.RequestStatus = TestRequestStatus.Assigned;
+
+
+            //update test request
+            _context.TestRequest.Update(testRequest);
+
+
+            //Map ViewModel info to EF Core Entity
+
+            //Update Test Record 
+            //_db.SuburbsPreffereds.Add(entity);
+
+            //Save changes to DB
+            var rowsAffected = _context.SaveChanges();
+
+            if (rowsAffected > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public bool NurseExists(string UserID)

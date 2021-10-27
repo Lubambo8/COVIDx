@@ -37,7 +37,6 @@
     var Draggable = FullCalendar.Draggable;
 
     var containerEl = document.getElementById('external-events');
-    var checkbox = document.getElementById('drop-remove');
     var calendarEl = document.getElementById('calendar');
 
     // initialize the external events
@@ -48,6 +47,8 @@
         eventData: function (eventEl) {
             return {
                 title: eventEl.innerText,
+                description: eventEl.attributes["data-value-description"].value,
+                requestid: eventEl.attributes["data-value-requestid"].value,
                 backgroundColor: window.getComputedStyle(eventEl, null).getPropertyValue('background-color'),
                 borderColor: window.getComputedStyle(eventEl, null).getPropertyValue('background-color'),
                 textColor: window.getComputedStyle(eventEl, null).getPropertyValue('color'),
@@ -58,44 +59,53 @@
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
+            right: 'timeGridWeek,timeGridDay,list'
         },
+        initialView: 'timeGridWeek',
         themeSystem: 'bootstrap',
         //Random default events
         events: 'Calendar/GetEvents',
         editable: true,
         droppable: true, // this allows things to be dropped onto the calendar !!!
         eventClick: function (sender) {
-            
+            currentEvent = sender;
+
+            if ($(this).data("qtip")) $(this).qtip("hide");
+
+            // add data to input
+            $('#ID').val(sender.event.id);
+            $('#RequestID').val(sender.event.extendedProps.requestid);
+            $('#event-title').html(sender.event.title);
+            $('#Description').val(sender.event.extendedProps.description);
+            $('#StartText').val(sender.event.start);
+            $('#Start').val(sender.event.start);
+            $('#EndText').val(sender.event.end);
+            $('#End').val(sender.event.end);
+
+            // show model
+            $('#eventModal').modal('show');
+
         },
         drop: function (info) {
-            // is the "remove after drop" checkbox checked?
-            if (checkbox.checked) {
-                // if so, remove the element from the "Draggable Events" list
-                info.draggedEl.parentNode.removeChild(info.draggedEl);
-            }
+            // remove the element from the "Draggable Events" list
+            info.draggedEl.parentNode.removeChild(info.draggedEl);
         },
         eventChange: function (sender) {
             currentEvent = sender;
 
             if ($(this).data("qtip")) $(this).qtip("hide");
 
-            $('#eventModalLabel').html('Edit Event');
-            $('#eventModalSave').html('Update Event');
-            $('#Title').val(sender.event.title);
-            $('#Description').val(sender.event.description);
+            // add data to input
             $('#ID').val(sender.event.id);
-            $('#isNewEvent').val(false);
-
+            $('#RequestID').val(sender.event.extendedProps.requestid);
+            $('#event-title').html(sender.event.title);
+            $('#Description').val(sender.event.extendedProps.description);
             $('#StartText').val(sender.event.start);
+            $('#Start').val(sender.event.start);
             $('#EndText').val(sender.event.end);
+            $('#End').val(sender.event.end);
 
-            if (sender.event.allDay) {
-                $('#AllDay').prop('checked', 'checked');
-            } else {
-                $('#AllDay')[0].checked = false;
-            }
-
+            // show model
             $('#eventModal').modal('show');
 
         },

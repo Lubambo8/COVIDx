@@ -7,7 +7,9 @@ namespace CovidXWebApp.Models.Calendar
 {
     public class CalendarEventModel
     {
-        public int ID { get; set; }
+        public int? ID { get; set; }
+
+        public int RequestID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime Start { get; set; }

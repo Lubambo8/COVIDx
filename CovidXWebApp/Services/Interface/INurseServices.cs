@@ -61,5 +61,12 @@ namespace CovidXWebApp.Services.Interface
         IQueryable<TestRequest> GetFavouriteRequests(List<int> preferedSuburbsID);
 
         IQueryable<TestRequest> GetMyTestRequests(int nurseID);
+
+        /// <summary>
+        /// Update test request based on nurse assignment
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        bool AssignNurse(int testRequestID, string userID);
     }
 }

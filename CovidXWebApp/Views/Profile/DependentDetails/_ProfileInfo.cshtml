@@ -25,12 +25,12 @@
     var patient = _patientService.FindPatientByUserID(user.Id);
 }
 
-
+<label asp-for="Relationship">Dependent Relationship</label>
 <!-- DependentType List -->
 <div class="input-group mb-3">
 
     <!-- INPUT LABEL -->
-    <label asp-for="Relationship">Dependent Relationship</label>
+    
     <!-- INPUT ITEM -->
     <select asp-for="Relationship"
             asp-items="Html.GetEnumSelectList<Relationships>()"

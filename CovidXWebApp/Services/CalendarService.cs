@@ -28,6 +28,14 @@ namespace CovidXWebApp.Services
 
             var entity = _mapper.Map<CalendarEvent>(model);
 
+            var testRequest = _context.TestRequest.SingleOrDefault(x => x.TestRequestID == model.ID);
+            testRequest.RequestStatus = TestRequestStatus.Scheduled;
+            testRequest.StartTime = model.Start;
+            testRequest.EndTime = model.End;
+
+
+
+
             // new events will have an ID of 0
             if (entity.ID == 0)
             {
@@ -37,6 +45,12 @@ namespace CovidXWebApp.Services
             {
                 _context.CalendarEvents.Update(entity);
             }
+
+            //add calender
+
+            //update test request
+            _context.TestRequest.Update(testRequest);
+
 
             var result = _context.SaveChanges();
 
@@ -61,61 +75,21 @@ namespace CovidXWebApp.Services
             {
                 var calendarEvent = new CalendarEventModel()
                 {
-                    ID = (int)request.CalendarEventID,
-                    // Title = request.Nurse.FirstName,
-                    Description = request.Suburb.SuburbName,
+                    ID = request.TestRequestID,
+                    Title = request.TestAddress1,
+                    Description = request.TestAddress1 + " " + request.Suburb.SuburbName,
                     AllDay = false
                 };
 
                 eventList.Add(calendarEvent);
             }
 
-            // TODO: temp data, remove !
-            var output = new List<CalendarEventModel>()
-            {
-                new CalendarEventModel()
-                {
-                    ID = 8,
-                    Title = "",
-                    Description = "1 Harbor Cottages",
-                    Start = Convert.ToDateTime("2021-10-14 10:00"),
-                    End = Convert.ToDateTime("2021-10-14 11:00"),
-                    AllDay = false
-                },
-                new CalendarEventModel()
-                {
-                    ID = 7,
-                    Title = "",
-                    Description = "24 7th Avenue",
-                    Start = Convert.ToDateTime("2021-10-15 10:00"),
-                    End = Convert.ToDateTime("2021-10-15 11:00"),
-                    AllDay = false
-                },
-                new CalendarEventModel()
-                {
-                    ID = 6,
-                    Title = "",
-                    Description = "6 Rubi Crescent",
-                    Start = Convert.ToDateTime("2021-10-15 12:30"),
-                    End = Convert.ToDateTime("2021-10-15 13:30"),
-                    AllDay = false
-                },
-                new CalendarEventModel()
-                {
-                    ID = 5,
-                    Title = "",
-                    Description = "19 Admirality Way",
-                    Start = Convert.ToDateTime("2021-10-17 14:00"),
-                    End = Convert.ToDateTime("2021-10-17 15:00"),
-                    AllDay = false
-                }
-            };
-
-            return output;
+            return eventList;
         }
 
         public List<CalendarEventModel> GetEvents()
         {
+            // make for database call to get the time slots
             var output = new List<CalendarEventModel>();
             // make for database call to get the time slots
 
