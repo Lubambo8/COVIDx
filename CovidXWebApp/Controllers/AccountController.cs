@@ -169,6 +169,11 @@ namespace CovidXWebApp.Controllers
                             return RedirectToAction("NurseDashboard", "Home");
                         }
 
+                        else if(User.IsInRole(CovidXRoles.ADMIN))
+                        {
+                            return RedirectToAction("Dashboard", "Home");
+                        }
+
                         // send the user to the dashboard page
                         
                     }

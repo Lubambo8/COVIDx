@@ -166,5 +166,17 @@ namespace CovidXWebApp.Services
 
             return false;
         }
+
+        public List<TestRequest> GetScheduledTestRequests(string userID)
+
+
+        {
+            //get the nurse id
+            var nurse = _context.Nurse.SingleOrDefault(item => item.UserID == userID);
+            return _context.TestRequest.GetDetails()
+                 //.Select(x => new { x.TestAddress1, x.TestAddress2})
+                 //.GroupBy(x => new { x.TestAddress1, x.TestAddress2})
+                 .Where(x => x.NurseID == nurse.NurseID && x.RequestStatus == TestRequestStatus.Scheduled).ToList();
+        }
     }
 }

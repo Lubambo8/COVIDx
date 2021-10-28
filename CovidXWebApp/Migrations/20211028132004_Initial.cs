@@ -418,24 +418,22 @@ namespace CovidXWebApp.Migrations
                 name: "CalendarEvents",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ID = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Start = table.Column<DateTime>(type: "datetime2", nullable: false),
                     End = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AllDay = table.Column<bool>(type: "bit", nullable: false),
-                    CalendarEventID = table.Column<int>(type: "int", nullable: true)
+                    AllDay = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CalendarEvents", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_CalendarEvents_TestRequest_CalendarEventID",
-                        column: x => x.CalendarEventID,
+                        name: "FK_CalendarEvents_TestRequest_ID",
+                        column: x => x.ID,
                         principalTable: "TestRequest",
                         principalColumn: "TestRequestID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -542,11 +540,6 @@ namespace CovidXWebApp.Migrations
                     { 109, 101, "6020", "Korsten" },
                     { 101, 101, "6070", "Walmer" }
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CalendarEvents_CalendarEventID",
-                table: "CalendarEvents",
-                column: "CalendarEventID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Dependent_MainMemberID",
