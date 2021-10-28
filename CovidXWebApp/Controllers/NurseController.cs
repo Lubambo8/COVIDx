@@ -121,9 +121,12 @@ namespace CovidXWebApp.Controllers
         [HttpGet]
         public IActionResult NurseCreate()
         {
+            var model = new NurseCreateViewModel()
+            {
+                Alert = HttpContext.Session.GetAndRemove<AlertModel>(nameof(AlertModel)) ?? default
+            };
+            return View(model);
 
-
-            return View(new NurseCreateViewModel());
         }
 
         //POST: Patient/Create
@@ -174,7 +177,11 @@ namespace CovidXWebApp.Controllers
                     await _userManager.UpdateAsync(user);
                     //return View();
                     //Add alert
-                    TempData[WCAlert.Success] = "Nurse Profile created successfully!";
+                    model.Alert = new AlertModel
+                    {
+                        AlertType = AlertType.Success,
+                        Message = "Nurse was added successfully!"
+                    };
                     return RedirectToAction("Dashboard", "Home");
                 }
 
@@ -182,7 +189,11 @@ namespace CovidXWebApp.Controllers
             }
 
             // reload the page with the user's input
-            TempData[WCAlert.Success] = "Nurse Profile could not be created!";
+            model.Alert = new AlertModel
+            {
+                AlertType = AlertType.Error,
+                Message = "Nurse creation was unsuccesful !"
+            };
             //ModelState.AddModelError(string.Empty, "Could not create profile. Try again");
             return View(model);
 
@@ -228,7 +239,7 @@ namespace CovidXWebApp.Controllers
                 model.Alert = new AlertModel
                 {
                     AlertType = AlertType.Success,
-                    Message = "Favourite Suburb added successfully!"
+                    Message = "Favourite Suburbs added successfully!"
                 };
 
                 HttpContext.Session.Set<AlertModel>(nameof(AlertModel), model.Alert);
@@ -247,8 +258,16 @@ namespace CovidXWebApp.Controllers
 
             // call the database service
             _nurseServices.AssignNurse(testRequestID, userID);
+
+
             return RedirectToAction("NurseDashboard", "Home");
 
+        }
+
+        [HttpGet]
+        public IActionResult ScheduledTestRequests()
+        {
+            return View();
         }
     }
 }

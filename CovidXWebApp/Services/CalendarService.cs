@@ -37,17 +37,9 @@ namespace CovidXWebApp.Services
 
 
             // new events will have an ID of 0
-            if (entity.ID == 0)
-            {
-                _context.CalendarEvents.Add(entity);
-            }
-            else
-            {
-                _context.CalendarEvents.Update(entity);
-            }
 
             //add calender
-
+            _context.CalendarEvents.Add(entity);
             //update test request
             _context.TestRequest.Update(testRequest);
 
@@ -104,7 +96,7 @@ namespace CovidXWebApp.Services
                     Description = eve.Description,
                     Start = eve.Start,
                     End = eve.End,
-                    Title = eve.Title
+                    Title = eve.Description
                 };
 
                 output.Add(item);

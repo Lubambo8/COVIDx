@@ -80,15 +80,10 @@ namespace CovidXWebApp.Migrations
             modelBuilder.Entity("EFCore.Model.CalendarEvent", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<bool>("AllDay")
                         .HasColumnType("bit");
-
-                    b.Property<int?>("CalendarEventID")
-                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -103,8 +98,6 @@ namespace CovidXWebApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("CalendarEventID");
 
                     b.ToTable("CalendarEvents");
                 });
@@ -879,9 +872,13 @@ namespace CovidXWebApp.Migrations
 
             modelBuilder.Entity("EFCore.Model.CalendarEvent", b =>
                 {
-                    b.HasOne("EFCore.Model.TestRequest", null)
-                        .WithMany("CalendarEvents")
-                        .HasForeignKey("CalendarEventID");
+                    b.HasOne("EFCore.Model.TestRequest", "TestRequest")
+                        .WithOne("CalendarEvents")
+                        .HasForeignKey("EFCore.Model.CalendarEvent", "ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TestRequest");
                 });
 
             modelBuilder.Entity("EFCore.Model.Dependent", b =>

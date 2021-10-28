@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Utility;
 
 namespace CovidXWebApp.Controllers
 {
@@ -38,13 +39,21 @@ namespace CovidXWebApp.Controllers
         {
             // logic ??
             var success = _calendarService.AddEvents(model);
+            model.Start = Convert.ToDateTime(model.StartText.Substring(0, 25));
+            model.End = Convert.ToDateTime(model.EndText.Substring(0, 25));
+
 
             if (success)
             {
+                model.Alert = new AlertModel
+                {
+                    AlertType = AlertType.Success,
+                    Message = "Favourite Suburbs added successfully!"
+                };
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(model);
+            return View("Index",model);
         }
     }
 }

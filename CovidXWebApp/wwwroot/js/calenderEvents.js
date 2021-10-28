@@ -48,7 +48,7 @@
             return {
                 title: eventEl.innerText,
                 description: eventEl.attributes["data-value-description"].value,
-                requestid: eventEl.attributes["data-value-requestid"].value,
+                requestid: eventEl.attributes["data-value-ID"].value,
                 backgroundColor: window.getComputedStyle(eventEl, null).getPropertyValue('background-color'),
                 borderColor: window.getComputedStyle(eventEl, null).getPropertyValue('background-color'),
                 textColor: window.getComputedStyle(eventEl, null).getPropertyValue('color'),
@@ -73,8 +73,7 @@
             if ($(this).data("qtip")) $(this).qtip("hide");
 
             // add data to input
-            $('#ID').val(sender.event.id);
-            $('#RequestID').val(sender.event.extendedProps.requestid);
+            $('#ID').val(sender.event.extendedProps.requestid);
             $('#event-title').html(sender.event.title);
             $('#Description').val(sender.event.extendedProps.description);
             $('#StartText').val(sender.event.start);
@@ -96,8 +95,7 @@
             if ($(this).data("qtip")) $(this).qtip("hide");
 
             // add data to input
-            $('#ID').val(sender.event.id);
-            $('#RequestID').val(sender.event.extendedProps.requestid);
+            $('#ID').val(sender.event.extendedProps.requestid);
             $('#event-title').html(sender.event.title);
             $('#Description').val(sender.event.extendedProps.description);
             $('#StartText').val(sender.event.start);

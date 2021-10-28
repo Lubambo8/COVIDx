@@ -12,6 +12,7 @@
 @{
     string headerText = "Calendar Demo";
     var userID = _userManager.GetUserId(User);
+    var testrequests = _calendarService.GetAssignedRequests(userID);
 }
 
 @section PageHeader{
@@ -38,11 +39,12 @@
                     <div id="external-events">
                         @foreach (var request in _calendarService.GetAssignedRequests(userID))
                         {
-                            <div class="external-event bg-cyan"
-                                 data-value-requestid="@request.RequestID"
-                                 data-value-description="@request.Description">
-                                @request.Title
-                            </div>
+                        <div class="external-event bg-cyan"
+                             data-value-ID="@request.ID"
+                             data-value-description="@request.Description">
+
+                            @request.Description-@request.ID
+                        </div>
                         }
                     </div>
                 </div>
