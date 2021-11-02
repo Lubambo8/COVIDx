@@ -32,7 +32,7 @@ namespace EFCore.Model
         public DateTime TestDate { get; set; }
 
         [Required]
-        public TimeSpan TestTime { get; set; }
+        public DateTime TestTime { get; set; }
 
         [MaxLength(128)]
         public string TestResult { get; set; }

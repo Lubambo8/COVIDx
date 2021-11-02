@@ -15,6 +15,8 @@ namespace CovidXWebApp.AutoMapperProfile
             CreateMap<NurseSuburbsModel, SuburbsPreferred>();
 
             CreateMap<NurseCreateViewModel, Nurse>();
+
+            CreateMap<TestViewModel, Test>();
         }
     }
 }

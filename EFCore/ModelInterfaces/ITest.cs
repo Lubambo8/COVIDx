@@ -14,6 +14,6 @@ namespace EFCore.Model
         int TestID { get; set; }
         int TestRequestID { get; set; }
         string TestResult { get; set; }
-        TimeSpan TestTime { get; set; }
+        DateTime TestTime { get; set; }
     }
 }

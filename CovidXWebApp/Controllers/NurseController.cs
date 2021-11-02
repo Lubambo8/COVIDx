@@ -182,7 +182,7 @@ namespace CovidXWebApp.Controllers
                         AlertType = AlertType.Success,
                         Message = "Nurse was added successfully!"
                     };
-                    return RedirectToAction("Dashboard", "Home");
+                    return RedirectToAction("NurseViewProfile", "Nurse");
                 }
 
                 //return RedirectToAction("ProfileAvatar", "Profile", new { model });
@@ -267,7 +267,38 @@ namespace CovidXWebApp.Controllers
         [HttpGet]
         public IActionResult ScheduledTestRequests()
         {
-            return View();
+            var model = new TestViewModel()
+            {
+                Alert = HttpContext.Session.GetAndRemove<AlertModel>(nameof(AlertModel)) ?? default
+            };
+            return View(model);
+            
+        }
+
+        [HttpPost]
+        public IActionResult PerformTest(TestViewModel model)
+        {
+            if (ModelState.IsValid)
+
+            {
+                _nurseServices.AddTestDetails(model);
+                model.Alert = new AlertModel
+                {
+                    AlertType = AlertType.Success,
+                    Message = "Test was successfully captured!"
+                };
+
+                HttpContext.Session.Set<AlertModel>(nameof(AlertModel), model.Alert);
+
+                return RedirectToAction("ScheduledTestRequests");
+            }
+            
+            model.Alert = new AlertModel
+            {
+                AlertType = AlertType.Error,
+                Message = "Error! failed to capture test!"
+            };
+            return View("ScheduledRequests", model);
         }
     }
 }

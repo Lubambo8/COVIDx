@@ -10,7 +10,7 @@
 @inject UserManager<EFCoreIdentityUser> _userManager
 
 @{
-    string headerText = "Calendar Demo";
+    string headerText = "Schedule Test";
     var userID = _userManager.GetUserId(User);
     var testrequests = _calendarService.GetAssignedRequests(userID);
 }

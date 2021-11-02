@@ -1,13 +1,15 @@
 ﻿@{
     Layout = "~/Views/Shared/CovidX/Dashboard.cshtml";
-    
+
 }
+
+@model DependentCreateViewModel
+
 
 @{
     string headerText = "Register Dependent";
 }
 
-@model DependentCreateViewModel
 
 @inject IPatientServices _patientService
 
@@ -30,12 +32,12 @@
 }
 
 <div class="row justify-content-center">
-    <partial name="CovidX/Page/_Alert" model="Model.Alert" />
-</div>
+        <partial name="CovidX/Page/_Alert" model="Model.Alert" />
+    </div>
 
 <!-- 12 COLUMN CARD START -->
 <form asp-controller="Profile"
-      asp-action="CreateDependent"
+      asp-action="Dependent"
       class="col-md-12 form-horizontal">
     <div class="card">
         <!-- CARD HEADER START -->
@@ -68,7 +70,7 @@
                     <div id="collapseOne" class="collapse" data-parent="#accordion">
                         <div class="card-body">
                             <!---Partial Avatar-->
-                            <partial name="ProfileDetails/_AvatarSelect.cshtml" />
+                            @*<partial name="ProfileDetails/_AvatarSelect.cshtml" />*@
                         </div>
                     </div>
                 </div>

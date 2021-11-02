@@ -178,5 +178,83 @@ namespace CovidXWebApp.Services
                  //.GroupBy(x => new { x.TestAddress1, x.TestAddress2})
                  .Where(x => x.NurseID == nurse.NurseID && x.RequestStatus == TestRequestStatus.Scheduled).ToList();
         }
+
+        public bool AddTestDetails(TestViewModel model)
+        {
+            var entity = _mapper.Map<Test>(model);
+
+            //find test request record to update it's status to performed
+            var request = _context.TestRequest.SingleOrDefault(x => x.TestRequestID == entity.TestRequestID);
+            request.RequestStatus = TestRequestStatus.Performed;
+
+
+
+            entity.TestDate = DateTime.Today;
+            entity.TestTime = DateTime.Now;
+
+
+            try
+            {
+                _context.TestRequest.Update(request);
+                _context.Test.Add(entity);
+
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
+        public SelectList GetNurseList()
+        {
+            // get all the nurses from the database
+            var list = _context.Nurse.ToList();
+
+            // create a select list with 'SuburbID' as the selected value and 'SuburbName' as the display value
+            var output = new SelectList(list, "NurseID", "FirstName");
+
+            return output;
+        }
+
+        public IQueryable<TestRequest> GetReportDetails(int NurseId, DateTime StartDate, DateTime EndDate)
+        {
+
+
+            //find nurse based on user id
+            var nurse = _context.Nurse.SingleOrDefault(x => x.NurseID == NurseId);
+
+            return _context.TestRequest
+                 .Include(test => test.Test)
+                 .Include(pat => pat.Patient)
+                 .ThenInclude(med => med.MedicalAidPlan)
+                 .Include(dep => dep.Dependent)
+                 .ThenInclude(med => med.MedicalAidPlan)
+                 .Include(nurse => nurse.Nurse).Where(x => x.NurseID == nurse.NurseID && x.StartTime >= Convert.ToDateTime
+            (StartDate.ToShortDateString()) && x.EndTime <= Convert.ToDateTime(EndDate.ToShortDateString()));
+            //.Include(pat => pat.Patient)
+            //.ThenInclude(dep => dep.Dependents)
+            //.Include(sub => sub.Suburb);
+
+            //.Include(test => test.TestRequest)
+            //.ThenInclude(nurse => nurse.Nurse)
+            //.Include(lab => lab.LabUser);
+
+
+        }
+
+        public List<TestRequest> GetReportDetail(ManagerReportViewModel model)
+        {
+
+
+            //find tests request based on patient id
+            var testRequestList = GetReportDetails(model.nurseID, model.StartDate, model.EndDate).ToList();
+
+            return testRequestList;
+
+        }
     }
 }

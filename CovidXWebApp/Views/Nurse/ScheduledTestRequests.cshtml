@@ -23,6 +23,10 @@
 
 }
 
+<div class="row justify-content-center">
+    <partial name="CovidX/Page/_Alert" model="Model.Alert" />
+</div>
+
 <!-- 6 COLUMN CARD START -->
 <div class="col-md-12">
     <div class="card">
@@ -132,3 +136,10 @@
         <!-- CARD BODY END -->
     </div>
 </div>
+
+
+@foreach(var item in newTableList)
+{
+	 var name = "modal-" + item.TestRequestID.ToString();
+<partial name="Modal/_PerformTestModal" model="new TestViewModel { ModalID = name , TestRequestID=item.TestRequestID}" />
+}

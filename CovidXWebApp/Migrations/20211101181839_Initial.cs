@@ -469,7 +469,7 @@ namespace CovidXWebApp.Migrations
                     BloodPressure = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     OxygenLevel = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     TestDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TestTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    TestTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TestResult = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
                     ResultDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     LabUserID = table.Column<int>(type: "int", nullable: true),

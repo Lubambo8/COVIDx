@@ -129,7 +129,11 @@ namespace CovidXWebApp.Controllers
                     ModelState.AddModelError("", error.Description);
                 }
             }
-
+            model.Alert = new AlertModel
+            {
+                AlertType = AlertType.Error,
+                Message = "Error! Registration failed!"
+            };
             // reload the registration view with the user's input
             ModelState.AddModelError(string.Empty, "Invalid Registration Attempt");
             return View(model);

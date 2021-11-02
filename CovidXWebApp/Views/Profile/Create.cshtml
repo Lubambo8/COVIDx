@@ -6,143 +6,144 @@
 
 @inject IPatientServices _patientService
 @inject UserManager<EFCoreIdentityUser> _userManager
-    @{
+@{
 
     var user = _userManager.GetUserAsync(User);
-    }
+}
 
-    @section Scripts{
-        <script>
-            $(function () {
+@section Scripts{
+    <script>
+        $(function () {
 
-                $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
 
-                $('[data-mask]').inputmask()
-            })
-        </script>
-    }
+            $('[data-mask]').inputmask()
+        })
+    </script>
+}
 
 <div class="row justify-content-center">
     <partial name="CovidX/Page/_Alert" model="Model.Alert" />
 </div>
 
-    <!-- 12 COLUMN ROW START -->
-    <body class="hold-transition login-card-body">
-        <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CO-X</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-            </nav>
-        </header>
-        <partial name="CovidX/_Styles" />
-        <div class="login-logo">
-            <a href="#"><b>CO</b>-X</a>
-        </div>
-        <div class="row justify-content-center">
-            <!-- ADD CARD HERE -->
-            <!-- 12 COLUMN CARD START -->
-            <form asp-controller="Profile"
-                  asp-action="Create"
-                  class="col-md-8">
-                <div class="card">
-                    <!-- CARD HEADER START -->
-                    <div class="card-header">
-                        <h3 class="card-title">Enter your Details</h3>
-                        <!-- CARD TOOLS START -->
-                        <div class="card-tools">
-                            <!-- ADD CARD TOOLS HERE -->
-                            <partial name="CovidX/Card/Tool/_collapse" />
-                            <partial name="CovidX/Card/Tool/_maximize" />
-                            <!-- <partial name="AdminLTE/Card/Tool/_remove" /> -->
-
-                        </div>
-                        <!-- CARD TOOLS END -->
-                    </div>
-                    <!-- CARD HEADER END -->
-                    <!-- CARD BODY START -->
-                    <div class="card-body">
-                        <!-- ADD CONTENT HERE -->
-                        <!-- we are adding the accordion ID so Bootstrap's collapse plugin detects it -->
-                        <div id="accordion">
-                            <div class="card card-primary">
-                                <div class="card-header">
-                                    <h4 class="card-title w-100">
-                                        <a class="d-block w-100" data-toggle="collapse" href="#collapseOne">
-                                            Avatar
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseOne" class="collapse" data-parent="#accordion">
-                                    <div class="card-body">
-                                        -Partial Avatar
-                                        <partial name="ProfileDetails/_AvatarSelect" model="Model" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card card-navy">
-                                <div class="card-header">
-
-                                    <h4 class="card-title w-100">
-                                        <a class="d-block w-100" data-toggle="collapse" href="#collapseTwo">
-                                            Patient Details
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseTwo" class="collapse" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <!--Partial View for Patient Profile Info-->
-                                        <partial name="ProfileDetails/_ProfileInfo.cshtml" model="Model" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card card-green">
-                                <div class="card-header">
-                                    <h4 class="card-title w-100">
-                                        <a class="d-block w-100" data-toggle="collapse" href="#collapseThree">
-                                            Medical Aid Details
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseThree" class="collapse" data-parent="#accordion">
-                                    <div class="card-body">
-                                        <!--Partial View for Patient Profile Info-->
-                                        <partial name="ProfileDetails/_MedicalAidPlan.cshtml" model="Model" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- CARD BODY END -->
-                    <!-- CARD FOOTER START -->
-                    <div class="card-footer">
-                        <!-- ADD BUTTONS HERE -->
-                        <button type="submit"
-                                class="btn btn-outline-primary">
-                            Save
-                        </button>
-                        <a asp-action="Index"
-                           asp-controller="Home"
-                           class="btn btn-outline-secondary float-right">
-                            Cancel
-                        </a>
-                    </div>
-                    <!-- CARD FOOTER END -->
-                </div>
-            </form>
-            <!-- 12 COLUMN CARD END -->
-
-        </div>
-        <footer class="border-top footer text-muted text-center">
+<partial name="CovidX/Script/_Avatar" />
+<!-- 12 COLUMN ROW START -->
+<body class="hold-transition login-card-body">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                &copy; 2021 - CO-X- <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CO-X</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
             </div>
-        </footer>
-        <partial name="CovidX/_Scripts" />
-    </body>
+        </nav>
+    </header>
+    <partial name="CovidX/_Styles" />
+    <div class="login-logo">
+        <a href="#"><b>CO</b>-X</a>
+    </div>
+    <div class="row justify-content-center">
+        <!-- ADD CARD HERE -->
+        <!-- 12 COLUMN CARD START -->
+        <form asp-controller="Profile"
+              asp-action="Create"
+              class="col-md-8">
+            <div class="card">
+                <!-- CARD HEADER START -->
+                <div class="card-header">
+                    <h3 class="card-title">Enter your Details</h3>
+                    <!-- CARD TOOLS START -->
+                    <div class="card-tools">
+                        <!-- ADD CARD TOOLS HERE -->
+                        <partial name="CovidX/Card/Tool/_collapse" />
+                        <partial name="CovidX/Card/Tool/_maximize" />
+                        <!-- <partial name="AdminLTE/Card/Tool/_remove" /> -->
+
+                    </div>
+                    <!-- CARD TOOLS END -->
+                </div>
+                <!-- CARD HEADER END -->
+                <!-- CARD BODY START -->
+                <div class="card-body">
+                    <!-- ADD CONTENT HERE -->
+                    <!-- we are adding the accordion ID so Bootstrap's collapse plugin detects it -->
+                    <div id="accordion">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h4 class="card-title w-100">
+                                    <a class="d-block w-100" data-toggle="collapse" href="#collapseOne">
+                                        Avatar
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="collapse" data-parent="#accordion">
+                                <div class="card-body">
+                                    -Partial Avatar
+                                    <partial name="ProfileDetails/_AvatarSelect" model="Model" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card card-navy">
+                            <div class="card-header">
+
+                                <h4 class="card-title w-100">
+                                    <a class="d-block w-100" data-toggle="collapse" href="#collapseTwo">
+                                        Patient Details
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                                <div class="card-body">
+                                    <!--Partial View for Patient Profile Info-->
+                                    <partial name="ProfileDetails/_ProfileInfo.cshtml" model="Model" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card card-green">
+                            <div class="card-header">
+                                <h4 class="card-title w-100">
+                                    <a class="d-block w-100" data-toggle="collapse" href="#collapseThree">
+                                        Medical Aid Details
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="collapse" data-parent="#accordion">
+                                <div class="card-body">
+                                    <!--Partial View for Patient Profile Info-->
+                                    <partial name="ProfileDetails/_MedicalAidPlan.cshtml" model="Model" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- CARD BODY END -->
+                <!-- CARD FOOTER START -->
+                <div class="card-footer">
+                    <!-- ADD BUTTONS HERE -->
+                    <button type="submit"
+                            class="btn btn-outline-primary">
+                        Save
+                    </button>
+                    <a asp-action="Index"
+                       asp-controller="Home"
+                       class="btn btn-outline-secondary float-right">
+                        Cancel
+                    </a>
+                </div>
+                <!-- CARD FOOTER END -->
+            </div>
+        </form>
+        <!-- 12 COLUMN CARD END -->
+
+    </div>
+    <footer class="border-top footer text-muted text-center">
+        <div class="container">
+            &copy; 2021 - CO-X- <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <partial name="CovidX/_Scripts" />
+</body>
