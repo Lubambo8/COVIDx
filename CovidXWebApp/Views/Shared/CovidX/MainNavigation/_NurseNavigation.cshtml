@@ -18,9 +18,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a asp-controller=""
-               asp-action=""
-               class="nav-link @Url.MakeActiveClass(controllerName: "Profile", actionName: "RequestTest")">
+            <a asp-controller="Calendar"
+               asp-action="Index"
+               class="nav-link @Url.MakeActiveClass(controllerName: "Calendar", actionName: "Index")">
                 <i class="nav-icon fas fa-file-medical-alt"></i>
                 <p>Schedule a Test</p>
             </a>
@@ -30,7 +30,7 @@
                asp-action="ScheduledTestRequests"
                class="nav-link @Url.MakeActiveClass(controllerName: "Nurse", actionName: "ScheduledTestRequests")">
                 <i class="nav-icon fas fa-file-medical-alt"></i>
-                <p>View scheduled Test Request Details</p>
+                <p>View scheduled Test Request</p>
             </a>
         </li>
     </ul>

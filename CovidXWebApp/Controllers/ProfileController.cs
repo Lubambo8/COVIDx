@@ -134,7 +134,7 @@ namespace CovidXWebApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateDependent()
+        public IActionResult Dependent()
         {
             var model = new DependentCreateViewModel()
             {
@@ -144,7 +144,7 @@ namespace CovidXWebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateDependent(DependentCreateViewModel model)
+        public async Task<IActionResult> Dependent(DependentCreateViewModel model)
         {
                 if (ModelState.IsValid)
                 {
@@ -219,7 +219,7 @@ namespace CovidXWebApp.Controllers
                             //return View();
                             //Add alert
                         TempData[WCAlert.Success] = "Dependent added successfully!";
-                            return RedirectToAction("Dashboard", "Home");
+                            return RedirectToAction("PatientDashboard", "Home");
                     //return RedirectToAction("ProfileAvatar", "Profile", new { model });
                 }
 
@@ -286,11 +286,19 @@ namespace CovidXWebApp.Controllers
                         _patientService.AddTestRequest(model);
                     }
                 }
-
-                return RedirectToAction("Dashboard", "Home");
+                model.Alert = new AlertModel
+                {
+                    AlertType = AlertType.Success,
+                    Message = "Test Request has been made."
+                };
+                return RedirectToAction("ViewTestRequestDetails", "Profile");
             }
 
-
+            model.Alert = new AlertModel
+            {
+                AlertType = AlertType.Error,
+                Message = "Test Request was unsuccessful!"
+            };
             return View(model);
         }
 

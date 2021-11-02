@@ -682,8 +682,8 @@ namespace CovidXWebApp.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<TimeSpan>("TestTime")
-                        .HasColumnType("time");
+                    b.Property<DateTime>("TestTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("TestID");
 

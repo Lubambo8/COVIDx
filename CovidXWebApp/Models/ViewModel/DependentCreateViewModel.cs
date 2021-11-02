@@ -12,6 +12,7 @@ namespace CovidXWebApp.Models.ViewModel
     public class DependentCreateViewModel : IDependent
     {
         public AlertModel Alert { get; set; }
+
         [Required(ErrorMessage = "First Name is required"),
             MaxLength(128)]
         public string FirstName { get; set; }

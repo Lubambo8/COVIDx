@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CovidXWebApp.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20211028132004_Initial")]
+    [Migration("20211101181839_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -684,8 +684,8 @@ namespace CovidXWebApp.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<TimeSpan>("TestTime")
-                        .HasColumnType("time");
+                    b.Property<DateTime>("TestTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("TestID");
 

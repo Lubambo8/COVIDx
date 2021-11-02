@@ -75,5 +75,16 @@ namespace CovidXWebApp.Services.Interface
         /// <param name="userID"></param>
         /// <returns></returns>
         List<TestRequest> GetScheduledTestRequests(string userID);
+
+        bool AddTestDetails(TestViewModel model);
+
+        /// <summary>
+        /// Gets a list of nurses to load items for a drop-down
+        /// </summary>
+        /// <returns></returns>
+        SelectList GetNurseList();
+
+        IQueryable<TestRequest> GetReportDetails(int NurseId, DateTime StartDate, DateTime EndDate);
+        List<TestRequest> GetReportDetail(ManagerReportViewModel model);
     }
 }

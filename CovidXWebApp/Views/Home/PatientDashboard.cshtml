@@ -20,9 +20,9 @@
 }
 
 <!-- 12 COLUMN ROW START -->
-<div class="row justify-content-center">
+@*<div class="row justify-content-center">
     <partial name="CovidX/Page/_Alert" model="Model.Alert" />
-</div>
+</div>*@
 
 <!-- 12 COLUMN ROW START -->
 <div class="row justify-content-center">
@@ -49,7 +49,7 @@
                 </li>
             </ul>
 
-            <a href="@Url.Action(action: "CreateDependent", controller: "Profile")" class="btn btn-outline-primary btn-block"><b>Add Dependent</b></a>
+            <a href="@Url.Action(action: "Dependent", controller: "Profile")" class="btn btn-outline-primary btn-block"><b>Add Dependent</b></a>
             <a href="@Url.Action(action: "RequestTest", controller: "Profile")" class="btn btn-outline-primary btn-block"><b>Schedule a Test</b></a>
         </div>
     </div>
