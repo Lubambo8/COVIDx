@@ -4,6 +4,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Include="wwwroot\plugins\tempusdominus-bootstrap-4\tempusdominus-bootstrap-4\js\tempusdominus-bootstrap-4.js" />
     <None Include="wwwroot\plugins\tempusdominus-bootstrap-4\tempusdominus-bootstrap-4\js\tempusdominus-bootstrap-4.min.js" />
@@ -24,7 +28,29 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EFCore\EFCore.csproj" />
+    <ProjectReference Include="..\Email\Utility.Email.csproj" />
     <ProjectReference Include="..\Utility\Utility.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\img\avatar\female-indian.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\avatar\female-nurse.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\avatar\male-indian.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\avatar\male-nurse.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\avatar\trans-devil-mask.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\avatar\trans-reaper.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

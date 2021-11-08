@@ -1,0 +1,63 @@
+﻿@inject IPatientServices _patientService
+@inject UserManager<EFCoreIdentityUser> _usermanager
+@{
+    Layout = "~/Views/Shared/CovidX/Dashboard.cshtml";
+
+}
+
+@{
+    var user = _usermanager.FindByNameAsync(User.Identity.Name).Result;
+    var patient = _patientService.GetPatientDetail(user.Id);
+    var pendingRequests = _patientService.GetTestRequests(user.Id).Where(req => req.Status == TestRequestStatus.New).Count();
+    //var testDetails = _patientService.GetTestDetail(user.Id);
+
+    //var testDetails = _patientService.GetTestInfo(user.Id);
+
+}
+
+
+<div class="row justify-content-center">
+    <!-- PROFILE SUMMARY-->
+    <div class="card card-primary card-outline col-md-4">
+        <div class="card-body box-profile">
+            <div class="text-center">
+                <img class="profile-user-img img-fluid img-circle" src="@Url.Content("~/img/avatar/" + user.Avatar)" alt="User profile picture">
+            </div>
+
+            <h3 class="profile-username text-center">@patient.FirstName @patient.LastName</h3>
+
+            <p class="text-muted text-center">@patient.Gender.ToString()</p>
+
+            <ul class="list-group list-group-unbordered mb-3">
+                <li class="list-group-item">
+                    <b>Date of Birth</b> <div class="float-right">@patient.DateOfBirth.ToShortDateString()</div>
+                </li>
+                <li class="list-group-item">
+                    <b>Home Address</b> <div class="float-right">@patient.AddressLine1</div>
+                </li>
+                @if (patient.AddressLine2 is not null)
+                {
+                    <li class="list-group-item">
+                        <b>Address Line 2 </b> <div class="float-right">@patient.AddressLine2</div>
+                    </li>
+                }
+                <li class="list-group-item">
+                    <b>Suburb Residency</b> <div class="float-right">@patient.Suburb.SuburbName</div>
+                </li>
+
+                <li class="list-group-item">
+                    <b>Dependents</b> <div class="float-right">@patient.Dependents.Count()</div>
+                </li>
+            </ul>
+
+            <a href="@Url.Action(action: "Dependent", controller: "Profile")" class="btn btn-outline-primary btn-block"><b>Edit Profile</b></a>
+
+        </div>
+    </div>
+
+    <!-- DEPENDANT SUMMARY -->
+    <div class="col-md-8">
+        <partial name="Table/_DependentList" model="patient" />
+    </div>
+
+</div>

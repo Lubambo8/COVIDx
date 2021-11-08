@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Utility.Email;
 
 namespace CovidXWebApp
 {
@@ -68,6 +69,7 @@ namespace CovidXWebApp
             services.AddTransient<IPatientServices, PatientServices>();
             services.AddTransient<INurseServices, NurseService>();
             services.AddTransient<ICalendarService, CalendarService>();
+            services.AddTransient<IEmailer, Emailer>();
 
             // configure session and memory caching
             services.AddDistributedMemoryCache();

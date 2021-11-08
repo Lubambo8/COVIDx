@@ -39,6 +39,13 @@ namespace CovidXWebApp.Services
             return false;
         }
 
+        public Nurse GetNurseDetail(string userID)
+        {
+            // get all the patient details
+            return _context.Nurse.GetDetails()
+                // where the user ID matches
+                .SingleOrDefault(x => x.UserID == userID);
+        }
         public bool AddSuburbs(NurseSuburbsModel model)
         {
             var suburbs = _mapper.Map<SuburbsPreferred>(model);
