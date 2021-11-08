@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Utility.Email;
 
 namespace CovidXWebApp.Services
 {
@@ -14,11 +15,13 @@ namespace CovidXWebApp.Services
     {
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
+        private readonly IEmailer _email;
 
-        public CalendarService(DatabaseContext context, IMapper mapper)
+        public CalendarService(DatabaseContext context, IMapper mapper, IEmailer email)
         {
             _context = context;
             _mapper = mapper;
+            _email = email;
         }
 
         public bool AddEvents(CalendarEventModel model)
@@ -48,6 +51,11 @@ namespace CovidXWebApp.Services
 
             if (result > 0)
             {
+                var patient = _context.Patient.SingleOrDefault(x => x.PatientID == testRequest.PatientId);
+                var subject = "Scheduled Test Request ";
+                var body = "Your test requests have been scheduled for the following date and time slots:" +
+                    testRequest.StartTime.ToString() + " " + testRequest.EndTime.ToString() + "\n" + "Kind Regards, CovidX Management";
+                _email.SendEmail("Veemvolt@gmail.com", subject, body);
                 return true;
             }
 

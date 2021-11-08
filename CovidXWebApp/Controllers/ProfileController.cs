@@ -312,5 +312,15 @@ namespace CovidXWebApp.Controllers
             };
             return View(model);
         }
+
+        [HttpGet]
+         public IActionResult ViewProfile()
+        {
+            var model = new DependentCreateViewModel()
+            {
+                Alert = HttpContext.Session.GetAndRemove<AlertModel>(nameof(AlertModel)) ?? default
+            };
+            return View(model);
+        }
     }
 }

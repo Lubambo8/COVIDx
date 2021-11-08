@@ -15,6 +15,34 @@
 
     <partial name="CovidX/Page/_Header" model="headerText" />
 }
+@section Scripts{
+
+    <script>
+        $(function () {
+
+            $("#example").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
+            //Date range picker
+            $('#reservation').daterangepicker({
+
+                locale: {
+                    format: 'DD/MM/YYYY '
+                }
+            })
+        })
+    </script>
+
+
+    <!-- Page specific script -->
+
+
+
+}
+
 <div class="row justify-content-center">
 
 
@@ -80,250 +108,154 @@
 
 </div>
 
-<div class="row justify-content-center">
-    <!-- DATA TABLE START -->
-    <table class="table table-striped table-valign-middle">
-        <!-- HEADER START -->
-        <thead>
-            <tr>
-                <!-- BUTTON HEADER -->
-                @*<th>DependentID</th>*@
-                <!-- COLUMN HEADER START-->
-                <th>Nurse</th>
-                <th>Subject </th>
-                <th>Test Subject</th>
-                <th>Barcode</th>
-                <th>Temperature</th>
-                <th>Blood Pressure</th>
-                <th>Oxygen Levels</th>
-                <th>Test Date</th>
-                <th>Test Time</th>
-                <th>Test Result</th>
-                <th>Lab User</th>
-                <!-- COLUMN HEADER END -->
-            </tr>
-        </thead>
-        <!-- HEADER END -->
+<div class="card card-lightblue">
+    <!-- CARD HEADER START -->
+    <div class="card-header">
+        <h3 class="card-title">Title Goes Here</h3>
+        <!-- CARD TOOLS START -->
+        <div class="card-tools">
+            <!-- ADD CARD TOOLS HERE -->
+
+        </div>
+        <!-- CARD TOOLS END -->
+    </div>
+    <!-- CARD HEADER END -->
+    <!-- CARD BODY START -->
+    <div class="card-body">
         <!-- ADD CONTENT HERE -->
-        @if (Model is not null)
-        {
-            var list = _nurseService.GetReportDetail(Model);
+        <div class="row justify-content-center">
+            <!-- DATA TABLE START -->
+            <table class="table table-striped table-valign-middle" id="example">
+                <!-- HEADER START -->
+                <thead>
+                    <tr>
+                        <!-- BUTTON HEADER -->
+                        @*<th>DependentID</th>*@
+                        <!-- COLUMN HEADER START-->
+                        <th>Test Subject</th>
+                        <th>Medical Aid plan</th>
+                        <th>Barcode</th>
+                        <th>Temperature</th>
+                        <th>Blood Pressure</th>
+                        <th>Oxygen Levels</th>
+                        <th>Test Date</th>
+                        <th>Test Time</th>
+                        <th>Test Result</th>
+                        <th>Lab User</th>
+                        <!-- COLUMN HEADER END -->
+                    </tr>
+                </thead>
+                <!-- HEADER END -->
+                <!-- ADD CONTENT HERE -->
+                @if (Model is not null)
+                {
+                    var list = _nurseService.GetReportDetail(Model);
 
-            @if (list == null)
-            {
-                @*@if (_patientService.GetDependents(patient.PatientId) is null)
-                    {*@
-                // no content to display
-                //}
-
-            }
-            else
-            {
-                <tbody>
-                    <!-- ROW CONTENT HERE -->
-                    @foreach (var item in list)
+                    @if (list == null)
                     {
-                        <tr>
-                            @if (item.Test.TestRequest.DependentID is null)
-                            {
-                                <td>
-                                    @item.Test.TestRequest.Patient.FirstName  @item.Test.TestRequest.Patient.LastName
+                        @*@if (_patientService.GetDependents(patient.PatientId) is null)
+                            {*@
+                        // no content to display
+                        //}
 
-                                </td>
-                                <td>
-                                    @item.Test.TestRequest.Patient.MedicalAidPlan.Description
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                    @item.Test.TestRequest.Dependent.FirstName  @item.Test.TestRequest.Dependent.LastName
-
-                                </td>
-                                <td>
-                                    @item.Test.TestRequest.Dependent.MedicalAidPlan.Description
-                                </td>
-                            }
-
-                            <td>
-                                @item.Test.BarCode
-                            </td>
-                            <td>
-                                @item.Test.Temperature
-                            </td>
-                            <td>
-                                @item.Test.BloodPressure
-                            </td>
-                            <td>
-                                @item.Test.OxygenLevel
-                            </td>
-                            <td>
-                                @item.Test.TestDate.ToShortDateString()
-                            </td>
-                            <td>
-                                @item.Test.TestTime.ToShortTimeString()
-                            </td>
-
-
-
-                        </tr>
                     }
-                </tbody>
-                <!-- TABLE BODY CONTENT END -->
-            }
+                    else
+                    {
+                        <tbody>
+                            <!-- ROW CONTENT HERE -->
+                            @foreach (var item in list)
+                            {
+                                <tr>
+                                    @if (item.Test.TestRequest.DependentID is null)
+                                    {
+                                        <td>
+                                            @item.Test.TestRequest.Patient.FirstName  @item.Test.TestRequest.Patient.LastName
 
-        }
-    </table>
-    <!-- DATA TABLE END -->
+                                        </td>
+                                        @if (item.Test.TestRequest.Patient.MedicalAidPlan is not null)
+                                        {
+                                            <td>
+                                                @item.Test.TestRequest.Patient.MedicalAidPlan.Description
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                None
+                                            </td>
+                                        }
 
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @item.Test.TestRequest.Dependent.FirstName  @item.Test.TestRequest.Dependent.LastName
+
+                                        </td>
+                                        @if (item.Test.TestRequest.Patient.MedicalAidPlan is not null)
+                                        {
+                                            <td>
+                                                @item.Test.TestRequest.Dependent.MedicalAidPlan.Description
+                                            </td>
+
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                None
+                                            </td>
+                                        }
+
+
+
+
+                                    }
+
+                                    <td>
+                                        @item.Test.BarCode
+                                    </td>
+                                    <td>
+                                        @item.Test.Temperature
+                                    </td>
+                                    <td>
+                                        @item.Test.BloodPressure
+                                    </td>
+                                    <td>
+                                        @item.Test.OxygenLevel
+                                    </td>
+                                    <td>
+                                        @item.Test.TestDate.ToShortDateString()
+                                    </td>
+                                    <td>
+                                        @item.Test.TestTime.ToShortTimeString()
+                                    </td>
+                                    <td>
+                                        Viwe Nkepu
+                                    </td>
+
+
+
+                                </tr>
+                            }
+                        </tbody>
+                        <!-- TABLE BODY CONTENT END -->
+                    }
+
+                }
+            </table>
+            <!-- DATA TABLE END -->
+
+        </div>
+
+    </div>
+    <!-- CARD BODY END -->
+    <!-- CARD FOOTER START -->
+    <div class="card-footer">
+        <!-- ADD BUTTONS HERE -->
+
+    </div>
+    <!-- CARD FOOTER END -->
 </div>
 
 
 
-
-@section Scripts{
-
-
-
-
-    <!-- Page specific script -->
-    <script>
-			$(function () {
-				//Initialize Select2 Elements
-				$('.select2').select2()
-
-				//Initialize Select2 Elements
-				$('.select2bs4').select2({
-					theme: 'bootstrap4'
-				})
-
-				//Datemask dd/mm/yyyy
-				$('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-				//Datemask2 mm/dd/yyyy
-				$('#datemask2').inputmask('dd/mm/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-				//Money Euro
-				$('[data-mask]').inputmask()
-
-				//Date picker
-				$('#reservationdate').datetimepicker({
-					format: 'L'
-				});
-
-				//Date and time picker
-				$('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });
-
-				//Date range picker
-				$('#reservation').daterangepicker({
-
-					locale: {
-						format: 'DD/MM/YYYY '
-					}
-				})
-				//Date range picker with time picker
-				$('#reservationtime').daterangepicker({
-					timePicker: true,
-					timePickerIncrement: 30,
-					locale: {
-						format: 'DD/MM/YYYY hh:mm A'
-					}
-				})
-				//Date range as a button
-				$('#daterange-btn').daterangepicker(
-					{
-						ranges: {
-							'Today': [moment(), moment()],
-							'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-							'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-							'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-							'This Month': [moment().startOf('month'), moment().endOf('month')],
-							'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-						},
-						startDate: moment().subtract(29, 'days'),
-						endDate: moment()
-					},
-					function (start, end) {
-						$('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-					}
-				)
-
-				//Timepicker
-				$('#timepicker').datetimepicker({
-					format: 'LT'
-				})
-
-				//Bootstrap Duallistbox
-				$('.duallistbox').bootstrapDualListbox()
-
-				//Colorpicker
-				$('.my-colorpicker1').colorpicker()
-				//color picker with addon
-				$('.my-colorpicker2').colorpicker()
-
-				$('.my-colorpicker2').on('colorpickerChange', function (event) {
-					$('.my-colorpicker2 .fa-square').css('color', event.color.toString());
-				})
-
-				$("input[data-bootstrap-switch]").each(function () {
-					$(this).bootstrapSwitch('state', $(this).prop('checked'));
-				})
-
-			})
-			// BS-Stepper Init
-			document.addEventListener('DOMContentLoaded', function () {
-				window.stepper = new Stepper(document.querySelector('.bs-stepper'))
-			})
-
-			// DropzoneJS Demo Code Start
-			Dropzone.autoDiscover = false
-
-			// Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
-			var previewNode = document.querySelector("#template")
-			previewNode.id = ""
-			var previewTemplate = previewNode.parentNode.innerHTML
-			previewNode.parentNode.removeChild(previewNode)
-
-			var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
-				url: "/target-url", // Set the url
-				thumbnailWidth: 80,
-				thumbnailHeight: 80,
-				parallelUploads: 20,
-				previewTemplate: previewTemplate,
-				autoQueue: false, // Make sure the files aren't queued until manually added
-				previewsContainer: "#previews", // Define the container to display the previews
-				clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
-			})
-
-			myDropzone.on("addedfile", function (file) {
-				// Hookup the start button
-				file.previewElement.querySelector(".start").onclick = function () { myDropzone.enqueueFile(file) }
-			})
-
-			// Update the total progress bar
-			myDropzone.on("totaluploadprogress", function (progress) {
-				document.querySelector("#total-progress .progress-bar").style.width = progress + "%"
-			})
-
-			myDropzone.on("sending", function (file) {
-				// Show the total progress bar when upload starts
-				document.querySelector("#total-progress").style.opacity = "1"
-				// And disable the start button
-				file.previewElement.querySelector(".start").setAttribute("disabled", "disabled")
-			})
-
-			// Hide the total progress bar when nothing's uploading anymore
-			myDropzone.on("queuecomplete", function (progress) {
-				document.querySelector("#total-progress").style.opacity = "0"
-			})
-
-			// Setup the buttons for all transfers
-			// The "add files" button doesn't need to be setup because the config
-			// `clickable` has already been specified.
-			document.querySelector("#actions .start").onclick = function () {
-				myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED))
-			}
-			document.querySelector("#actions .cancel").onclick = function () {
-				myDropzone.removeAllFiles(true)
-			}
-					  // DropzoneJS Demo Code End
-    </script>
-}

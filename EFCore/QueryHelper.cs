@@ -49,5 +49,12 @@ namespace EFCore
                 .Include(pat => pat.MedicalAidPlan)
                 .ThenInclude(pat => pat.MedicalAidScheme);
         }
+
+        public static IQueryable<Nurse> GetDetails(this DbSet<Nurse> nurses)
+        {
+            return nurses
+                .Include(nur => nur.SuburbsPreferreds);
+                
+        }
     }
 }

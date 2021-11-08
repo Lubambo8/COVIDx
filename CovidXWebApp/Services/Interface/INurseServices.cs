@@ -11,6 +11,12 @@ namespace CovidXWebApp.Services.Interface
     public interface INurseServices
     {
         /// <summary>
+        /// Gets the nurse details of the current patient
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        Nurse GetNurseDetail(string userID);
+        /// <summary>
         /// Add new <see cref="Nurse"/> to the database
         /// </summary>
         /// <param name="model">The data for the patient profile</param>
