@@ -6,19 +6,26 @@
 }
 
 @{
+    string headerText = "My Profile View";
+
     var user = _usermanager.FindByNameAsync(User.Identity.Name).Result;
     var patient = _patientService.GetPatientDetail(user.Id);
     var pendingRequests = _patientService.GetTestRequests(user.Id).Where(req => req.Status == TestRequestStatus.New).Count();
     //var testDetails = _patientService.GetTestDetail(user.Id);
 
-    //var testDetails = _patientService.GetTestInfo(user.Id);
+    var testDetails = _patientService.GetTestInfo(user.Id);
 
+}
+
+@section PageHeader{
+
+    <partial name="CovidX/Page/_Header" model="headerText" />
 }
 
 
 <div class="row justify-content-center">
     <!-- PROFILE SUMMARY-->
-    <div class="card card-primary card-outline col-md-4">
+    <div class="card card-info card-outline col-md-4">
         <div class="card-body box-profile">
             <div class="text-center">
                 <img class="profile-user-img img-fluid img-circle" src="@Url.Content("~/img/avatar/" + user.Avatar)" alt="User profile picture">
@@ -58,6 +65,8 @@
     <!-- DEPENDANT SUMMARY -->
     <div class="col-md-8">
         <partial name="Table/_DependentList" model="patient" />
+        
     </div>
+
 
 </div>

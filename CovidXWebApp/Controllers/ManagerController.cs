@@ -43,11 +43,18 @@ namespace CovidXWebApp.Controllers
 
 
                 _nurseService.GetReportDetails(model.nurseID, model.StartDate, model.EndDate);
-                return View(model);
+                return View(nameof(ReportTable), model);
             }
 
 
 
+            return View();
+        }
+
+        [HttpGet]
+
+        public IActionResult ReportTable()
+        {
             return View();
         }
     }

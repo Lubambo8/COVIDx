@@ -31,6 +31,12 @@ namespace CovidXWebApp.Services
 
             var entity = _mapper.Map<CalendarEvent>(model);
 
+            //Check for validation to make sure a test request cannotb
+            if (model.Start < DateTime.Now)
+            {
+                return false;
+            }
+
             var testRequest = _context.TestRequest.SingleOrDefault(x => x.TestRequestID == model.ID);
             testRequest.RequestStatus = TestRequestStatus.Scheduled;
             testRequest.StartTime = model.Start;

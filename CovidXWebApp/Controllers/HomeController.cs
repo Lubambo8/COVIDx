@@ -47,7 +47,7 @@ namespace CovidXWebApp.Controllers
 
         public IActionResult PatientDashboard()
         {
-            var model = new PatientCreateViewModel()
+            var model = new TestRequestDetailModel()
             {
                 Alert = HttpContext.Session.GetAndRemove<AlertModel>(nameof(AlertModel)) ?? default
             };

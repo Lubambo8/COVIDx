@@ -82,6 +82,13 @@ namespace CovidXWebApp.Services.Interface
         /// <returns></returns>
         List<TestRequest> GetScheduledTestRequests(string userID);
 
+        /// <summary>
+        /// Gets test requests based on a specific nurse and where test request status is scheduled
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        List<TestRequest> GetAssignedTestRequests(string userID);
+
         bool AddTestDetails(TestViewModel model);
 
         /// <summary>

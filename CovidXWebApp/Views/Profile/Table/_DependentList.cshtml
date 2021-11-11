@@ -13,7 +13,7 @@
 
 }
 
-<div class="card">
+<div class="card card-secondary card-outline">
     <!-- CARD HEADER START -->
     <div class="card-header border-0">
         <h3 class="card-title">Dependants for @Model.FirstName @Model.LastName</h3>
@@ -53,29 +53,35 @@
             }
             else
             {
-            <tbody>
-                <!-- TABLE CONTENT ROW -->
-               
+                <tbody>
+                    <!-- TABLE CONTENT ROW -->
 
-                @foreach (var dependent in Model.Dependents)
-                {
-                    <tr>
-                        <td>
-                            @dependent.FirstName @dependent.LastName
-                        </td>
-                        <td>
-                            @dependent.Relationship
-                        </td>
-                        <td>
-                            @dependent.AddressLine1
-                        </td>
-                        <td>
-                            @( "00" + dependent.DependentID)
-                        </td>
-                    </tr>
-                }
-                
-            </tbody>
+
+                    @foreach (var dependent in Model.Dependents)
+                    {
+                        <tr>
+                            <td>
+                                @dependent.FirstName @dependent.LastName
+                            </td>
+                            <td>
+                                <small class="text-indigo mr-1">
+                                    <i class="fas fa-users"></i>
+                                </small>
+                                @dependent.Relationship
+                            </td>
+                            <td>
+                                <small class="text-info mr-1">
+                                    <i class="fas fa-house-user"></i>
+                                </small>
+                                @dependent.AddressLine1
+                            </td>
+                            <td>
+                                @dependent.DependencyCode
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
 
             }
 

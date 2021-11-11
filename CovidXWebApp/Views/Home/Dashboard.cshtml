@@ -2,3 +2,140 @@
     Layout = "~/Views/Shared/CovidX/Dashboard.cshtml";
     ViewData["Title"] = "Dashboard";
 }
+
+@inject IManagerService managerService
+
+@{
+    string headerText = "Dashboard";
+
+    var newTableList = new List<TestRequest>();
+
+    var testRequests = managerService.GetAllTestRequest();
+
+    newTableList.AddRange(testRequests);
+}
+
+@section PageHeader{
+
+    <partial name="CovidX/Page/_Header" model="headerText" />
+}
+
+@section Scripts{
+
+    <script>
+        $(function () {
+
+            $("#example").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
+            //Date range picker
+            $('#reservation').daterangepicker({
+
+                locale: {
+                    format: 'DD/MM/YYYY '
+                }
+            })
+        })
+    </script>
+}
+
+<!-- 6 COLUMN CARD START -->
+<div class="col-md-12">
+    <div class="card card-navy">
+        <!-- CARD HEADER START -->
+        <div class="card-header border-0">
+            <h3 class="card-title">All Test Requests</h3>
+            <!-- CARD TOOLS START -->
+            <div class="card-tools">
+                <!-- ADD CARD TOOLS HERE -->
+                <partial name="CovidX/Card/Tool/_collapse" />
+                <partial name="CovidX/Card/Tool/_maximize" />
+
+            </div>
+            <!-- CARD TOOLS END -->
+        </div>
+        <!-- CARD HEADER END -->
+        <!-- CARD BODY START -->
+        <div class="card-body table-responsive p-0">
+            <!-- ADD CONTENT HERE -->
+            <table class="table table-striped table-valign-middle" id="example">
+                <thead>
+                    <tr>
+                        <!-- TABLE HEADERS -->
+                        <th>Test Subject</th>
+                        <th>Test Location</th> <!-- Test Address-->
+                        <th>Suburb</th>
+                        <th>Test Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var req in newTableList)
+                    {
+                        <!-- TABLE CONTENT ROW -->
+                        <tr>
+                            @if (req.DependentID is null)
+                            {
+                                <td>
+                                    @req.Patient.FirstName  @req.Patient.LastName
+
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @req.Dependent.FirstName  @req.Dependent.LastName
+
+                                </td>
+                            }
+                            <td>
+                                @req.TestAddress1
+                            </td>
+                            <td>
+                                @req.Suburb.SuburbName
+                            </td>
+                            <td>
+                                @switch (req.RequestStatus)
+                                {
+                                    case TestRequestStatus.New:
+                                        <span class="badge bg-purple">New</span>
+                                        break;
+                                    case TestRequestStatus.Cancelled:
+                                        <span class="badge bg-danger">Canceled</span>
+                                        break;
+                                    case TestRequestStatus.Assigned:
+                                        <span class="badge bg-blue">Assigned</span>
+                                        break;
+                                    case TestRequestStatus.Scheduled:
+                                        <span class="badge bg-green">Scheduled</span>
+                                        break;
+                                    case TestRequestStatus.Performed:
+                                        <span class="badge bg-lime">Performed</span>
+                                        break;
+                                    case TestRequestStatus.AtLab:
+                                        <span class="badge bg-yellow">At lab</span>
+                                        break;
+                                    case TestRequestStatus.Closed:
+                                        <span class="badge bg-fuchsia">Closed</span>
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            </td>
+                        </tr>
+
+
+
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <!-- CARD BODY END -->
+    </div>
+</div>
+<!-- 6 COLUMN CARD END -->

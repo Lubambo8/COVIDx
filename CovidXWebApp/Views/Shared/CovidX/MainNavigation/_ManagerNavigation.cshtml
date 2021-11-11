@@ -22,7 +22,7 @@
                asp-action="Reports"
                class="nav-link @Url.MakeActiveClass(controllerName: "Manager", actionName: "Reports")">
                 <i class="nav-icon fas fa-clipboard"></i>
-                <p>Reports</p>
+                <p>Generate Reports</p>
             </a>
         </li>
         <li class="nav-item">
@@ -42,11 +42,11 @@
             </a>
         </li>
         <li class="nav-item">
-            <a asp-controller="Profile"
-               asp-action="Book"
-               class="nav-link @Url.MakeActiveClass(controllerName: "Profile", actionName: "Book")">
-                <i class="nav-icon fas fa-users"></i>
-                <p>Patients</p>
+            <a asp-controller="Manager"
+               asp-action="ReportTable"
+               class="nav-link @Url.MakeActiveClass(controllerName: "Manager", actionName: "ReportTable")">
+                <i class="nav-icon fas fa-clipboard"></i>
+                <p>Reports</p>
             </a>
         </li>
     </ul>

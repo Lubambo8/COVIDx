@@ -186,6 +186,18 @@ namespace CovidXWebApp.Services
                  .Where(x => x.NurseID == nurse.NurseID && x.RequestStatus == TestRequestStatus.Scheduled).ToList();
         }
 
+        public List<TestRequest> GetAssignedTestRequests(string userID)
+
+
+        {
+            //get the nurse id
+            var nurse = _context.Nurse.SingleOrDefault(item => item.UserID == userID);
+            return _context.TestRequest.GetDetails()
+                 //.Select(x => new { x.TestAddress1, x.TestAddress2})
+                 //.GroupBy(x => new { x.TestAddress1, x.TestAddress2})
+                 .Where(x => x.NurseID == nurse.NurseID && x.RequestStatus == TestRequestStatus.Assigned).ToList();
+        }
+
         public bool AddTestDetails(TestViewModel model)
         {
             var entity = _mapper.Map<Test>(model);

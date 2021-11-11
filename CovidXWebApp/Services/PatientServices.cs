@@ -4,6 +4,7 @@ using CovidXWebApp.Services.Interface;
 using EFCore;
 using EFCore.Model;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -222,6 +223,33 @@ namespace CovidXWebApp.Services
                 .ToList();
 
             // details about the test request
+            TestRequestDetailModel details;
+            TestRequest requester = requests.FirstOrDefault(item => item.PatientId == patient.PatientID);
+
+            if(requester == null)
+            {
+                return output;
+
+            }
+            else
+            {
+                details = new TestRequestDetailModel()
+                {
+                    IsActive = true,
+                    NurseFullName = (requester.Nurse is null) ? "Not yet assigned" : requester.Nurse.FirstName + " " + requester.Nurse.LastName,
+                    PatientFullName = patient.FirstName + " " + patient.LastName,
+                    RequestDate = requester.RequestDate,
+                    Status = requester.RequestStatus,
+                    TestDate = requester.StartTime.HasValue == true ? requester.StartTime.Value.ToShortDateString() + " " + requester.StartTime.Value.ToShortTimeString() : "Not yet scheduled",
+                    TestLocation = requester.Patient.AddressLine1,
+                    TestRequestID = requester.TestRequestID,
+                    RequestedByID = requester.PatientId,
+                    RequestedForID = requester.PatientId,
+                    SuburbID = (int)patient.SuburbID
+                };
+
+                output.Add(details);
+            }
             
 
             // get active dependent ID's
@@ -236,41 +264,73 @@ namespace CovidXWebApp.Services
                 // details about the test request
                 TestRequestDetailModel detail;
                 // the test request database entity for the specific dependent
-                TestRequest request = requests.SingleOrDefault(item => item.DependentID == dependent.DependentID);
+                TestRequest request = requests.FirstOrDefault(item => item.DependentID == dependent.DependentID);
 
-                // if the dependent has an active request
-                if (activeDependentID.Contains(dependent.DependentID))
+                if (request == null)
                 {
-                    detail = new TestRequestDetailModel()
-                    {
-                        IsActive = true,
-                        NurseFullName = (request.Nurse is null) ? "Not yet assigned" : request.Nurse.FirstName + " " + request.Nurse.LastName,
-                        PatientFullName = dependent.FirstName + " " + dependent.LastName,
-                        Status = request.RequestStatus,
-                        TestDate = request.StartTime.HasValue == true ? request.StartTime.Value.ToShortDateString() + " " + request.StartTime.Value.ToShortTimeString() : "Not yet scheduled",
-                        TestLocation = request.Dependent.Suburb.SuburbName,
-                        TestRequestID = request.TestRequestID,
-                        RequestedByID = request.PatientId,
-                        RequestedForID = request.DependentID,
-                        SuburbID = (int)dependent.SuburbID
-                    };
+                    return output;
                 }
                 else
                 {
                     detail = new TestRequestDetailModel()
                     {
-                        IsActive = false,
-                        NurseFullName = "Not yet assigned",
-                        PatientFullName = dependent.FirstName + " " + dependent.LastName,
-                        Status = TestRequestStatus.New,
-                        TestDate = "Not yet scheduled",
-                        TestLocation = dependent.Suburb.SuburbName,
-                        TestRequestID = 0,
-                        RequestedByID = patient.PatientID,
-                        RequestedForID = dependent.DependentID,
-                        SuburbID = (int)dependent.SuburbID
+                        IsActive = true,
+                        NurseFullName = (request.Nurse is null) ? "Not yet assigned" : request.Nurse.FirstName + " " + request.Nurse.LastName,
+                        PatientFullName = patient.FirstName + " " + patient.LastName,
+                        RequestDate = request.RequestDate,
+                        Status = request.RequestStatus,
+                        TestDate = request.StartTime.HasValue == true ? request.StartTime.Value.ToShortDateString() + " " + request.StartTime.Value.ToShortTimeString() : "Not yet scheduled",
+                        TestLocation = request.Dependent.AddressLine1,
+                        TestRequestID = request.TestRequestID,
+                        RequestedByID = request.PatientId,
+                        RequestedForID = request.DependentID,
+                        SuburbID = (int)patient.SuburbID
                     };
+
+
+                    if (activeDependentID.Contains(dependent.DependentID))
+                    {
+                        detail = new TestRequestDetailModel()
+                        {
+                            IsActive = true,
+                            NurseFullName = (request.Nurse is null) ? "Not yet assigned" : request.Nurse.FirstName + " " + request.Nurse.LastName,
+                            PatientFullName = dependent.FirstName + " " + dependent.LastName,
+                            RequestDate = request.RequestDate,
+                            Status = request.RequestStatus,
+                            TestDate = request.StartTime.HasValue == true ? request.StartTime.Value.ToShortDateString() + " " + request.StartTime.Value.ToShortTimeString() : "Not yet scheduled",
+                            TestLocation = request.Dependent.AddressLine1,
+                            TestRequestID = request.TestRequestID,
+                            RequestedByID = request.PatientId,
+                            RequestedForID = request.DependentID,
+                            SuburbID = (int)dependent.SuburbID
+                        };
+
+
+                    }
+                    else
+                    {
+
+                        detail = new TestRequestDetailModel()
+                        {
+                            IsActive = false,
+                            NurseFullName = "Not yet assigned",
+                            PatientFullName = dependent.FirstName + " " + dependent.LastName,
+                            RequestDate = request.RequestDate,
+                            Status = TestRequestStatus.New,
+                            TestDate = "Not yet scheduled",
+                            TestLocation = dependent.Suburb.SuburbName,
+                            TestRequestID = 0,
+                            RequestedByID = patient.PatientID,
+                            RequestedForID = dependent.DependentID,
+                            SuburbID = (int)dependent.SuburbID
+                        };
+                    }
                 }
+                
+
+
+                // if the dependent has an active request
+                
 
                 // add to list
                 output.Add(detail);
@@ -278,6 +338,44 @@ namespace CovidXWebApp.Services
 
             // return the list
             return output;
+        }
+
+        public bool TestCancel(int testRequestID, string userID)
+        {
+            //find patient by user id
+            var patient = _context.Patient.SingleOrDefault(x => x.UserID == userID);
+
+            //find the test request based on the passed in ID
+            var testRequest = _context.TestRequest.SingleOrDefault(x => x.TestRequestID == testRequestID);
+
+            //update request status for that found request that needs to be cancelled
+            testRequest.RequestStatus = TestRequestStatus.Cancelled;
+
+
+            //update test request
+            _context.TestRequest.Update(testRequest);
+
+            //Save changes to Database
+            var rowsAffected = _context.SaveChanges();
+
+            if (rowsAffected > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        
+
+        public List<Test> GetTestInfo(string UserID)
+        {
+            //find patient based on user id
+            var patient = _context.Patient.SingleOrDefault(x => x.UserID == UserID);
+            //find tests request based on patient id
+            var testRequestList = _context.Test.GetDetails().Where(x => x.TestRequest.Patient.PatientID == patient.PatientID).ToList();
+
+            return testRequestList;
         }
     }
 }

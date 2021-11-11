@@ -11,6 +11,7 @@ namespace CovidXWebApp.Models.ViewModel
 {
     public class PatientCreateViewModel : IPatient
     {
+        public TestRequestViewModel TestRequest { get; set; }
         public string UserID { get; set; }
 
         public string Avatar { get; set; }
@@ -24,12 +25,14 @@ namespace CovidXWebApp.Models.ViewModel
             MaxLength(128)]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "ID is required"), 
-            MaxLength(13, ErrorMessage = "ID needs to be 13 digits")]
+        [Required(ErrorMessage = "ID Number is required")]
+        [RegularExpression(@"[0-9]{13}", ErrorMessage = "ID Number is Invalid")]
+        [StringLength(13, ErrorMessage = "ID number should be 13 characters")]
         public string IDnumber { get; set; }
 
-        [Required(ErrorMessage = "Mobile Number is required"), 
-            MaxLength(10, ErrorMessage = "Mobile needs to be 10 digits")]
+        [Required(ErrorMessage = "Mobile Number is required")]
+        [RegularExpression(@"[0-9]{10}", ErrorMessage = "Mobile Number is Invalid")]
+        [StringLength(10, ErrorMessage = "Mobile number should be 10 digits")]
         public string MobileNumber { get; set; }
 
         [Required]

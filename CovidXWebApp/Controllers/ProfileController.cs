@@ -89,7 +89,7 @@ namespace CovidXWebApp.Controllers
                         model.Alert = new AlertModel
                         {
                             AlertType = AlertType.Success,
-                            Message = $"{model.FirstName} {model.LastName} added as dependent!"
+                            Message = $"{model.FirstName} {model.LastName} added successfully!"
                         };
 
                         // store alert in session memory to show in different page
@@ -108,6 +108,13 @@ namespace CovidXWebApp.Controllers
 
                     if (success)
                     {
+                        model.Alert = new AlertModel
+                        {
+                            AlertType = AlertType.Success,
+                            Message = "Patient added as Successfully!"
+                        };
+
+                        HttpContext.Session.Set<AlertModel>(nameof(AlertModel), model.Alert);
                         // set avatar and activate user
                         user.Avatar = model.Avatar;
                         user.IsActive = true;
@@ -115,13 +122,7 @@ namespace CovidXWebApp.Controllers
                     }
                 }
 
-                model.Alert = new AlertModel
-                {
-                    AlertType = AlertType.Success,
-                    Message = "Patient added as Successfully!"
-                };
-
-                HttpContext.Session.Set<AlertModel>(nameof(AlertModel), model.Alert);
+                
 
                 //return View();
                 return RedirectToAction("Login", "Account");
@@ -218,15 +219,22 @@ namespace CovidXWebApp.Controllers
 
                             //return View();
                             //Add alert
-                        TempData[WCAlert.Success] = "Dependent added successfully!";
-                            return RedirectToAction("PatientDashboard", "Home");
+          
+                            return RedirectToAction("ViewProfile", "Profile");
                     //return RedirectToAction("ProfileAvatar", "Profile", new { model });
                 }
 
-                // reload the page with the user's input
-                TempData[WCAlert.Error] = "Dependent could not be added!";
-                //ModelState.AddModelError(string.Empty, "Could not create profile. Try again");
-                return View(model);
+            // reload the page with the user's input
+            model.Alert = new AlertModel
+            {
+                AlertType = AlertType.Error,
+                Message = "Could not add dependent!"
+            };
+
+            // store alert in session memory to show in different page
+            HttpContext.Session.Set<AlertModel>(nameof(AlertModel), model.Alert);
+            //ModelState.AddModelError(string.Empty, "Could not create profile. Try again");
+            return View(model);
             
         }
 
@@ -291,7 +299,9 @@ namespace CovidXWebApp.Controllers
                     AlertType = AlertType.Success,
                     Message = "Test Request has been made."
                 };
-                return RedirectToAction("ViewTestRequestDetails", "Profile");
+                // store alert in session memory to show in different page
+                HttpContext.Session.Set<AlertModel>(nameof(AlertModel), model.Alert);
+                return RedirectToAction("PatientDashboard", "Home");
             }
 
             model.Alert = new AlertModel
@@ -299,12 +309,14 @@ namespace CovidXWebApp.Controllers
                 AlertType = AlertType.Error,
                 Message = "Test Request was unsuccessful!"
             };
+            // store alert in session memory to show in different page
+            HttpContext.Session.Set<AlertModel>(nameof(AlertModel), model.Alert);
             return View(model);
         }
 
         [HttpGet]
 
-        public IActionResult ViewTestRequestDetails()
+        public IActionResult ViewTestResults()
         {
             var model = new TestRequestViewModel()
             {
@@ -321,6 +333,30 @@ namespace CovidXWebApp.Controllers
                 Alert = HttpContext.Session.GetAndRemove<AlertModel>(nameof(AlertModel)) ?? default
             };
             return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult CancelTest(TestRequestDetailModel model, int testRequestID, string userID)
+        {
+            // call the database service
+            var result = _patientService.TestCancel(testRequestID, userID);
+
+            if (result)
+            {
+                model.Alert = new AlertModel
+                {
+                    AlertType = AlertType.Success,
+                    Message = "Test Request was cancelled"
+                };
+                return RedirectToAction("PatientDashboard", "Home");
+            }
+
+            model.Alert = new AlertModel
+            {
+                AlertType = AlertType.Error,
+                Message = "Test Request could not be cancelled"
+            };
+            return RedirectToAction("PatientDashboard", "Home");
         }
     }
 }

@@ -10,6 +10,8 @@
 
 
 @{
+    string headerText = "Nurse Profile";
+
     var newTableList = new List<TestRequest>();
 
     //// get the user id
@@ -23,16 +25,21 @@
 
 }
 
+@section PageHeader{
+
+    <partial name="CovidX/Page/_Header" model="headerText" />
+}
+
 <div class="row justify-content-center">
     <partial name="CovidX/Page/_Alert" model="Model.Alert" />
 </div>
 
 <!-- 6 COLUMN CARD START -->
 <div class="col-md-12">
-    <div class="card">
+    <div class="card card-secondary">
         <!-- CARD HEADER START -->
         <div class="card-header border-0">
-            <h3 class="card-title">Test Requests by favourite Suburbs</h3>
+            <h3 class="card-title">My Scheduled Test Request</h3>
             <!-- CARD TOOLS START -->
             <div class="card-tools">
                 <!-- ADD CARD TOOLS HERE -->
@@ -78,12 +85,18 @@
 
                                 </td>
                             }
-                            <td>
-                                @fav.TestAddress1
-                            </td>
-                            <td>
-                                @fav.Suburb.SuburbName
-                            </td>
+                        <td>
+                            <small class="text-info mr-1">
+                                <i class="fas fa-house-user"></i>
+                            </small>
+                            @fav.TestAddress1
+                        </td>
+                        <td>
+                            <small class="text-secondary mr-1">
+                                <i class="fas fa-home"></i>
+                            </small>
+                            @fav.Suburb.SuburbName
+                        </td>
                             <td>
                                 @switch (fav.RequestStatus)
                                 {
@@ -114,8 +127,8 @@
                             </td>
                             <td>
 
-                                <button class="btn btn-block btn-outline-primary btn-flat" data-target="#modal-@fav.TestRequestID" data-toggle="modal">
-                                    Perform Test
+                                <button class="btn btn-block btn-outline-info btn-flat" data-target="#modal-@fav.TestRequestID" data-toggle="modal">
+                                    Perform a Test
                                 </button>
                                 <input type="hidden" name="testRequestID" value="@fav.TestRequestID" />
                                 <input type="hidden" name="userID" value="@user.Id" />
@@ -138,8 +151,8 @@
 </div>
 
 
-@foreach(var item in newTableList)
+@foreach (var item in newTableList)
 {
-	 var name = "modal-" + item.TestRequestID.ToString();
-<partial name="Modal/_PerformTestModal" model="new TestViewModel { ModalID = name , TestRequestID=item.TestRequestID}" />
+    var name = "modal-" + item.TestRequestID.ToString();
+    <partial name="Modal/_PerformTestModal" model="new TestViewModel { ModalID = name , TestRequestID=item.TestRequestID}" />
 }
