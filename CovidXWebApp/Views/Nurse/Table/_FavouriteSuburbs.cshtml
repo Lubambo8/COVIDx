@@ -43,7 +43,12 @@
                 @foreach (var item in favSuburbs)
                 {
                     <tr>
-                        <td>@item.Suburb.SuburbName</td>
+                        <td>
+                            <small class="text-secondary mr-1">
+                                <i class="fas fa-home"></i>
+                            </small>
+                            @item.Suburb.SuburbName
+                        </td>
                     </tr>
                 
             }

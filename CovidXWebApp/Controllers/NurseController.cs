@@ -182,6 +182,7 @@ namespace CovidXWebApp.Controllers
                         AlertType = AlertType.Success,
                         Message = "Nurse was added successfully!"
                     };
+                    HttpContext.Session.Set<AlertModel>(nameof(AlertModel), model.Alert);
                     return RedirectToAction("NurseViewProfile", "Nurse");
                 }
 
@@ -194,6 +195,7 @@ namespace CovidXWebApp.Controllers
                 AlertType = AlertType.Error,
                 Message = "Nurse creation was unsuccesful !"
             };
+            HttpContext.Session.Set<AlertModel>(nameof(AlertModel), model.Alert);
             //ModelState.AddModelError(string.Empty, "Could not create profile. Try again");
             return View(model);
 
@@ -247,7 +249,13 @@ namespace CovidXWebApp.Controllers
                 return View(model);
             }
 
+            model.Alert = new AlertModel
+            {
+                AlertType = AlertType.Error,
+                Message = "Favourite Suburbs could not be added!"
+            };
 
+            HttpContext.Session.Set<AlertModel>(nameof(AlertModel), model.Alert);
             return View(model);
         }
 
@@ -298,7 +306,9 @@ namespace CovidXWebApp.Controllers
                 AlertType = AlertType.Error,
                 Message = "Error! failed to capture test!"
             };
-            return View("ScheduledRequests", model);
+            HttpContext.Session.Set<AlertModel>(nameof(AlertModel), model.Alert);
+
+            return View("ScheduledTestRequests", model);
         }
     }
 }

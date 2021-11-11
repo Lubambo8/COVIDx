@@ -69,6 +69,7 @@ namespace CovidXWebApp
             services.AddTransient<IPatientServices, PatientServices>();
             services.AddTransient<INurseServices, NurseService>();
             services.AddTransient<ICalendarService, CalendarService>();
+            services.AddTransient<IManagerService, ManagerService>();
             services.AddTransient<IEmailer, Emailer>();
 
             // configure session and memory caching

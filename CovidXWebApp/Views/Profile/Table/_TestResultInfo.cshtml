@@ -1,0 +1,128 @@
+﻿@inject IPatientServices _patientService
+@inject UserManager<EFCoreIdentityUser> _usermanager
+
+
+@{
+    var user = _usermanager.FindByNameAsync(User.Identity.Name).Result;
+    var testDetails = _patientService.GetTestInfo(user.Id);
+}
+
+<!--TEST SUMMARY -->
+    <div class="card  card-info">
+        <!-- CARD HEADER START -->
+        <div class="card-header border-0">
+            <h3 class="card-title">Test Results</h3>
+            <!-- CARD TOOLS START -->
+            <div class="card-tools">
+                <!-- ADD CARD TOOLS HERE -->
+                <partial name="CovidX/Card/Tool/_collapse" />
+                <partial name="CovidX/Card/Tool/_maximize" />
+
+            </div>
+            <!-- CARD TOOLS END -->
+        </div>
+        <!-- CARD HEADER END -->
+        <!-- CARD BODY START -->
+        <div class="card-body table-responsive p-0">
+            <!-- ADD CONTENT HERE -->
+            <table class="table table-striped table-valign-middle">
+                <thead>
+                    <tr>
+                        <!-- TABLE HEADERS -->
+                        @*<th>Test</th>*@
+                        <th>Test Subject</th>
+                        <th>Barcode</th>
+                        <th>Temperature</th>
+                        <th>Blood Pressure</th>
+                        <th>Oxygen Levels</th>
+                        <th>Test Date</th>
+                        <th>Test Time</th>
+                        <th>Test Result</th>
+                        <th>Lab User</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @if (testDetails == null)
+                    {
+                        //show nothing
+                    }
+                    else
+                    {
+
+                        <!-- TABLE CONTENT ROW -->
+                        @foreach (var test in testDetails)
+                        {
+                            <tr>
+
+
+                                @if (test.TestRequest.DependentID is null)
+                                {
+                                    <td>
+                                        @test.TestRequest.Patient.FirstName  @test.TestRequest.Patient.LastName
+
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @test.TestRequest.Dependent.FirstName  @test.TestRequest.Dependent.LastName
+
+                                    </td>
+                                }
+
+                                <td>
+                                    @test.BarCode
+                                </td>
+                                <td>
+                                    @test.Temperature
+                                </td>
+                                <td>
+                                    @test.BloodPressure
+                                </td>
+                                <td>
+                                    @test.OxygenLevel
+                                </td>
+                                <td>
+                                    @test.TestDate.ToShortDateString()
+                                </td>
+                                <td>
+                                    @test.TestTime.ToShortTimeString()
+                                </td>
+
+                                <td>
+                                    @if (test.TestResult == "Positive")
+                                    {
+                                        <span class="badge bg-red">@test.TestResult</span>
+                                    }
+                                    else if (test.TestResult == "Negative")
+                                    {
+                                        <span class="badge bg-green">@test.TestResult</span>
+                                    }
+
+
+                                </td>
+                                <td>
+                                    @if (test.LabUserID is not null)
+                                    {
+                                        @test.LabUser.FirstName @test.LabUser.LastName
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+        <!-- CARD BODY END -->
+        <!-- CARD FOOTER START -->
+        <div class="card-footer">
+            <!-- ADD BUTTONS HERE -->
+
+        </div>
+        <!-- CARD FOOTER END -->
+    </div>

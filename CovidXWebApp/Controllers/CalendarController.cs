@@ -21,8 +21,12 @@ namespace CovidXWebApp.Controllers
 
         public IActionResult Index()
         {
+            var model = new CalendarViewModel()
+            {
+                Alert = HttpContext.Session.GetAndRemove<AlertModel>(nameof(AlertModel)) ?? default
+            };
             // model will load the assigned test requests
-            return View(new CalendarViewModel());
+            return View(model);
         }
 
         [HttpGet]
@@ -38,22 +42,36 @@ namespace CovidXWebApp.Controllers
         public IActionResult Update(CalendarEventModel model)
         {
             // logic ??
-            var success = _calendarService.AddEvents(model);
             model.Start = Convert.ToDateTime(model.StartText.Substring(0, 25));
             model.End = Convert.ToDateTime(model.EndText.Substring(0, 25));
+            var success = _calendarService.AddEvents(model);
 
 
             if (success)
             {
-                model.Alert = new AlertModel
+                var alert = new AlertModel
                 {
                     AlertType = AlertType.Success,
-                    Message = "Favourite Suburbs added successfully!"
+                    Message = "Test was successfully scheduled!"
                 };
+                HttpContext.Session.Set<AlertModel>(nameof(AlertModel), alert);
                 return RedirectToAction(nameof(Index));
             }
+            else
+            {
+                var alert = new AlertModel
+                {
+                    AlertType = AlertType.Error,
+                    Message = "Error!, You cannot schedule a test request in a past date. Please try again"
+                };
+                
 
-            return View("Index",model);
+                HttpContext.Session.Set<AlertModel>(nameof(AlertModel), alert);
+                 return RedirectToAction(nameof(Index));
+               
+            }
+
+            
         }
     }
 }

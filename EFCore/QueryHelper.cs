@@ -56,5 +56,19 @@ namespace EFCore
                 .Include(nur => nur.SuburbsPreferreds);
                 
         }
+
+        /// <summary>
+        /// Get test details for patient
+        /// </summary>
+        /// <returns></returns>
+        public static IQueryable<Test> GetDetails(this DbSet<Test> Tests)
+        {
+            return Tests
+                 .Include(x => x.TestRequest)
+                 .ThenInclude(x => x.Patient)
+                 .ThenInclude(x => x.Dependents)
+                 .Include(x => x.LabUser);
+
+        }
     }
 }

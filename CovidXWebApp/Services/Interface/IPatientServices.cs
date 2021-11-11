@@ -87,5 +87,22 @@ namespace CovidXWebApp.Services.Interface
         /// <returns></returns>
         List<TestRequestDetailModel> GetTestRequests(string userID);
         public bool AddTestRequest(TestRequestViewModel data);
+
+        /// <summary>
+        /// Cancels a test Request
+        /// </summary>
+        /// <param name="testRequestID"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        bool TestCancel(int testRequestID, string userID);
+
+        
+
+        /// <summary>
+        /// Gets a list of test results based on a user id
+        /// </summary>
+        /// <param name="UserID"></param>
+        /// <returns></returns>
+        List<Test> GetTestInfo(string UserID);
     }
 }
