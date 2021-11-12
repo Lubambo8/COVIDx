@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CovidXWebApp.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20211112152445_Initial")]
+    [Migration("20211112170035_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -986,6 +986,7 @@ namespace CovidXWebApp.Migrations
                             AddressLine1 = "19 Admirality Way",
                             DateOfBirth = new DateTime(1955, 3, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DependencyCode = "00",
+                            EmailAddress = "charmaine@gmail.com",
                             FirstName = "Charmaine",
                             Gender = 0,
                             IDnumber = "5503180225083",
@@ -1003,6 +1004,7 @@ namespace CovidXWebApp.Migrations
                             PatientID = 2,
                             AddressLine1 = "24 7th Avenue",
                             DateOfBirth = new DateTime(1980, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailAddress = "jacob@gmail.com",
                             FirstName = "Jacob",
                             Gender = 1,
                             IDnumber = "8012010225083",
@@ -1019,6 +1021,7 @@ namespace CovidXWebApp.Migrations
                             AddressLine1 = "1 Harbor Cottages",
                             AddressLine2 = "Sayre Crescent",
                             DateOfBirth = new DateTime(1980, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailAddress = "david@gmail.com",
                             FirstName = "David",
                             Gender = 1,
                             IDnumber = "8002200225083",
@@ -1035,6 +1038,7 @@ namespace CovidXWebApp.Migrations
                             AddressLine1 = "27 Aspen Complex",
                             AddressLine2 = "La Roche Drive",
                             DateOfBirth = new DateTime(1976, 6, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailAddress = "kopano@gmail.com",
                             FirstName = "Kopano",
                             Gender = 1,
                             IDnumber = "7606030225083",
@@ -1050,6 +1054,7 @@ namespace CovidXWebApp.Migrations
                             PatientID = 5,
                             AddressLine1 = "6 Rubin Crescent",
                             DateOfBirth = new DateTime(1985, 9, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailAddress = "karien@gmail.com",
                             FirstName = "Karien",
                             Gender = 0,
                             IDnumber = "8509020225083",
@@ -1065,6 +1070,7 @@ namespace CovidXWebApp.Migrations
                             PatientID = 6,
                             AddressLine1 = "28 7th Avenue",
                             DateOfBirth = new DateTime(1975, 12, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailAddress = "felicityONP400@gmail.com",
                             FirstName = "Felicity",
                             Gender = 0,
                             IDnumber = "7512020225083",
@@ -1081,6 +1087,7 @@ namespace CovidXWebApp.Migrations
                             AddressLine1 = "37 The Beaches",
                             AddressLine2 = "Beach Road",
                             DateOfBirth = new DateTime(1960, 8, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailAddress = "errol@gmail.com",
                             FirstName = "Errol",
                             Gender = 1,
                             IDnumber = "6008090225083",
@@ -1097,6 +1104,7 @@ namespace CovidXWebApp.Migrations
                             AddressLine1 = "12 Marshall Road",
                             DateOfBirth = new DateTime(1964, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DependencyCode = "00",
+                            EmailAddress = "alyce@gmail.com",
                             FirstName = "Alyce",
                             Gender = 0,
                             IDnumber = "6412120225083",
@@ -1115,6 +1123,7 @@ namespace CovidXWebApp.Migrations
                             AddressLine1 = "13 Congo Avenue",
                             DateOfBirth = new DateTime(1983, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DependencyCode = "00",
+                            EmailAddress = "asha@gmail.com",
                             FirstName = "Asha",
                             Gender = 0,
                             IDnumber = "8302090225083",
@@ -1132,6 +1141,7 @@ namespace CovidXWebApp.Migrations
                             PatientID = 10,
                             AddressLine1 = "29 Peace Street",
                             DateOfBirth = new DateTime(1950, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailAddress = "carlos@gmail.com",
                             FirstName = "Carlos",
                             Gender = 1,
                             IDnumber = "5008100225083",
@@ -1147,6 +1157,7 @@ namespace CovidXWebApp.Migrations
                             PatientID = 11,
                             AddressLine1 = "7 Jacks Road",
                             DateOfBirth = new DateTime(1971, 12, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailAddress = "kabelo@gmail.com",
                             FirstName = "Kabelo",
                             Gender = 1,
                             IDnumber = "7112150225083",
@@ -1163,6 +1174,7 @@ namespace CovidXWebApp.Migrations
                             AddressLine1 = "45 Columbia Crescent",
                             DateOfBirth = new DateTime(1991, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DependencyCode = "00",
+                            EmailAddress = "pulane@gmail.com",
                             FirstName = "Pulane",
                             Gender = 0,
                             IDnumber = "9110120225083",
