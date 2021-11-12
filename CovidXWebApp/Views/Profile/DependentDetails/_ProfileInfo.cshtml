@@ -30,7 +30,6 @@
 <div class="input-group mb-3">
 
     <!-- INPUT LABEL -->
-    
     <!-- INPUT ITEM -->
     <select asp-for="Relationship"
             asp-items="Html.GetEnumSelectList<Relationships>()"
@@ -85,6 +84,32 @@
         </div>
     </div>
     <span asp-validation-for="Idnumber" class="error invalid-feedback" />
+</div>
+
+<!-- Date of Birth -->
+<div class="form-group">
+    <!-- LABEL -->
+    <label asp-for="Dob">Date of Birth</label>
+
+    <div class="input-group">
+        <!-- INPUT -->
+        <input asp-for="Dob"
+               type="text"
+               class="form-control"
+               data-inputmask-alias="datetime"
+               data-inputmask-inputformat="dd/mm/yyyy"
+               data-mask
+               id="datemask">
+
+        <!-- ICON -->
+        <div class="input-group-append">
+            <span class="input-group-text">
+                <i class="far fa-calendar-alt"></i>
+            </span>
+        </div>
+        <!-- VALIDATION MESSAGE -->
+        <span asp-validation-for="Dob" />
+    </div>
 </div>
 
 <!-- Mobile number -->
@@ -177,36 +202,6 @@
 
 
 
-
-
-<!-- Date of Birth -->
-<div class="form-group">
-    <!-- LABEL -->
-    <label asp-for="Dob">Date of Birth</label>
-
-    <div class="input-group">
-        <!-- INPUT -->
-        <input asp-for="Dob"
-               type="text"
-               class="form-control"
-               data-inputmask-alias="datetime"
-               data-inputmask-inputformat="dd/mm/yyyy"
-               data-mask
-               id="datemask">
-
-        <!-- ICON -->
-        <div class="input-group-append">
-            <span class="input-group-text">
-                <i class="far fa-calendar-alt"></i>
-            </span>
-        </div>
-        <!-- VALIDATION MESSAGE -->
-        <span asp-validation-for="Dob" />
-    </div>
-</div>
-
-
-
 <!-- Gender -->
 <div class="form-group">
 
@@ -227,16 +222,4 @@
           style="display:inline" />
 </div>
 
-<!-- Person Responsible -->
-<label asp-for="PersonResponsible">Person Responsible for account</label>
-<div class="input-group mb-3">
-
-    <input asp-for="PersonResponsible" class="form-control" placeholder="Person Responsible Full Name">
-    <div class="input-group-append">
-        <div class="input-group-text">
-            <span class="fas fa-address-card"></span>
-        </div>
-    </div>
-    <span asp-validation-for="PersonResponsible" class="error invalid-feedback" />
-</div>
 

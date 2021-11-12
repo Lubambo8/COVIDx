@@ -22,5 +22,6 @@ namespace EFCore.ModelInterfaces
         int PatientID { get; set; }
         int SuburbID { get; set; }
         string UserID { get; set; }
+        string PersonResponsible { get; set; }
     }
 }

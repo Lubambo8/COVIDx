@@ -51,6 +51,31 @@
     <span asp-validation-for="IDnumber" class="error invalid-feedback" />
 </div>
 
+<div class="form-group">
+    <!-- LABEL -->
+    <label asp-for="DateOfBirth"></label>
+
+    <div class="input-group">
+        <!-- INPUT -->
+        <input asp-for="DateOfBirth"
+               type="text"
+               class="form-control"
+               data-inputmask-alias="datetime"
+               data-inputmask-inputformat="dd/mm/yyyy"
+               data-mask
+               id="datemask">
+
+        <!-- ICON -->
+        <div class="input-group-append">
+            <span class="input-group-text">
+                <i class="far fa-calendar-alt"></i>
+            </span>
+        </div>
+        <!-- VALIDATION MESSAGE -->
+        <span asp-validation-for="DateOfBirth" />
+    </div>
+</div>
+
 <!-- Mobile number -->
 <div class="input-group mb-3">
     <input asp-for="MobileNumber" class="form-control" placeholder="Mobile Number">
@@ -85,30 +110,7 @@
 </div>
 
 <!-- Date of Birth -->
-<div class="form-group">
-    <!-- LABEL -->
-    <label asp-for="DateOfBirth"></label>
 
-    <div class="input-group">
-        <!-- INPUT -->
-        <input asp-for="DateOfBirth"
-               type="text"
-               class="form-control"
-               data-inputmask-alias="datetime"
-               data-inputmask-inputformat="dd/mm/yyyy"
-               data-mask
-               id="datemask">
-
-        <!-- ICON -->
-        <div class="input-group-append">
-            <span class="input-group-text">
-                <i class="far fa-calendar-alt"></i>
-            </span>
-        </div>
-        <!-- VALIDATION MESSAGE -->
-        <span asp-validation-for="DateOfBirth" />
-    </div>
-</div>
 
 <!-- Suburb List -->
 <div class="input-group mb-3">

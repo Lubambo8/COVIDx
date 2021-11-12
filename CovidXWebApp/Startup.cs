@@ -51,7 +51,7 @@ namespace CovidXWebApp
                 options.SignIn.RequireConfirmedAccount = false;
                 options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedEmail = false;
-                
+
                 // password requirements
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
@@ -70,6 +70,7 @@ namespace CovidXWebApp
             services.AddTransient<INurseServices, NurseService>();
             services.AddTransient<ICalendarService, CalendarService>();
             services.AddTransient<IManagerService, ManagerService>();
+            services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IEmailer, Emailer>();
 
             // configure session and memory caching

@@ -66,9 +66,12 @@ namespace EFCore.Model
         public DateTime DateOfBirth { get; set; }
 
         [Required]
-        public Genders Gender { get; set; }
+        public string PersonResponsible { get; set; }
 
         [Required]
+        public Genders Gender { get; set; }
+
+        [ForeignKey(nameof(EFCoreIdentityUser))]
         public string UserID { get; set; }
 
         [ForeignKey(nameof(MedicalAidPlanID))]
@@ -77,8 +80,6 @@ namespace EFCore.Model
         [ForeignKey(nameof(SuburbID))]
         public virtual Suburb Suburb { get; set; }
 
-        [ForeignKey(nameof(UserID))]
-        public virtual EFCoreIdentityUser User { get; set; }
         public virtual ICollection<Dependent> Dependents { get; set; }
         public virtual ICollection<TestRequest> TestRequests { get; set; }
 

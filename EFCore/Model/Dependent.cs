@@ -67,6 +67,7 @@ namespace EFCore.Model
         [Required]
         public Genders Gender { get; set; }
 
+        [Required]
         public string PersonResponsible { get; set; }
 
         [ForeignKey(nameof(MainMemberID))]

@@ -1,4 +1,5 @@
 ﻿using CovidXWebApp.Models;
+using CovidXWebApp.Models.ViewModel;
 using EFCore;
 using EFCore.EFCoreConfigurationMethods;
 using Microsoft.AspNetCore.Identity;
@@ -142,7 +143,11 @@ namespace CovidXWebApp.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            return View();
+            var model = new SigninModel()
+            {
+                Alert = HttpContext.Session.GetAndRemove<AlertModel>(nameof(AlertModel)) ?? default
+            };
+            return View(model);
         }
 
         [HttpPost]

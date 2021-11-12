@@ -7,9 +7,9 @@ namespace EFCore.Model
         string BarCode { get; set; }
         string BloodPressure { get; set; }
         int? LabUserID { get; set; }
-        string OxygenLevel { get; set; }
+        int OxygenLevel { get; set; }
         DateTime? ResultDate { get; set; }
-        string Temperature { get; set; }
+        double Temperature { get; set; }
         DateTime TestDate { get; set; }
         int TestID { get; set; }
         int TestRequestID { get; set; }

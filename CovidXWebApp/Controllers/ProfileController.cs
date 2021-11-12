@@ -86,7 +86,7 @@ namespace CovidXWebApp.Controllers
                    var success = _patientService.AddPatient(model);
                     if(success)
                     {
-                        model.Alert = new AlertModel
+                        var alert = new AlertModel
                         {
                             AlertType = AlertType.Success,
                             Message = $"{model.FirstName} {model.LastName} added successfully!"
@@ -98,6 +98,7 @@ namespace CovidXWebApp.Controllers
                         user.Avatar = model.Avatar;
                         user.IsActive = true;
                         await _userManager.UpdateAsync(user);
+                        return RedirectToAction("Login", "Account", alert);
                     }
                 }
                 else if (model.MedicalAidStatus == false)
@@ -108,24 +109,24 @@ namespace CovidXWebApp.Controllers
 
                     if (success)
                     {
-                        model.Alert = new AlertModel
+                        var alert = new AlertModel
                         {
                             AlertType = AlertType.Success,
-                            Message = "Patient added as Successfully!"
+                            Message = $"{model.FirstName} {model.LastName} added successfully!"
                         };
-
                         HttpContext.Session.Set<AlertModel>(nameof(AlertModel), model.Alert);
                         // set avatar and activate user
                         user.Avatar = model.Avatar;
                         user.IsActive = true;
                         await _userManager.UpdateAsync(user);
+                        return RedirectToAction("Login", "Account", alert);
                     }
                 }
 
                 
 
                 //return View();
-                return RedirectToAction("Login", "Account");
+                
                 //return RedirectToAction("ProfileAvatar", "Profile", new { model });
             }
 
