@@ -59,14 +59,12 @@ namespace EFCore.Model
         public Rank Rank { get; set; }
 
 
-        [Required]
+        [ForeignKey(nameof(EFCoreIdentityUser))]
         public string UserID { get; set; }
 
         [Required]
         public Genders Gender { get; set; }
 
-        [ForeignKey(nameof(UserID))]
-        public virtual EFCoreIdentityUser User { get; set; }
         public virtual ICollection<NurseSchedule> NurseSchedules { get; set; }
         public virtual ICollection<SuburbsPreferred> SuburbsPreferreds { get; set; }
         public virtual ICollection<TestRequest> TestRequests { get; set; }

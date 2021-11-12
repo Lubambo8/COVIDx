@@ -11,5 +11,6 @@ namespace Utility
         public const string ADMIN = "Administrator";
         public const string PATIENT = "Patient";
         public const string NURSE = "Nurse";
+        public const string LABUSER = "LabUser";
     }
 }

@@ -13,10 +13,12 @@ namespace CovidXWebApp.Controllers
     public class CalendarController : Controller
     {
         private readonly ICalendarService _calendarService;
+        private readonly IEmailService _emailer;
 
-        public CalendarController(ICalendarService calendarService)
+        public CalendarController(ICalendarService calendarService, IEmailService emailer)
         {
             _calendarService = calendarService;
+            _emailer = emailer;
         }
 
         public IActionResult Index()
@@ -49,12 +51,14 @@ namespace CovidXWebApp.Controllers
 
             if (success)
             {
+
                 var alert = new AlertModel
                 {
                     AlertType = AlertType.Success,
                     Message = "Test was successfully scheduled!"
                 };
                 HttpContext.Session.Set<AlertModel>(nameof(AlertModel), alert);
+                _emailer.SendPatientNotification((int)model.ID);
                 return RedirectToAction(nameof(Index));
             }
             else

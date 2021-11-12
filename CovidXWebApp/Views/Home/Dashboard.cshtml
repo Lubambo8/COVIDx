@@ -68,6 +68,7 @@
                         <th>Test Subject</th>
                         <th>Test Location</th> <!-- Test Address-->
                         <th>Suburb</th>
+                        <th>Request Date</th>
                         <th>Test Status</th>
                     </tr>
                 </thead>
@@ -97,6 +98,12 @@
                             </td>
                             <td>
                                 @req.Suburb.SuburbName
+                            </td>
+                            <td>
+                                <small class="text-secondary mr-1">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </small>
+                                @req.RequestDate
                             </td>
                             <td>
                                 @switch (req.RequestStatus)

@@ -1,7 +1,9 @@
-﻿using EFCore.Model;
+﻿using EFCore.EFCoreConfigurationMethods;
+using EFCore.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -18,7 +20,7 @@ namespace EFCore.Model
         public int LabUserID { get; set; }
 
         [Required,
-            MaxLength(13)]
+            MaxLength(14)]
         public string IDnumber { get; set; }
 
         [Required,
@@ -37,8 +39,7 @@ namespace EFCore.Model
             MaxLength(128)]
         public string EmailAddress { get; set; }
 
-        [Required,
-            MaxLength(128)]
+        [MaxLength(128)]
         public string Qualification { get; set; }
 
         [Required]

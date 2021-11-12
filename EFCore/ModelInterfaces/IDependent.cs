@@ -18,7 +18,7 @@ namespace EFCore.ModelInterfaces
         string LastName { get; set; }
         string MobileNumber { get; set; }
         int MainMemberID { get; set; }
-
+        string PersonResponsible { get; set; }
         Relationships Relationship { get; set; }
         int? SuburbID { get; set; }
     }

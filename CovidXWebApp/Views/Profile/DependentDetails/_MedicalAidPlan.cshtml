@@ -78,3 +78,16 @@
     </div>
     <span asp-validation-for="MedicalAidNo" class="error invalid-feedback" />
 </div>
+
+<!-- Person Responsible -->
+<label asp-for="PersonResponsible">Person Responsible for accounts</label>
+<div class="input-group mb-3">
+
+    <input asp-for="PersonResponsible" class="form-control" placeholder="Person Responsible Full Name">
+    <div class="input-group-append">
+        <div class="input-group-text">
+            <span class="fas fa-address-card"></span>
+        </div>
+    </div>
+    <span asp-validation-for="PersonResponsible" class="error invalid-feedback" />
+</div>

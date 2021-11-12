@@ -18,7 +18,7 @@ namespace EFCore.Model
 
         [Required,
             MaxLength(128)]
-        public string Temperature { get; set; }
+        public double Temperature { get; set; }
 
         [Required,
             MaxLength(128)]
@@ -26,7 +26,7 @@ namespace EFCore.Model
 
         [Required,
             MaxLength(128)]
-        public string OxygenLevel { get; set; }
+        public int OxygenLevel { get; set; }
 
         [Required]
         public DateTime TestDate { get; set; }

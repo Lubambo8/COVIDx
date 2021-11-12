@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EFCore
 {
-    public class DatabaseContext : IdentityDbContext<EFCoreIdentityUser>
+    public partial class DatabaseContext : IdentityDbContext<EFCoreIdentityUser>
     {
        
 
@@ -40,6 +40,23 @@ namespace EFCore
         {
             // configure relationships and seed data
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
+
+            modelBuilder.SeedingCity();
+            modelBuilder.SeedingSuburb();
+            modelBuilder.SeedingMedicalAidScheme();
+            modelBuilder.SeedingPatients();
+            modelBuilder.SeedingMedicalAidPlan();
+            modelBuilder.SeedingDependents();
+            modelBuilder.SeedingNurses();
+            modelBuilder.SeedingNursePreferredSuburbs();
+            modelBuilder.SeedingLabUser();
+            modelBuilder.SeedingTestRequests();
+            modelBuilder.SeedingCalenderEvents();
+            modelBuilder.SeedingTests();
+
+            OnModelCreatingPartial(modelBuilder);
         }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

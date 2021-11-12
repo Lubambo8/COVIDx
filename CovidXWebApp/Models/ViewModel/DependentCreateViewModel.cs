@@ -26,6 +26,7 @@ namespace CovidXWebApp.Models.ViewModel
         [StringLength(13, ErrorMessage = "ID number should be 13 characters")]
         public string Idnumber { get; set; }
 
+        [Required(ErrorMessage = "Person responsile for accounts is required")]
         public string PersonResponsible { get; set; }
         //public string EmailAddress { get; set; }
 

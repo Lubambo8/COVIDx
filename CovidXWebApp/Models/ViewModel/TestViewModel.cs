@@ -22,11 +22,23 @@ namespace CovidXWebApp.Models.ViewModel
 
         [Display(Name = "Oxygen Level")]
         [Required(ErrorMessage = "Oxygen Level is required")]
-        public string OxygenLevel { get; set; }
+        public int OxygenLevel { get; set; }
         public DateTime? ResultDate { get; set; }
 
-        [Required(ErrorMessage = "Temperature Level is required")]
-        public string Temperature { get; set; }
+        public double Temperature
+        {
+            get
+            {
+                return Double.Parse(Temp);
+            }
+            set
+            {
+                Temperature = value;
+            }
+        }
+
+        [RegularExpression(@"^[0-9]{0,2}\,?[0-9]{0,2}$", ErrorMessage = "Error! This is an Invalid Temperature. Input should contain numbers")]
+        public string Temp { get; set; }
         public DateTime TestDate { get; set; }
         public int TestID { get; set; }
         public int TestRequestID { get; set; }

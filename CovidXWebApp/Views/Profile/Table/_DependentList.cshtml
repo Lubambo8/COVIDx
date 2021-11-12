@@ -34,10 +34,12 @@
             <thead>
                 <tr>
                     <!-- TABLE HEADERS -->
+                    <th>Dependent ID</th>
                     <th>Dependant</th>
                     <th>Relationship</th>
                     <th>Address</th>
-                    <th>Dependant Code</th>
+                    <th>Medical Aid</th>
+                    
                 </tr>
             </thead>
 
@@ -59,26 +61,44 @@
 
                     @foreach (var dependent in Model.Dependents)
                     {
-                        <tr>
+                    <tr>
+                        <td>
+                            @dependent.DependentID
+                        </td>
+                        <td>
+                            @dependent.FirstName @dependent.LastName
+                        </td>
+                        <td>
+                            <small class="text-indigo mr-1">
+                                <i class="fas fa-users"></i>
+                            </small>
+                            @dependent.Relationship
+                        </td>
+                        <td>
+                            <small class="text-info mr-1">
+                                <i class="fas fa-house-user"></i>
+                            </small>
+                            @dependent.AddressLine1
+                        </td>
+
+                        @if (dependent.MedicalAidStatus && dependent.MedicalAidPlanID is not null)
+                        {
                             <td>
-                                @dependent.FirstName @dependent.LastName
-                            </td>
-                            <td>
-                                <small class="text-indigo mr-1">
-                                    <i class="fas fa-users"></i>
+                                <small class="text-red mr-1">
+                                    <i class="fas fa-heartbeat"></i>
                                 </small>
-                                @dependent.Relationship
+
+                                @dependent.MedicalAidPlan.MedicalAidScheme.Description
                             </td>
-                            <td>
-                                <small class="text-info mr-1">
-                                    <i class="fas fa-house-user"></i>
-                                </small>
-                                @dependent.AddressLine1
-                            </td>
-                            <td>
-                                @dependent.DependencyCode
-                            </td>
-                        </tr>
+                            
+                        }
+                        else
+                        {
+                            <td>None</td>
+                        }
+                        
+
+                    </tr>
                     }
 
                 </tbody>

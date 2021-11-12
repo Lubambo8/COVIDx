@@ -6,26 +6,45 @@
 
 @if (user is not null)
 {
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-            <img src="@Url.Content("~/img/avatar/" + user.Avatar)"
-                 class="img-circle elevation-2"
-                 alt="User Image">
+    if (User.IsInRole(CovidXRoles.ADMIN))
+    {
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="@Url.Content("~/img/" + user.Avatar)"
+                     class="img-circle elevation-2"
+                     alt="User Image">
+            </div>
+            <div class="info">
+                <a href="#"
+                   class="d-block">@user.UserName</a>
+            </div>
         </div>
-        <div class="info">
-            <a href="#"
-               class="d-block">@user.UserName</a>
+    }
+    else
+    {
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="@Url.Content("~/img/avatar/" + user.Avatar)"
+                     class="img-circle elevation-2"
+                     alt="User Image">
+            </div>
+            <div class="info">
+                <a href="#"
+                   class="d-block">@user.UserName</a>
+            </div>
         </div>
-    </div>
+
+    }
+
 }
 else
 {
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         @*<div class="image">
-            <img src="~/img/063-batman-img.svg"
-                 class="img-circle elevation-2"
-                 alt="User Image">
-        </div>*@
+                <img src="~/img/063-batman-img.svg"
+                     class="img-circle elevation-2"
+                     alt="User Image">
+            </div>*@
         <div class="info">
             <a href="#"
                class="d-block">CO-X User</a>

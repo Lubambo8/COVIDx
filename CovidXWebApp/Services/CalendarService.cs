@@ -57,11 +57,11 @@ namespace CovidXWebApp.Services
 
             if (result > 0)
             {
-                var patient = _context.Patient.SingleOrDefault(x => x.PatientID == testRequest.PatientId);
-                var subject = "Scheduled Test Request ";
-                var body = "Your test requests have been scheduled for the following date and time slots:" +
-                    testRequest.StartTime.ToString() + " " + testRequest.EndTime.ToString() + "\n" + "Kind Regards, CovidX Management";
-                _email.SendEmail("Veemvolt@gmail.com", subject, body);
+                //var patient = _context.Patient.SingleOrDefault(x => x.PatientID == testRequest.PatientId);
+                //var subject = "Scheduled Test Request ";
+                //var body = "Your test requests have been scheduled for the following date and time slots:" +
+                //    testRequest.StartTime.ToString() + " " + testRequest.EndTime.ToString() + "\n" + "Kind Regards, CovidX Management";
+                //_email.SendEmail("Veemvolt@gmail.com", subject, body);
                 return true;
             }
 

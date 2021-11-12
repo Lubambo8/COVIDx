@@ -245,6 +245,8 @@ namespace CovidXWebApp.Services
                     TestRequestID = requester.TestRequestID,
                     RequestedByID = requester.PatientId,
                     RequestedForID = requester.PatientId,
+                    StartTime =  requester.StartTime,
+                    EndTime = requester.EndTime,
                     SuburbID = (int)patient.SuburbID
                 };
 
@@ -284,6 +286,8 @@ namespace CovidXWebApp.Services
                         TestRequestID = request.TestRequestID,
                         RequestedByID = request.PatientId,
                         RequestedForID = request.DependentID,
+                        StartTime = request.StartTime,
+                        EndTime = request.EndTime,
                         SuburbID = (int)patient.SuburbID
                     };
 
@@ -302,6 +306,8 @@ namespace CovidXWebApp.Services
                             TestRequestID = request.TestRequestID,
                             RequestedByID = request.PatientId,
                             RequestedForID = request.DependentID,
+                            StartTime = request.StartTime,
+                            EndTime = request.EndTime,
                             SuburbID = (int)dependent.SuburbID
                         };
 
@@ -322,6 +328,8 @@ namespace CovidXWebApp.Services
                             TestRequestID = 0,
                             RequestedByID = patient.PatientID,
                             RequestedForID = dependent.DependentID,
+                            StartTime = request.StartTime,
+                            EndTime = request.EndTime,
                             SuburbID = (int)dependent.SuburbID
                         };
                     }

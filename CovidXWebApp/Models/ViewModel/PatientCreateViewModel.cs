@@ -60,6 +60,9 @@ namespace CovidXWebApp.Models.ViewModel
         public Genders Gender { get; set; }
         public string EmailAddress { get; set; }
         public int PatientID { get; set; }
+
+        [Required(ErrorMessage = "Person responsile for accounts is required")]
+        public string PersonResponsible { get; set; }
     }
 }
 
