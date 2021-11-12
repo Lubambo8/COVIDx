@@ -1,9 +1,24 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-    //Layout = "~/Views/Shared/CovidX/_Layout.cshtml";
+    Layout = "~/Views/Shared/CovidX/Dashboard - Copy.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="card" style="height:75vh;">
+    <div class="card-body row">
+        <div class="col-8 text-center d-flex align-items-center justify-content-center">
+          
+            <div class="text-center">
+                <img class="img-fluid img-thumbnail" src="~/img/checkCoxbrand.jpg" alt="User profile picture" style="max-height:500px;">
+            </div>
+        </div>
+        <div class="col-4  text-center d-flex align-items-center justify-content-center">
+            <div class="col text-center d-flex align-items-center">
+                <a class="btn btn-outline-info btn-block btn-lg"
+                   asp-action="Register"
+                   asp-controller="Account">
+                    <i class="fa fa-user-plus"></i> Get Started Here
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
