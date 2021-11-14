@@ -1,5 +1,5 @@
 ﻿using CovidXWebApp.Models.ViewModel;
-using CovidXWebApp.Services.Interface;
+using CovidXWebApp.API.Interface;
 using EFCore.EFCoreConfigurationMethods;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,9 +13,9 @@ namespace CovidXWebApp.Controllers
     public class ManagerController : Controller
     {
         private readonly UserManager<EFCoreIdentityUser> _userManager;
-        private readonly INurseServices _nurseService;
+        private readonly INurseAPI _nurseService;
 
-        public ManagerController(UserManager<EFCoreIdentityUser> userManager, INurseServices nurseService)
+        public ManagerController(UserManager<EFCoreIdentityUser> userManager, INurseAPI nurseService)
         {
             _userManager = userManager;
             _nurseService = nurseService;

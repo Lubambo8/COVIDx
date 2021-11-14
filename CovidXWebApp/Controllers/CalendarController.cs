@@ -1,6 +1,6 @@
 ﻿using CovidXWebApp.Models.Calendar;
 using CovidXWebApp.Models.ViewModel;
-using CovidXWebApp.Services.Interface;
+using CovidXWebApp.API.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,10 +12,10 @@ namespace CovidXWebApp.Controllers
 {
     public class CalendarController : Controller
     {
-        private readonly ICalendarService _calendarService;
-        private readonly IEmailService _emailer;
+        private readonly ICalendarAPI _calendarService;
+        private readonly IEmailAPI _emailer;
 
-        public CalendarController(ICalendarService calendarService, IEmailService emailer)
+        public CalendarController(ICalendarAPI calendarService, IEmailAPI emailer)
         {
             _calendarService = calendarService;
             _emailer = emailer;
@@ -58,7 +58,7 @@ namespace CovidXWebApp.Controllers
                     Message = "Test was successfully scheduled!"
                 };
                 HttpContext.Session.Set<AlertModel>(nameof(AlertModel), alert);
-                _emailer.SendPatientNotification((int)model.ID);
+               // _emailer.SendPatientNotification((int)model.ID);
                 return RedirectToAction(nameof(Index));
             }
             else

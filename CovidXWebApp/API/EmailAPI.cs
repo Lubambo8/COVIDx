@@ -1,4 +1,4 @@
-﻿using CovidXWebApp.Services.Interface;
+﻿using CovidXWebApp.API.Interface;
 using EFCore;
 using System;
 using System.Collections.Generic;
@@ -6,14 +6,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Utility.Email;
 
-namespace CovidXWebApp.Services
+namespace CovidXWebApp.API
 {
-    public class EmailService : IEmailService
+    public class EmailAPI : IEmailAPI
     {
         private readonly DatabaseContext _context;
         private readonly IEmailer _emailer;
 
-        public EmailService(DatabaseContext context, IEmailer emailer)
+        public EmailAPI(DatabaseContext context, IEmailer emailer)
         {
             _context = context;
             _emailer = emailer;

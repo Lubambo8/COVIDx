@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CovidXWebApp.Models.Calendar;
-using CovidXWebApp.Services.Interface;
+using CovidXWebApp.API.Interface;
 using EFCore;
 using EFCore.Model;
 using System;
@@ -9,15 +9,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Utility.Email;
 
-namespace CovidXWebApp.Services
+namespace CovidXWebApp.API
 {
-    public class CalendarService : ICalendarService
+    public class CalendarAPI : ICalendarAPI
     {
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
         private readonly IEmailer _email;
 
-        public CalendarService(DatabaseContext context, IMapper mapper, IEmailer email)
+        public CalendarAPI(DatabaseContext context, IMapper mapper, IEmailer email)
         {
             _context = context;
             _mapper = mapper;

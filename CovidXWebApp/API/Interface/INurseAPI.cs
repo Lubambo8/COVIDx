@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CovidXWebApp.Services.Interface
+namespace CovidXWebApp.API.Interface
 {
-    public interface INurseServices
+    public interface INurseAPI
     {
         /// <summary>
         /// Gets the nurse details of the current patient

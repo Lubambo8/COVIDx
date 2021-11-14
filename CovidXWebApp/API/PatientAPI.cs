@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CovidXWebApp.Models.ViewModel;
-using CovidXWebApp.Services.Interface;
+using CovidXWebApp.API.Interface;
 using EFCore;
 using EFCore.Model;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,14 +11,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Utility;
 
-namespace CovidXWebApp.Services
+namespace CovidXWebApp.API
 {
-    public class PatientServices : IPatientServices
+    public class PatientAPI : IPatientAPI
     {
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
 
-        public PatientServices(DatabaseContext context, IMapper mapper)
+        public PatientAPI(DatabaseContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -102,6 +102,7 @@ namespace CovidXWebApp.Services
 
         public bool AddDependent(DependentCreateViewModel model)
         {
+            // map the data from the model to the a Dependent entity
             var dependent = _mapper.Map<Dependent>(model);
 
             _context.Dependent.Add(dependent);

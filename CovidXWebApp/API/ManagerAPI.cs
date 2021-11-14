@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CovidXWebApp.Services.Interface
+namespace CovidXWebApp.API.Interface
 {
-    public class ManagerService : IManagerService
+    public class ManagerAPI : IManagerAPI
     {
         private readonly DatabaseContext _context;
 
-        public ManagerService(DatabaseContext context)
+        public ManagerAPI(DatabaseContext context)
         {
             _context = context;
         }

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CovidXWebApp.Services.Interface
+namespace CovidXWebApp.API.Interface
 {
-    public interface ICalendarService
+    public interface ICalendarAPI
     {
         /// <summary>
         /// Gets the list of scheduled test requests

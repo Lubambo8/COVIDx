@@ -1,6 +1,6 @@
 ﻿using CovidXWebApp.Models;
 using CovidXWebApp.Models.ViewModel;
-using CovidXWebApp.Services.Interface;
+using CovidXWebApp.API.Interface;
 using EFCore.EFCoreConfigurationMethods;
 using EFCore.Model;
 using Microsoft.AspNetCore.Identity;
@@ -22,8 +22,8 @@ namespace CovidXWebApp.Controllers
 
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        private readonly INurseServices _nurseServices;
-        public NurseController(UserManager<EFCoreIdentityUser> userManager, SignInManager<EFCoreIdentityUser> signInManager, RoleManager<IdentityRole> roleManager, INurseServices nurseServices)
+        private readonly INurseAPI _nurseServices;
+        public NurseController(UserManager<EFCoreIdentityUser> userManager, SignInManager<EFCoreIdentityUser> signInManager, RoleManager<IdentityRole> roleManager, INurseAPI nurseServices)
         {
             _userManager = userManager;
             _signInManager = signInManager;

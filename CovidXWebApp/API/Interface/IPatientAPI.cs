@@ -7,9 +7,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Utility;
 
-namespace CovidXWebApp.Services.Interface
+namespace CovidXWebApp.API.Interface
 {
-    public interface IPatientServices
+    public interface IPatientAPI
     {
         /// <summary>
         /// Gets the profile details of the current patient

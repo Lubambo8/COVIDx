@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CovidXWebApp.Models.ViewModel;
-using CovidXWebApp.Services.Interface;
+using CovidXWebApp.API.Interface;
 using EFCore;
 using EFCore.Model;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,14 +10,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CovidXWebApp.Services
+namespace CovidXWebApp.API
 {
-    public class NurseService : INurseServices
+    public class NurseAPI : INurseAPI
     {
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
 
-        public NurseService(DatabaseContext context, IMapper mapper)
+        public NurseAPI(DatabaseContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

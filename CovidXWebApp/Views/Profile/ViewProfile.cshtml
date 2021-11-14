@@ -11,7 +11,7 @@
     var user = _usermanager.FindByNameAsync(User.Identity.Name).Result;
     var patient = _patientService.GetPatientDetail(user.Id);
     var pendingRequests = _patientService.GetTestRequests(user.Id).Where(req => req.Status == TestRequestStatus.New).Count();
-    //var testDetails = _patientService.GetTestDetail(user.Id);
+    //var testDetails = _patientAPI.GetTestDetail(user.Id);
 
     var testDetails = _patientService.GetTestInfo(user.Id);
 

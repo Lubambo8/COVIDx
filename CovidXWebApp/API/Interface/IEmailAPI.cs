@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CovidXWebApp.Services.Interface
+namespace CovidXWebApp.API.Interface
 {
-    public interface IEmailService
+    public interface IEmailAPI
     {
         /// <summary>
         /// Sends an email notification to a patient on a success scheduling event

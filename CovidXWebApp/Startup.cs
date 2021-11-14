@@ -1,6 +1,6 @@
 using CovidXWebApp.Config;
-using CovidXWebApp.Services;
-using CovidXWebApp.Services.Interface;
+using CovidXWebApp.API;
+using CovidXWebApp.API.Interface;
 using EFCore;
 using EFCore.EFCoreConfigurationMethods;
 using Microsoft.AspNetCore.Builder;
@@ -66,11 +66,11 @@ namespace CovidXWebApp
 
            
 
-            services.AddTransient<IPatientServices, PatientServices>();
-            services.AddTransient<INurseServices, NurseService>();
-            services.AddTransient<ICalendarService, CalendarService>();
-            services.AddTransient<IManagerService, ManagerService>();
-            services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<IPatientAPI, PatientAPI>();
+            services.AddTransient<INurseAPI, NurseAPI>();
+            services.AddTransient<ICalendarAPI, CalendarAPI>();
+            services.AddTransient<IManagerAPI, ManagerAPI>();
+            services.AddTransient<IEmailAPI, EmailAPI>();
             services.AddTransient<IEmailer, Emailer>();
 
             // configure session and memory caching

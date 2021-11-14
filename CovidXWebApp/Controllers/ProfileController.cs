@@ -1,6 +1,6 @@
 ﻿using CovidXWebApp.Models;
 using CovidXWebApp.Models.ViewModel;
-using CovidXWebApp.Services.Interface;
+using CovidXWebApp.API.Interface;
 using EFCore.EFCoreConfigurationMethods;
 using EFCore.Model;
 using Microsoft.AspNetCore.Authorization;
@@ -18,12 +18,12 @@ namespace CovidXWebApp.Controllers
     public class ProfileController : Controller
     {
         private readonly UserManager<EFCoreIdentityUser> _userManager;
-        private readonly IPatientServices _patientService;
+        private readonly IPatientAPI _patientAPI;
 
-        public ProfileController(UserManager<EFCoreIdentityUser> userManager, IPatientServices patientService)
+        public ProfileController(UserManager<EFCoreIdentityUser> userManager, IPatientAPI patientAPI)
         {
             _userManager = userManager;
-            _patientService = patientService;
+            _patientAPI = patientAPI;
         }
 
         [HttpGet]
@@ -83,7 +83,7 @@ namespace CovidXWebApp.Controllers
                     //Changed MedicalAidStatus to true
                     
                     //ADD PATIENT
-                   var success = _patientService.AddPatient(model);
+                   var success = _patientAPI.AddPatient(model);
                     if(success)
                     {
                         var alert = new AlertModel
@@ -105,7 +105,7 @@ namespace CovidXWebApp.Controllers
                 {
                     //If MedicalAid Switch not selected
                     model.MedicalAidStatus = false;
-                    var success = _patientService.AddPatient(model);
+                    var success = _patientAPI.AddPatient(model);
 
                     if (success)
                     {
@@ -156,7 +156,7 @@ namespace CovidXWebApp.Controllers
                     //var user = await _userManager.FindByEmailAsync(User.Identity.Name);
 
                     //Find patient by user ID
-                    var patient = _patientService.FindPatientByUserID(user.Id);
+                    var patient = _patientAPI.FindPatientByUserID(user.Id);
 
                 //If found  ...add that as a foreign key
 
@@ -195,7 +195,7 @@ namespace CovidXWebApp.Controllers
                        
 
                         //Add dependent
-                        _patientService.AddDependent(model);
+                        _patientAPI.AddDependent(model);
 
 
                     }
@@ -204,7 +204,7 @@ namespace CovidXWebApp.Controllers
                         //If MedicalAid Switch not selected
                        
                         //ADD DEPENDENT
-                        _patientService.AddDependent(model);
+                        _patientAPI.AddDependent(model);
 
 
                     }
@@ -247,7 +247,7 @@ namespace CovidXWebApp.Controllers
             var user1 = _userManager.FindByEmailAsync(User.Identity.Name).Result;
 
             ////find patient using USerID
-            var patient = _patientService.FindPatientByUserID(user1.Id);
+            var patient = _patientAPI.FindPatientByUserID(user1.Id);
             //patient.PatientId = patient.PatientId;
 
             TestRequestViewModel vm = new TestRequestViewModel();
@@ -268,7 +268,7 @@ namespace CovidXWebApp.Controllers
             {
                 // who is making the test request ?
                 var user = await _userManager.GetUserAsync(User);
-                var patient = _patientService.FindPatientByUserID(user.Id);
+                var patient = _patientAPI.FindPatientByUserID(user.Id);
 
 
                 // Assign PatientID 
@@ -278,7 +278,7 @@ namespace CovidXWebApp.Controllers
                 if (model.testforMyself)
                 {
                     // create a test request for the patient
-                    _patientService.AddTestRequest(model);
+                    _patientAPI.AddTestRequest(model);
                 }
 
                 // is this request for the dependant ?
@@ -292,7 +292,7 @@ namespace CovidXWebApp.Controllers
                         // Assign dependentID 
                         model.DependentId = dependantID;
                         // create a test request for one depedant
-                        _patientService.AddTestRequest(model);
+                        _patientAPI.AddTestRequest(model);
                     }
                 }
                 model.Alert = new AlertModel
@@ -340,7 +340,7 @@ namespace CovidXWebApp.Controllers
         public IActionResult CancelTest(TestRequestDetailModel model, int testRequestID, string userID)
         {
             // call the database service
-            var result = _patientService.TestCancel(testRequestID, userID);
+            var result = _patientAPI.TestCancel(testRequestID, userID);
 
             if (result)
             {
